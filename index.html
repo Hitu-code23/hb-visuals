@@ -3,260 +3,269 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HB Visuals | Premium Portfolio</title>
+<title>HB Visuals | Creative Agency Portfolio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
 
 body{
 background:#0a0a0a;
-color:white;
+color:#fff;
 overflow-x:hidden;
+}
+
+/* CURVED GRADIENT BACKGROUND */
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 20% 20%, rgba(255,46,99,0.15), transparent 40%),
+radial-gradient(circle at 80% 80%, rgba(255,106,0,0.12), transparent 40%);
+z-index:-1;
 }
 
 /* NAVBAR */
 .navbar{
+position:fixed;
+top:0;
+width:100%;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:15px 40px;
-position:fixed;
-width:100%;
-background:rgba(0,0,0,0.4);
-backdrop-filter:blur(12px);
+padding:18px 50px;
+background:rgba(0,0,0,0.35);
+backdrop-filter:blur(15px);
 z-index:1000;
 transition:0.3s;
 }
 
-.logo{color:#ff2e63;font-weight:700;font-size:22px;}
-
-.nav-links{display:flex;list-style:none;}
-.nav-links li{margin:0 15px;}
-
-.nav-links a{
-color:white;
-text-decoration:none;
-position:relative;
+.navbar.scrolled{
+padding:10px 50px;
+background:rgba(0,0,0,0.6);
 }
 
-.nav-links a::after{
-content:'';
-position:absolute;
-width:0;
-height:2px;
-background:linear-gradient(45deg,#ff2e63,#ff6a00);
-left:0;
-bottom:-5px;
+.logo{
+font-size:22px;
+font-weight:700;
+color:#ff2e63;
+letter-spacing:1px;
+}
+
+.nav-links{
+display:flex;
+list-style:none;
+}
+
+.nav-links li{
+margin:0 18px;
+}
+
+.nav-links a{
+color:#ddd;
+text-decoration:none;
+font-size:14px;
 transition:0.3s;
 }
 
-.nav-links a:hover::after{width:100%;}
+.nav-links a:hover{
+color:#ff2e63;
+}
 
 /* HERO */
 .hero{
-position:relative;
 height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
+position:relative;
 overflow:hidden;
 }
 
-.bg-video{
+.hero video{
 position:absolute;
-top:0;
-left:0;
 width:100%;
 height:100%;
 object-fit:cover;
-z-index:-1;
-transform:scale(1.1);
-animation:zoom 20s infinite alternate ease-in-out;
+filter:brightness(0.45) contrast(1.1);
 }
 
-/* DARK OVERLAY */
 .hero::after{
 content:'';
 position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.6);
-z-index:0;
+inset:0;
+background:linear-gradient(to top, rgba(0,0,0,0.9), transparent);
 }
 
-@keyframes zoomBg{
-from{background-size:100%;}
-to{background-size:110%;}
-}
-
-@keyframes zoom{
-from{transform:scale(1.1);}
-to{transform:scale(1.2);}
-}  
-  
 .hero h1{
-font-size:55px;
-animation:fadeUp 1s ease forwards;
+font-size:58px;
+font-weight:700;
+z-index:2;
+max-width:900px;
+line-height:1.1;
 }
 
 .hero p{
+margin-top:18px;
 color:#ccc;
-margin:20px 0;
-animation:fadeUp 1.3s ease forwards;
+z-index:2;
+max-width:600px;
 }
 
-/* BUTTON */
 .btn{
-padding:12px 30px;
+margin-top:25px;
+padding:12px 28px;
 background:linear-gradient(45deg,#ff2e63,#ff6a00);
-border-radius:30px;
-text-decoration:none;
-color:white;
-transition:0.3s;
 border:none;
+border-radius:30px;
+color:white;
 cursor:pointer;
+text-decoration:none;
+transition:0.3s;
+z-index:2;
 }
 
 .btn:hover{
-transform:scale(1.1);
-box-shadow:0 0 25px #ff2e63;
+transform:scale(1.05);
+box-shadow:0 10px 30px rgba(255,46,99,0.3);
 }
 
-.section{
-padding:120px 20px;
-text-align:center;
-max-width:1100px;
-margin:auto;
-transition: transform 0.3s ease-out;
+/* SCROLL INDICATOR */
+.scroll-down{
+position:absolute;
+bottom:25px;
+left:50%;
+transform:translateX(-50%);
+animation:float 2s infinite;
+cursor:pointer;
+z-index:2;
 }
 
-/* GLASS CARD */
-.cards{
+.glass{
+padding:14px;
+border-radius:16px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.15);
+}
+
+.mouse{
+width:22px;
+height:36px;
+border:2px solid white;
+border-radius:20px;
 display:flex;
-flex-wrap:wrap;
 justify-content:center;
+}
+
+.wheel{
+width:4px;
+height:8px;
+background:white;
+border-radius:4px;
+margin-top:6px;
+animation:wheel 1.4s infinite;
+}
+
+.arrow{
+width:10px;
+height:10px;
+border-right:2px solid white;
+border-bottom:2px solid white;
+transform:rotate(45deg);
+margin-top:6px;
+animation:arrow 1.4s infinite;
+}
+
+/* SECTIONS */
+section{
+padding:120px 10%;
+text-align:center;
+opacity:0;
+transform:translateY(50px);
+transition:1s ease;
+}
+
+section.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* SECTION TITLE */
+section h2{
+font-size:38px;
+margin-bottom:20px;
+}
+
+/* SERVICES */
+.services{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:20px;
-max-width:900px;
-margin:auto;  
+margin-top:40px;
 }
 
 .card{
 background:rgba(255,255,255,0.05);
-backdrop-filter:blur(10px);
 padding:30px;
-width:260px;
-border-radius:20px;
-transition:0.4s;
-border:1px solid rgba(255,255,255,0.1);
-overflow:hidden;
+border-radius:18px;
+border:1px solid rgba(255,255,255,0.08);
+transition:0.3s;
+backdrop-filter:blur(10px);
 }
-
-.card img:hover{
-transform:scale(1.1);
-transition:0.5s;
-}  
-
-.card img{
-width:100%;
-height:160px;
-object-fit:cover;
-border-radius:12px;
-margin-bottom:15px;
-}  
 
 .card:hover{
-transform:translateY(-10px) scale(1.05);
-box-shadow:0 0 40px rgba(255,46,99,0.4);
+transform:translateY(-10px);
+box-shadow:0 20px 40px rgba(255,46,99,0.15);
 }
 
-/* GALLERY */
+/* PORTFOLIO GRID */
 .gallery{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
+margin-top:40px;
 }
 
 .gallery img{
-width:280px;
-margin:10px;
+width:100%;
 border-radius:12px;
-transition:0.5s;
-cursor:pointer;
-filter:brightness(0.7);
+transition:0.3s;
+filter:brightness(0.8);
 }
 
 .gallery img:hover{
-transform:scale(1.08);
+transform:scale(1.03);
 filter:brightness(1);
-}
-
-/* LIGHTBOX */
-.lightbox{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.95);
-display:none;
-justify-content:center;
-align-items:center;
-}
-
-.lightbox img{
-max-width:90%;
-max-height:80%;
-border-radius:10px;
 }
 
 /* CONTACT */
 form{
 max-width:600px;
-margin:auto;
+margin:40px auto 0;
 background:rgba(255,255,255,0.05);
 padding:30px;
 border-radius:20px;
-backdrop-filter:blur(10px);
+backdrop-filter:blur(12px);
 }
 
-input, textarea{
+input,textarea{
 width:100%;
 padding:12px;
 margin:10px 0;
+background:#111;
 border:none;
 border-radius:10px;
-background:#111;
 color:white;
-}
-
-input:focus, textarea:focus{
-outline:none;
-box-shadow:0 0 10px #ff2e63;
-}
-
-/* ANIMATIONS */
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(40px);}
-to{opacity:1;transform:translateY(0);}
-}
-
-.fade-in{
-opacity:0;
-transform:translateY(60px) scale(0.98);
-filter:blur(8px);
-transition:all 1s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.fade-in.show{
-opacity:1;
-transform:translateY(0) scale(1);
-filter:blur(0);
 }
 
 /* WHATSAPP */
@@ -267,272 +276,115 @@ right:20px;
 background:#25D366;
 padding:15px;
 border-radius:50%;
-color:white;
-text-decoration:none;
-font-size:20px;
 }
 
-/* FOOTER */
-footer{
-padding:20px;
-text-align:center;
-background:#000;
-color:#777;
+/* ANIMATIONS */
+@keyframes float{
+0%,100%{transform:translate(-50%,0);}
+50%{transform:translate(-50%,-10px);}
 }
 
-body::before{
-content:'';
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:
-radial-gradient(circle at 20% 30%, rgba(255,46,99,0.15), transparent 40%),
-radial-gradient(circle at 80% 70%, rgba(255,106,0,0.1), transparent 40%);
-z-index:-1;
-}  
-
-video{
-display:block;
+@keyframes wheel{
+0%{opacity:0;transform:translateY(-4px);}
+50%{opacity:1;}
+100%{opacity:0;transform:translateY(6px);}
 }
 
-.scroll-down {
-  position: absolute;
-  bottom: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  cursor: pointer;
-  z-index: 2;
-  animation: floatUpDown 2s ease-in-out infinite;
+@keyframes arrow{
+0%,100%{opacity:0.3;}
+50%{opacity:1;}
 }
-
-/* GLASS BOX */
-.glass {
-  padding: 14px 12px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* MOUSE */
-.mouse {
-  width: 22px;
-  height: 36px;
-  border: 2px solid rgba(255,255,255,0.8);
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.wheel {
-  width: 4px;
-  height: 7px;
-  background: white;
-  border-radius: 4px;
-  margin-top: 6px;
-  animation: wheelMove 1.4s infinite;
-}
-
-/* ARROW */
-.arrow {
-  width: 10px;
-  height: 10px;
-  border-right: 2px solid rgba(255,255,255,0.9);
-  border-bottom: 2px solid rgba(255,255,255,0.9);
-  transform: rotate(45deg);
-  margin-top: 6px;
-  animation: arrowFade 1.4s infinite;
-}
-
-/* FLOAT animation */
-@keyframes floatUpDown {
-  0% { transform: translate(-50%, 0px); }
-  50% { transform: translate(-50%, -10px); }
-  100% { transform: translate(-50%, 0px); }
-}
-
-/* wheel animation */
-@keyframes wheelMove {
-  0% { opacity: 0; transform: translateY(-4px); }
-  50% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(6px); }
-}
-
-/* arrow animation */
-@keyframes arrowFade {
-  0% { opacity: 0.3; }
-  50% { opacity: 1; }
-  100% { opacity: 0.3; }
-}
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: rotate(45deg) translate(10px, 10px);
-  }
-}
-  
 </style>
 </head>
 
 <body>
 
-<nav class="navbar">
+<nav class="navbar" id="nav">
 <div class="logo">HB Visuals</div>
 <ul class="nav-links">
-<li><a href="#">Home</a></li>
 <li><a href="#about">About</a></li>
 <li><a href="#services">Services</a></li>
-<li><a href="#gallery">Gallery</a></li>
+<li><a href="#gallery">Work</a></li>
 <li><a href="#contact">Contact</a></li>
 </ul>
-<a href="https://wa.me/23058451482" class="btn">Hire Me</a>
+<a class="btn" href="#contact">Hire Me</a>
 </nav>
 
-<section class="hero">
+<header class="hero">
 
-<video autoplay muted loop playsinline class="bg-video">
-  <source src="https://files.catbox.moe/zgfvkc.mp4" type="video/mp4">
+<video autoplay muted loop>
+<source src="https://files.catbox.moe/zgfvkc.mp4">
 </video>
-  
-<h1>Build Your Brand Through Powerful Visuals</h1>
-<p>Photography & Content Creation that grows your presence</p>
-<a href="#contact" class="btn">Book Now</a>
+
+<h1>We Build Powerful Visual Brands</h1>
+<p>Photography, content creation & cinematic storytelling for modern brands</p>
+<a class="btn" href="#contact">Start a Project</a>
 
 <div class="scroll-down" onclick="document.querySelector('#about').scrollIntoView({behavior:'smooth'})">
-  <div class="mouse">
-    <div class="wheel"></div>
-  </div>
-  <div class="arrow"></div>
-</div>  
-
-<div class="scroll-down" onclick="document.querySelector('#about').scrollIntoView({behavior:'smooth'})">
-  <div class="glass">
-    <div class="mouse">
-      <div class="wheel"></div>
-    </div>
-    <div class="arrow"></div>
-  </div>
+<div class="glass">
+<div class="mouse"><div class="wheel"></div></div>
+<div class="arrow"></div>
 </div>
-  
+</div>
+
+</header>
+
+<section id="about">
+<h2>About Studio</h2>
+<p>We are a creative visual studio focused on high-impact branding and storytelling.</p>
 </section>
 
-<section id="about" class="section fade-in">
-<h2>About Me</h2>
-
-<p>
-I’m Hitin Banga, a visual creator focused on building strong personal brands 
-through photography and content. I don’t just take pictures — I create visuals 
-that attract attention and grow your presence.
-</p>
-
-<p style="margin-top:15px; color:#aaa;">
-Based on creativity, consistency & premium visuals.
-</p>
-
-</section>  
-
-<section class="section fade-in" id="services">
+<section id="services">
 <h2>Services</h2>
-<div class="cards">
+<div class="services">
 
-<div class="card">
-<img src="images/img6.jpg">
-<h3>📸 Photography</h3>
-<p>High-end portraits that build personal brand identity</p>
-
-</div>
-
-<div class="card">
-<img src="images/img9.jpg">
-<h3>🎬 Content Creation</h3>
-<p>Scroll-stopping reels designed to go viral</p>
-</div>
-
-<div class="card">
-<img src="images/img10.jpg">
-<h3>🎞️ Video Editing</h3>
-<p>Cinematic edits with storytelling & emotion</p>
-</div>
+<div class="card">Brand Photography</div>
+<div class="card">Content Strategy</div>
+<div class="card">Cinematic Editing</div>
+<div class="card">Social Media Growth</div>
 
 </div>
 </section>
 
-<section class="section fade-in" id="gallery">
-<h2>My Work</h2>
+<section id="gallery">
+<h2>Our Work</h2>
 <div class="gallery">
-
 <img src="images/img1.jpg">
 <img src="images/img2.jpg">
 <img src="images/img3.jpg">
-
 </div>
 </section>
 
-<div class="lightbox" id="lightbox">
-<img src="">
-</div>
+<section id="contact">
+<h2>Let’s Work Together</h2>
 
-<section class="section fade-in" id="contact">
-<h2>Contact Me</h2>
-
-<form action="https://formsubmit.co/hitin.banga23@gmail.com" method="POST">
-<input type="text" name="name" placeholder="Your Name" required>
-<input type="email" name="email" placeholder="Your Email" required>
-<textarea name="message" placeholder="Your Message"></textarea>
+<form>
+<input placeholder="Name">
+<input placeholder="Email">
+<textarea placeholder="Project Details"></textarea>
 <button class="btn">Send Message</button>
 </form>
-
-<p style="margin-top:20px;">📞 +230 58451482</p>
-<p>📧 hitin.banga23@gmail.com</p>
-
 </section>
 
-<a href="https://wa.me/23058451482" class="whatsapp">💬</a>
-
-<footer>
-<p>© 2026 HB Visuals</p>
-</footer>
+<a class="whatsapp" href="https://wa.me/23058451482">💬</a>
 
 <script>
+const sections=document.querySelectorAll("section");
+const nav=document.getElementById("nav");
 
-/* LIGHTBOX */
-const images=document.querySelectorAll('.gallery img');
-const lightbox=document.getElementById('lightbox');
-const lightboxImg=lightbox.querySelector('img');
-
-images.forEach(img=>{
-img.onclick=()=>{
-lightbox.style.display='flex';
-lightboxImg.src=img.src;
+window.addEventListener("scroll",()=>{
+sections.forEach(s=>{
+if(s.getBoundingClientRect().top < window.innerHeight-120){
+s.classList.add("show");
 }
 });
 
-lightbox.onclick=()=>lightbox.style.display='none';
-
-/* SCROLL ANIMATION */
-const faders=document.querySelectorAll('.fade-in');
-
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-
-  // Fade-in animation
-  faders.forEach(el => {
-    if (el.getBoundingClientRect().top < window.innerHeight - 100) {
-      el.classList.add('show');
-    }
-  });
+if(window.scrollY>50){
+nav.classList.add("scrolled");
+}else{
+nav.classList.remove("scrolled");
+}
 });
-  
 </script>
 
 </body>
