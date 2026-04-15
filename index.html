@@ -299,35 +299,78 @@ display:block;
 
 .scroll-down {
   position: absolute;
-  bottom: 30px;
+  bottom: 25px;
   left: 50%;
   transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 2;
+  animation: floatUpDown 2s ease-in-out infinite;
+}
+
+/* GLASS BOX */
+.glass {
+  padding: 14px 12px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
-  z-index: 2;
 }
 
-.scroll-down span {
-  width: 18px;
-  height: 18px;
-  border-right: 2px solid white;
-  border-bottom: 2px solid white;
+/* MOUSE */
+.mouse {
+  width: 22px;
+  height: 36px;
+  border: 2px solid rgba(255,255,255,0.8);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.wheel {
+  width: 4px;
+  height: 7px;
+  background: white;
+  border-radius: 4px;
+  margin-top: 6px;
+  animation: wheelMove 1.4s infinite;
+}
+
+/* ARROW */
+.arrow {
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid rgba(255,255,255,0.9);
+  border-bottom: 2px solid rgba(255,255,255,0.9);
   transform: rotate(45deg);
-  margin: -4px;
-  animation: scrollAnim 1.5s infinite;
-  opacity: 0;
+  margin-top: 6px;
+  animation: arrowFade 1.4s infinite;
 }
 
-.scroll-down span:nth-child(1) { animation-delay: 0s; }
-.scroll-down span:nth-child(2) { animation-delay: 0.2s; }
-.scroll-down span:nth-child(3) { animation-delay: 0.4s; }
+/* FLOAT animation */
+@keyframes floatUpDown {
+  0% { transform: translate(-50%, 0px); }
+  50% { transform: translate(-50%, -10px); }
+  100% { transform: translate(-50%, 0px); }
+}
 
-@keyframes scrollAnim {
-  0% {
-    opacity: 0;
-    transform: rotate(45deg) translate(-10px, -10px);
+/* wheel animation */
+@keyframes wheelMove {
+  0% { opacity: 0; transform: translateY(-4px); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(6px); }
+}
+
+/* arrow animation */
+@keyframes arrowFade {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
   }
   50% {
     opacity: 1;
@@ -373,9 +416,12 @@ display:block;
 </div>  
 
 <div class="scroll-down" onclick="document.querySelector('#about').scrollIntoView({behavior:'smooth'})">
-  <span></span>
-  <span></span>
-  <span></span>
+  <div class="glass">
+    <div class="mouse">
+      <div class="wheel"></div>
+    </div>
+    <div class="arrow"></div>
+  </div>
 </div>
   
 </section>
