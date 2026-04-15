@@ -15,6 +15,10 @@ box-sizing:border-box;
 font-family:'Poppins',sans-serif;
 }
 
+html{
+scroll-behavior:smooth;
+}
+  
 body{
 background:#0a0a0a;
 color:#fff;
@@ -225,12 +229,20 @@ display:block;
 margin:0 auto;
 }
 /* SECTIONS */
-section{
+ection{
 padding:120px 10%;
 text-align:center;
 opacity:0;
-transform:translateY(50px);
-transition:1s ease;
+transform:translateY(80px) scale(0.98);
+filter:blur(10px);
+transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+will-change: transform, opacity, filter;
+}
+
+section.show{
+opacity:1;
+transform:translateY(0) scale(1);
+filter:blur(0);
 }
 
 /* ABOUT SECTION PREMIUM */
@@ -329,6 +341,14 @@ border:1px solid rgba(255,255,255,0.08);
 transition:0.3s;
 backdrop-filter:blur(10px);
 }
+
+.card, .glass-card{
+transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.card:hover, .glass-card:hover{
+transform: translateY(-10px) scale(1.03);
+}  
 
 .card:hover{
 transform:translateY(-10px);
@@ -707,22 +727,31 @@ line-height:1.5;
 <a class="whatsapp" href="https://wa.me/23058451482">💬</a>
 
 <script>
-const sections=document.querySelectorAll("section");
-const nav=document.getElementById("nav");
+const sections = document.querySelectorAll("section");
+const nav = document.getElementById("nav");
 
-window.addEventListener("scroll",()=>{
-sections.forEach(s=>{
-if(s.getBoundingClientRect().top < window.innerHeight-120){
-s.classList.add("show");
-}
-});
+// Smooth reveal using requestAnimationFrame (Apple style feel)
+const reveal = () => {
+  sections.forEach((section) => {
+    const rect = section.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
 
-if(window.scrollY>50){
-nav.classList.add("scrolled");
-}else{
-nav.classList.remove("scrolled");
-}
-});
+    if (rect.top < windowHeight * 0.85) {
+      section.classList.add("show");
+    }
+  });
+
+  // navbar smooth effect
+  if (window.scrollY > 50) {
+    nav.classList.add("scrolled");
+  } else {
+    nav.classList.remove("scrolled");
+  }
+
+  requestAnimationFrame(reveal);
+};
+
+reveal();
 </script>
 
 <a href="https://instagram.com/_hitin23_" target="_blank" class="instagram-btn">
