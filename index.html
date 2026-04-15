@@ -680,6 +680,85 @@ line-height:1.5;
 #contact{
   display:flex;
   justify-content:center;
+}  \
+
+.apple-form{
+  width:100%;
+  max-width:600px;
+  margin:60px auto 0;
+  padding:30px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter:blur(20px);
+  border-radius:20px;
+}
+
+/* INPUT GROUP */
+.input-group{
+  position:relative;
+  margin:20px 0;
+}
+
+.input-group input,
+.input-group textarea{
+  width:100%;
+  padding:16px 14px;
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:12px;
+  color:white;
+  outline:none;
+  font-size:14px;
+  transition:0.3s;
+}
+
+.input-group textarea{
+  min-height:120px;
+  resize:none;
+}
+
+/* LABEL */
+.input-group label{
+  position:absolute;
+  left:14px;
+  top:14px;
+  color:#aaa;
+  font-size:13px;
+  pointer-events:none;
+  transition:0.3s;
+  background:transparent;
+}
+
+/* FOCUS EFFECT */
+.input-group input:focus,
+.input-group textarea:focus{
+  border-color:#ff2e63;
+  box-shadow:0 0 20px rgba(255,46,99,0.2);
+}
+
+/* FLOATING LABEL */
+.input-group input:focus + label,
+.input-group input:valid + label,
+.input-group textarea:focus + label,
+.input-group textarea:valid + label{
+  top:-10px;
+  left:10px;
+  font-size:11px;
+  color:#ff2e63;
+  background:#0a0a0a;
+  padding:0 6px;
+}
+
+/* BUTTON UPGRADE */
+.apple-form .btn{
+  width:100%;
+  margin-top:10px;
+  transition:0.4s;
+}
+
+.apple-form .btn:hover{
+  transform:scale(1.03);
+  box-shadow:0 15px 35px rgba(255,46,99,0.3);
 }  
   
 </style>
@@ -810,11 +889,24 @@ line-height:1.5;
     <h2>Let’s Work Together</h2>
 
     <form>
-      <input placeholder="Your Name">
-      <input placeholder="Your Email">
-      <textarea placeholder="Tell us about your project"></textarea>
-      <button class="btn">Send Message</button>
-    </form>
+      <form class="apple-form">
+  <div class="input-group">
+    <input type="text" required>
+    <label>Your Name</label>
+  </div>
+
+  <div class="input-group">
+    <input type="email" required>
+    <label>Your Email</label>
+  </div>
+
+  <div class="input-group">
+    <textarea required></textarea>
+    <label>Tell us about your project</label>
+  </div>
+
+  <button class="btn">Send Message</button>
+</form>
 
   </div>
 </section>
