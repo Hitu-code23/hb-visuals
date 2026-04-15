@@ -427,17 +427,16 @@ window.addEventListener('scroll', () => {
 
   // Fade-in animation
   faders.forEach(el => {
-    if(el.getBoundingClientRect().top < window.innerHeight - 100){
+    if (el.getBoundingClientRect().top < window.innerHeight - 100) {
       el.classList.add('show');
     }
   });
 
-  // Parallax effect
-  document.querySelectorAll('.section').forEach(section => {
-    section.style.transform = translateY(${scrollY * 0.05}px);
-  });
+  // Parallax ONLY for hero (not all sections)
+  document.querySelector('.hero').style.transform =
+    translateY(${scrollY * 0.3}px);
 });
-
+  
 </script>
 
 </body>
