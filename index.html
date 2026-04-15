@@ -399,6 +399,65 @@ z-index:9999;
 top:50%;
 transform:translateY(-50%) translateX(-10px);
 }  
+
+.scroll-dock{
+position:absolute;
+bottom:30px;
+left:50%;
+transform:translateX(-50%);
+cursor:pointer;
+z-index:10;
+animation:float 2s ease-in-out infinite;
+}
+
+.scroll-pill{
+display:flex;
+align-items:center;
+gap:10px;
+padding:10px 16px;
+border-radius:50px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,0.15);
+}
+
+.scroll-text{
+font-size:12px;
+color:#ccc;
+letter-spacing:1px;
+}
+
+/* mouse */
+.mouse{
+width:18px;
+height:28px;
+border:2px solid white;
+border-radius:20px;
+display:flex;
+justify-content:center;
+align-items:flex-start;
+padding-top:4px;
+}
+
+.wheel{
+width:3px;
+height:6px;
+background:white;
+border-radius:2px;
+animation:wheel 1.4s infinite;
+}
+
+/* arrow */
+.arrow{
+width:8px;
+height:8px;
+border-right:2px solid white;
+border-bottom:2px solid white;
+transform:rotate(45deg);
+animation:arrow 1.4s infinite;
+}
+
+/* animations already exist in your code */  
   
 </style>
 </head>
@@ -426,13 +485,19 @@ transform:translateY(-50%) translateX(-10px);
 <p>Photography, content creation & cinematic storytelling for modern brands</p>
 <a class="btn" href="#contact">Start a Project</a>
 
-<div class="scroll-down" onclick="document.querySelector('#about').scrollIntoView({behavior:'smooth'})">
-<div class="glass">
-<div class="mouse"><div class="wheel"></div></div>
-<div class="arrow"></div>
-</div>
-</div>
+<div class="scroll-dock" onclick="document.querySelector('#about').scrollIntoView({behavior:'smooth'})">
+  <div class="scroll-pill">
+    
+    <div class="mouse">
+      <div class="wheel"></div>
+    </div>
 
+    <div class="scroll-text">Scroll</div>
+
+    <div class="arrow"></div>
+
+  </div>
+</div>
 </header>
 
 <section id="about">
