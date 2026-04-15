@@ -229,7 +229,7 @@ display:block;
 margin:0 auto;
 }
 /* SECTIONS */
-ection{
+section{
 padding:120px 10%;
 text-align:center;
 opacity:0;
@@ -238,6 +238,12 @@ filter:blur(10px);
 transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 will-change: transform, opacity, filter;
 }
+
+.about-left,
+#contact,
+.services-section{
+  text-align:center;
+}  
 
 section.show{
 opacity:1;
@@ -380,7 +386,7 @@ filter:brightness(1);
 /* CONTACT */
 form{
 max-width:600px;
-margin:40px auto 0;
+margin:60px auto 80;
 background:rgba(255,255,255,0.05);
 padding:30px;
 border-radius:20px;
@@ -593,6 +599,12 @@ font-size:14px;
 color:#bbb;
 line-height:1.5;
 }
+
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 20px;
+}  
   
 </style>
 </head>
@@ -636,6 +648,7 @@ line-height:1.5;
 </header>
 
 <section id="about" class="about">
+  <div class="container">
 
   <div class="about-container">
 
@@ -714,6 +727,7 @@ line-height:1.5;
 </section>
 
 <section id="contact">
+  <div class="container">
 <h2>Let’s Work Together</h2>
 
 <form>
@@ -722,8 +736,8 @@ line-height:1.5;
 <textarea placeholder="Project Details"></textarea>
 <button class="btn">Send Message</button>
 </form>
+</div>
 </section>
-
 <a class="whatsapp" href="https://wa.me/23058451482">💬</a>
 
 <script>
