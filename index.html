@@ -422,21 +422,21 @@ lightbox.onclick=()=>lightbox.style.display='none';
 /* SCROLL ANIMATION */
 const faders=document.querySelectorAll('.fade-in');
 
-window.addEventListener('scroll',()=>{
-faders.forEach(el=>{
-if(el.getBoundingClientRect().top < window.innerHeight-100){
-el.classList.add('show');
-}
-});
-});
-
 window.addEventListener('scroll', () => {
   const scrollY = window.scrollY;
 
-  document.querySelectorAll('.section').forEach((section) => {
+  // Fade-in animation
+  faders.forEach(el => {
+    if(el.getBoundingClientRect().top < window.innerHeight - 100){
+      el.classList.add('show');
+    }
+  });
+
+  // Parallax effect
+  document.querySelectorAll('.section').forEach(section => {
     section.style.transform = translateY(${scrollY * 0.05}px);
   });
-});  
+});
 
 </script>
 
