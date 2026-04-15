@@ -112,6 +112,80 @@ color:#ff2e63;
 letter-spacing:1px;
 }
 
+.logo{
+  position:relative;
+  font-size:20px;
+  font-weight:700;
+  cursor:pointer;
+  height:24px;
+  display:inline-block;
+}
+
+/* Both words overlap */
+.logo-full,
+.logo-short{
+  position:absolute;
+  left:0;
+  top:0;
+  transition:all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change:transform, opacity, filter;
+  white-space:nowrap;
+}
+
+/* Default state */
+.logo-full{
+  opacity:1;
+  transform:translateY(0) scale(1);
+  color:#ffffff;
+}
+
+.logo-short{
+  opacity:0;
+  transform:translateY(10px) scale(0.9);
+  color:#3B82F6; /* your blue accent */
+  filter:blur(6px);
+}  
+
+.logo:hover .logo-full{
+  opacity:0;
+  transform:translateY(-6px) scale(1.05);
+  filter:blur(5px);
+}
+
+.logo:hover .logo-short{
+  opacity:1;
+  transform:translateY(0) scale(1.05);
+}
+
+.logo::after{
+  content:'';
+  position:absolute;
+  inset:-6px;
+  background:radial-gradient(circle,
+    rgba(59,130,246,0.25),
+    transparent 60%);
+  opacity:0;
+  transition:0.5s;
+  filter:blur(10px);
+  z-index:-1;
+}
+
+.logo:hover::after{
+  opacity:1;
+}  
+
+.navbar.scrolled .logo-full{
+  opacity:0;
+  transform:translateY(-10px) scale(1.1);
+  filter:blur(8px);
+}
+
+.navbar.scrolled .logo-short{
+  opacity:1;
+  transform:translateY(0) scale(1);
+  filter:blur(0);
+}  
+
 .nav-links{
 display:flex;
 list-style:none;
@@ -656,6 +730,16 @@ line-height:1.5;
   padding:0 20px;
 }  
 
+#contact .container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.apple-form{
+  margin:40px auto 0;
+}  
+
 .container{
   max-width:1100px;
   margin:0 auto;
@@ -875,8 +959,11 @@ line-height:1.5;
 <body>
 
 <nav class="navbar" id="nav">
-  <div class="logo">HB Visuals</div>
-
+ <div class="logo" id="logo">
+  <span class="logo-full">HB Visuals</span>
+  <span class="logo-short">HB</span>
+</div>
+  
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
@@ -1000,29 +1087,33 @@ line-height:1.5;
 
     <h2>Let’s Work Together</h2>
 
-    <form>
-      <form class="apple-form">
-  <div class="input-group">
-    <input type="text" required>
-    <label>Your Name</label>
-  </div>
+    <form class="apple-form">
+      
+      <div class="input-group">
+        <input type="text" required>
+        <label>Your Name</label>
+      </div>
 
-  <div class="input-group">
-    <input type="email" required>
-    <label>Your Email</label>
-  </div>
+      <div class="input-group">
+        <input type="email" required>
+        <label>Your Email</label>
+      </div>
 
-  <div class="input-group">
-    <textarea required></textarea>
-    <label>Tell us about your project</label>
-  </div>
+      <div class="input-group">
+        <textarea required></textarea>
+        <label>Tell us about your project</label>
+      </div>
 
-<button class="btn apple-submit" type="submit">
-  <span class="btn-text">Send Message</span>
-  <span class="loader"></span>
-  <span class="check">✓</span>
-</button>
-</form>
+      <button class="btn apple-submit" type="submit">
+        <span class="btn-text">Send Message</span>
+        <span class="loader"></span>
+        <span class="check">✓</span>
+      </button>
+
+    </form>
+
+  </div>
+</section>
 
   </div>
 </section>
@@ -1087,7 +1178,22 @@ form.addEventListener("submit", (e) => {
 
   }, 2000);
 });
-</script>  
+</script> 
+
+ <script>
+const logo = document.getElementById("logo");
+
+logo.addEventListener("mousemove", (e) => {
+  const x = (e.offsetX - 20) / 10;
+  const y = (e.offsetY - 10) / 10;
+
+  logo.style.transform = translate(${x}px, ${y}px);
+});
+
+logo.addEventListener("mouseleave", () => {
+  logo.style.transform = translate(0px, 0px);
+});
+</script> 
 
 </body>
 </html>
