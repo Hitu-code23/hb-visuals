@@ -296,6 +296,62 @@ border-radius:50%;
 0%,100%{opacity:0.3;}
 50%{opacity:1;}
 }
+
+.instagram-btn{
+position:fixed;
+bottom:20px;
+left:20px;
+width:52px;
+height:52px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.15);
+border-radius:50%;
+cursor:pointer;
+transition:0.3s;
+z-index:999;
+text-decoration:none;
+}
+
+.insta-icon{
+width:24px;
+height:24px;
+fill:white;
+transition:0.3s;
+}
+
+.instagram-btn:hover{
+transform:scale(1.1);
+background:linear-gradient(45deg,#feda75,#d62976,#4f5bd5);
+box-shadow:0 10px 30px rgba(214,41,118,0.3);
+}
+
+.instagram-btn:hover .insta-icon{
+fill:white;
+}
+
+/* TOOLTIP */
+.tooltip{
+position:absolute;
+left:65px;
+background:#111;
+padding:6px 10px;
+border-radius:8px;
+font-size:12px;
+opacity:0;
+transform:translateX(-10px);
+transition:0.3s;
+white-space:nowrap;
+}
+
+.instagram-btn:hover .tooltip{
+opacity:1;
+transform:translateX(0);
+}
+  
 </style>
 </head>
 
@@ -388,6 +444,15 @@ nav.classList.remove("scrolled");
 }
 });
 </script>
+
+<a href="https://instagram.com/_hitin23_" target="_blank" class="instagram-btn">
+  <svg viewBox="0 0 24 24" class="insta-icon">
+    <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9z"/>
+    <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+    <circle cx="17.5" cy="6.5" r="1.2"/>
+  </svg>
+  <span class="tooltip">Follow me</span>
+</a>  
 
 </body>
 </html>
