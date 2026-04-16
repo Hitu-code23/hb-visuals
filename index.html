@@ -3,530 +3,206 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HB Visuals | Creative Agency Portfolio</title>
+<title>HB Visuals | Elite Winner+</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
 
-:root{
-  --bg: #0B0F17;
-  --surface: #121826;
-  --border: rgba(255,255,255,0.08);
-
-  --text: #FFFFFF;
-  --text-soft: #A1A1AA;
-
-  --accent: #3B82F6;
-  --accent-hover: #60A5FA;
-}
-  
-html{
-scroll-behavior:smooth;
-}
-  
 body{
-background:var(--bg);
-color:var(--text);
+background:#05070d;
+color:#fff;
 overflow-x:hidden;
+cursor:none;
 }
 
-/* CURVED GRADIENT BACKGROUND */
+/* NOISE + DEPTH */
 body::before{
-  content:'';
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(59,130,246,0.15), transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(59,130,246,0.08), transparent 40%);
-  z-index:-1;
-}
-}
-
-/* NAVBAR */
-.navbar{
-  position:fixed;
-  top:20px;
-  left:50%;
-  transform:translateX(-50%);
-  width:92%;
-
-  display:flex;
-  align-items:center;
-
-  background:rgba(10,15,25,0.55);
-  backdrop-filter:blur(18px);
-  border-radius:18px;
-  z-index:1000;
-}
-
-.navbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.nav-links{
-  display:flex;
-  gap:20px;
-  list-style:none;
-  margin-left:auto;
-  margin-right:auto;
-}
-
-.nav-right{
-  display:flex;
-  align-items:center;
-}  
-
-.navbar::before{
-content:'';
-position:absolute;
+content:"";
+position:fixed;
 inset:0;
-border-radius:18px;
-background:linear-gradient(120deg,
-rgba(59,130,246,0.08),
-transparent,
-rgba(59,130,246,0.08));
-pointer-events:none;
-}  
-
-.navbar.scrolled{
-top:10px;
-width:94%;
-padding:12px 28px;
-background:rgba(10,15,25,0.75);
-box-shadow:0 20px 50px rgba(0,0,0,0.35);
+background:
+radial-gradient(circle at 20% 20%, rgba(59,130,246,0.18), transparent 45%),
+radial-gradient(circle at 80% 70%, rgba(255,46,99,0.12), transparent 45%);
+opacity:1;
+z-index:-2;
 }
 
-.logo{
-font-size:22px;
-font-weight:700;
-color:#ff2e63;
-letter-spacing:1px;
-}
-
-.logo{
-  position:relative;
-  font-size:20px;
-  font-weight:700;
-  cursor:pointer;
-  height:24px;
-  display:inline-block;
-}
-
-/* Both words overlap */
-.logo-full,
-.logo-short{
-  position:absolute;
-  left:0;
-  top:0;
-  transition:all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
-  will-change:transform, opacity, filter;
-  white-space:nowrap;
-}
-
-/* Default state */
-.logo-full{
-  opacity:1;
-  transform:translateY(0) scale(1);
-  color:#ffffff;
-}
-
-.logo-short{
-  opacity:0;
-  transform:translateY(10px) scale(0.9);
-  color:#3B82F6; /* your blue accent */
-  filter:blur(1px);
-}  
-
-.logo:hover .logo-full{
-  opacity:0;
-  transform:translateY(-6px) scale(1.05);
-  filter:blur(5px);
-}
-
-.logo:hover .logo-short{
-  opacity:1;
-  transform:translateY(0) scale(1.05);
-}
-
-.logo::after{
-  content:'';
-  position:absolute;
-  inset:-6px;
-  background:radial-gradient(circle,
-    rgba(59,130,246,0.25),
-    transparent 60%);
-  opacity:0;
-  transition:0.5s;
-  filter:blur(10px);
-  z-index:-1;
-}
-
-.logo:hover::after{
-  opacity:1;
-}  
-
-.navbar.scrolled .logo-full{
-  opacity:0;
-  transform:translateY(-10px) scale(1.1);
-  filter:blur(8px);
-}
-
-.navbar.scrolled .logo-short{
-  opacity:1;
-  transform:translateY(0) scale(1);
-  filter:blur(0);
-}  
-
-.nav-links{
-display:flex;
-list-style:none;
-}
-
-.nav-links li{
-margin:0 18px;
-}
-
-.nav-links a{
-color:#ddd;
-text-decoration:none;
-font-size:14px;
-transition:0.3s;
-}
-
-.nav-links a:hover{
-color:#ff2e63;
-}
-
-.nav-actions{
-display:flex;
-align-items:center;
-gap:12px;
-}
-
-.nav-icon{
-width:38px;
-height:38px;
-display:flex;
-align-items:center;
-justify-content:center;
-background:rgba(255,255,255,0.08);
-border:1px solid rgba(255,255,255,0.12);
+/* CURSOR SYSTEM */
+.cursor{
+width:14px;height:14px;
+border:1.5px solid #fff;
 border-radius:50%;
-backdrop-filter:blur(12px);
-transition:0.3s;
+position:fixed;
+transform:translate(-50%,-50%);
+pointer-events:none;
+z-index:9999;
 }
 
-.nav-icon svg{
-width:18px;
-height:18px;
-fill:white;
+.follower{
+width:42px;height:42px;
+border:1px solid rgba(255,255,255,0.15);
+border-radius:50%;
+position:fixed;
+transform:translate(-50%,-50%);
+pointer-events:none;
+z-index:9998;
+transition:.15s ease;
 }
 
-.nav-icon:hover{
-transform:scale(1.1);
-background:linear-gradient(45deg,#ff2e63,#ff6a00);
-box-shadow:0 10px 25px rgba(255,46,99,0.25);
+/* NAV */
+nav{
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+width:92%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:14px 22px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(22px);
+border-radius:18px;
+z-index:1000;
 }
-  
+
+.logo{font-weight:700;letter-spacing:1px}
+
+/* BUTTON */
+.btn{
+padding:12px 26px;
+border-radius:30px;
+background:linear-gradient(135deg,#ff2e63,#ff6a00);
+color:#fff;
+text-decoration:none;
+transition:.25s;
+display:inline-block;
+}
+
 /* HERO */
 .hero{
-  position:relative;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  overflow:hidden;
-  z-index:1;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+position:relative;
+overflow:hidden;
 }
 
 .hero video{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:-0;
-  filter:brightness(0.45) contrast(1.1);
-}
-
-.hero::after{
-content:'';
 position:absolute;
 inset:0;
-background:linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+width:100%;
+height:100%;
+object-fit:cover;
+filter:brightness(.35) contrast(1.1);
+transform:scale(1.1);
+}
+
+/* LAYER DEPTH */
+.hero::after{
+content:"";
+position:absolute;
+inset:0;
+background:radial-gradient(circle at center, transparent 20%, #05070d 80%);
 }
 
 .hero h1{
-font-size:58px;
-font-weight:700;
-z-index:2;
+font-size:68px;
 max-width:900px;
-line-height:1.1;
+line-height:1.05;
+z-index:2;
+transform:translateY(20px);
+opacity:0;
+animation:fadeUp 1s forwards .3s;
 }
 
 .hero p{
-margin-top:18px;
-color:#ccc;
+margin-top:15px;
+color:#aaa;
 z-index:2;
-max-width:600px;
-}
-
-.btn{
-margin-top:25px;
-padding:12px 28px;
-background:linear-gradient(45deg,#ff2e63,#ff6a00);
-border:none;
-border-radius:30px;
-color:white;
-cursor:pointer;
-text-decoration:none;
-transition:0.3s;
-z-index:2;
-}
-
-.btn:hover{
-transform:scale(1.05);
-box-shadow:0 10px 30px rgba(255,46,99,0.3);
-}
-
-/* SCROLL INDICATOR */
-.scroll-down{
-position:absolute;
-bottom:25px;
-left:50%;
-transform:translateX(-50%);
-animation:float 2s infinite;
-cursor:pointer;
-z-index:2;
-}
-
-.glass{
-padding:14px;
-border-radius:16px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(15px);
-border:1px solid rgba(255,255,255,0.15);
-
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-gap:6px;
-}
-
-.mouse{
-width:22px;
-height:36px;
-border:2px solid white;
-border-radius:20px;
-display:flex;
-justify-content:center;
-}
-
-.wheel{
-width:4px;
-height:8px;
-background:white;
-border-radius:4px;
-margin-top:6px;
-animation:wheel 1.4s infinite;
-}
-
-.arrow{
-width:10px;
-height:10px;
-border-right:2px solid white;
-border-bottom:2px solid white;
-transform:rotate(45deg);
-animation:arrow 1.4s infinite;
-
-display:block;
-margin:0 auto;
-}
-/* SECTIONS */
-section{
-padding:160px 10%;
-text-align:center;
 opacity:0;
-transform:translateY(60px);
-transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-will-change: transform, opacity, filter;
+animation:fadeUp 1s forwards .5s;
 }
 
-.about-left,
-#contact,
-.services-section{
-  text-align:center;
-}  
-
-section.show{
-opacity:1;
-transform:translateY(0) scale(1);
+@keyframes fadeUp{
+to{opacity:1;transform:translateY(0)}
 }
 
-/* ABOUT SECTION PREMIUM */
-.about-container{
-display:flex;
-gap:40px;
-align-items:center;
-justify-content:space-between;
-flex-wrap:wrap;
+/* SECTION */
+section{
+padding:140px 10%;
+opacity:0;
+transform:translateY(70px);
+transition:1.2s cubic-bezier(.2,.8,.2,1);
 }
-
-.about-left{
-flex:1;
-min-width:280px;
-text-align:left;
-}
-
-.about-left h2{
-font-size:40px;
-margin-bottom:15px;
-}
-
-.about-left .highlight{
-color:#ff2e63;
-font-size:18px;
-margin-bottom:15px;
-}
-
-.about-left p{
-color:#ccc;
-line-height:1.6;
-margin-bottom:10px;
-}
-
-.stats{
-display:flex;
-gap:20px;
-margin-top:20px;
-}
-
-.stats div{
-background:rgba(255,255,255,0.05);
-padding:15px;
-border-radius:12px;
-text-align:center;
-min-width:90px;
-backdrop-filter:blur(10px);
-border:1px solid rgba(255,255,255,0.1);
-}
-
-.stats h3{
-color:#ff2e63;
-font-size:20px;
-}
-
-.about-right{
-flex:1;
-min-width:280px;
-display:flex;
-justify-content:center;
-}
-
-.glass-card{
-padding:25px;
-border-radius:18px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(15px);
-border:1px solid rgba(255,255,255,0.15);
-line-height:2;
-}  
 
 section.show{
 opacity:1;
 transform:translateY(0);
 }
 
-/* SECTION TITLE */
-section h2{
-font-size:38px;
-margin-bottom:20px;
-}
-
-/* SERVICES */
-.services{
+/* GRID */
+.grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:20px;
 margin-top:40px;
 }
 
 .card{
-background:rgba(255,255,255,0.05);
-padding:30px;
-border-radius:18px;
+background:rgba(255,255,255,0.04);
 border:1px solid rgba(255,255,255,0.08);
-transition:0.3s;
-backdrop-filter:blur(10px);
+padding:28px;
+border-radius:18px;
+backdrop-filter:blur(16px);
+transition:.35s;
+position:relative;
+overflow:hidden;
 }
 
-.card, .glass-card{
-transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+.card::before{
+content:"";
+position:absolute;
+inset:-50%;
+background:radial-gradient(circle, rgba(255,255,255,0.08), transparent 60%);
+transform:rotate(25deg);
+opacity:0;
+transition:.4s;
 }
 
-.card:hover, .glass-card:hover{
-transform: translateY(-10px) scale(1.03);
-}  
+.card:hover::before{opacity:1}
 
 .card:hover{
-transform:translateY(-10px);
-box-shadow:0 20px 40px rgba(255,46,99,0.15);
+transform:translateY(-12px) scale(1.03);
+border-color:#ff2e63;
 }
 
-/* PORTFOLIO GRID */
-.gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:15px;
-margin-top:40px;
+/* FLOAT EFFECT ON SCROLL */
+.parallax{
+transform:translateY(var(--y));
 }
 
-.gallery img{
-width:100%;
-height:280px;
-object-fit:cover;
-border-radius:12px;
-transition:0.3s;
-filter:brightness(0.8);
-}
-
-.gallery img:hover{
-transform:scale(1.03);
-filter:brightness(1);
-}
-
-/* CONTACT */
+/* FORM */
 form{
-width:100%;
 max-width:600px;
-margin:40px auto 0;
-background:rgba(255,255,255,0.05);
-padding:30px;
-border-radius:20px;
-backdrop-filter:blur(12px);
+margin:auto;
+display:flex;
+flex-direction:column;
+gap:14px;
 }
 
 input,textarea{
-width:100%;
-padding:12px;
-margin:10px 0;
-background:#111;
-border:none;
-border-radius:10px;
-color:white;
+padding:14px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,0.1);
+background:rgba(255,255,255,0.03);
+color:#fff;
+outline:none;
 }
 
 /* WHATSAPP */
@@ -535,708 +211,101 @@ position:fixed;
 bottom:20px;
 right:20px;
 background:#25D366;
-padding:15px;
+padding:14px;
 border-radius:50%;
-}
-
-/* ANIMATIONS */
-@keyframes float{
-0%,100%{transform:translate(-50%,0);}
-50%{transform:translate(-50%,-10px);}
-}
-
-@keyframes wheel{
-0%{opacity:0;transform:translateY(-4px);}
-50%{opacity:1;}
-100%{opacity:0;transform:translateY(6px);}
-}
-
-@keyframes arrow{
-0%,100%{opacity:0.3;}
-50%{opacity:1;}
-}
-
-.instagram-btn{
-position:fixed;
-bottom:20px;
-left:20px;
-width:52px;
-height:52px;
-display:flex;
-align-items:center;
-justify-content:center;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(15px);
-border:1px solid rgba(255,255,255,0.15);
-border-radius:50%;
-cursor:pointer;
-transition:0.3s;
 z-index:999;
-text-decoration:none;
 }
-
-.insta-icon{
-width:24px;
-height:24px;
-fill:white;
-transition:0.3s;
-}
-
-.instagram-btn:hover{
-transform:scale(1.1);
-background:linear-gradient(45deg,#feda75,#d62976,#4f5bd5);
-box-shadow:0 10px 30px rgba(214,41,118,0.3);
-}
-
-.instagram-btn:hover .insta-icon{
-fill:white;
-}
-
-/* TOOLTIP */
-.tooltip{
-position:absolute;
-left:65px;
-background:#111;
-padding:6px 10px;
-border-radius:8px;
-font-size:12px;
-opacity:0;
-transform:translateX(-10px);
-transition:0.3s;
-white-space:nowrap;
-}
-
-.instagram-btn:hover .tooltip{
-opacity:1;
-transform:translateX(0);
-}
-
-/* TOOLTIP FIX */
-.instagram-btn{
-z-index:9999;
-}
-
-.instagram-btn .tooltip{
-top:50%;
-transform:translateY(-50%) translateX(-10px);
-}  
-
-.scroll-dock{
-position:absolute;
-bottom:30px;
-left:50%;
-transform:translateX(-50%);
-cursor:pointer;
-z-index:10;
-animation:float 2s ease-in-out infinite;
-}
-
-.scroll-pill{
-display:flex;
-align-items:center;
-gap:10px;
-padding:10px 16px;
-border-radius:50px;
-background:rgba(255,255,255,0.08);
-backdrop-filter:blur(18px);
-border:1px solid rgba(255,255,255,0.15);
-}
-
-.scroll-text{
-font-size:12px;
-color:#ccc;
-letter-spacing:1px;
-}
-
-/* mouse */
-.mouse{
-width:18px;
-height:28px;
-border:2px solid white;
-border-radius:20px;
-display:flex;
-justify-content:center;
-align-items:flex-start;
-padding-top:4px;
-}
-
-.wheel{
-width:3px;
-height:6px;
-background:white;
-border-radius:2px;
-animation:wheel 1.4s infinite;
-}
-
-/* arrow */
-.arrow{
-width:8px;
-height:8px;
-border-right:2px solid white;
-border-bottom:2px solid white;
-transform:rotate(45deg);
-animation:arrow 1.4s infinite;
-}
-
-/* animations already exist in your code */ 
-
-  .services-section{
-padding:120px 10%;
-}
-
-.services-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:20px;
-margin-top:40px;
-}
-
-.service-card{
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.08);
-backdrop-filter:blur(12px);
-border-radius:18px;
-padding:30px;
-text-align:left;
-transition:0.3s;
-position:relative;
-overflow:hidden;
-}
-
-.service-card:hover{
-transform:translateY(-10px);
-box-shadow:0 20px 40px rgba(255,46,99,0.2);
-border-color:rgba(255,46,99,0.4);
-}
-
-.icon{
-font-size:28px;
-margin-bottom:15px;
-}
-
-.service-card h3{
-font-size:20px;
-margin-bottom:10px;
-color:#fff;
-}
-
-.service-card p{
-font-size:14px;
-color:#bbb;
-line-height:1.5;
-}
-
-.container{
-  max-width:1100px;
-  margin:0 auto;
-  padding:0 20px;
-}  
-
-#contact .container{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-
-.apple-form{
-  margin:40px auto 0;
-}  
-
-.container{
-  max-width:1100px;
-  margin:0 auto;
-  padding:0 20px;
-}
-
-/* APPLE GRID */
-.about-grid{
-  display:grid;
-  grid-template-columns:1.2fr 0.8fr;
-  gap:60px;
-  align-items:center;
-  text-align:left;
-}
-
-/* TEXT */
-.about-text h2{
-  font-size:44px;
-  letter-spacing:-1px;
-}
-
-.subtext{
-  font-size:18px;
-  color:#ff2e63;
-  margin:10px 0 20px;
-}
-
-.about-text p{
-  color:#ccc;
-  line-height:1.7;
-}
-
-/* STATS */
-.about-stats{
-  display:flex;
-  gap:20px;
-  margin-top:30px;
-}
-
-.about-stats div{
-  background:rgba(255,255,255,0.05);
-  padding:16px;
-  border-radius:14px;
-  backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,0.08);
-  flex:1;
-  text-align:center;
-}
-
-.about-stats h3{
-  color:#ff2e63;
-  font-size:22px;
-}
-
-/* RIGHT CARD */
-.glass-panel{
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.12);
-  backdrop-filter:blur(20px);
-  padding:30px;
-  border-radius:20px;
-  line-height:2;
-  transform:translateY(0);
-  transition:0.5s cubic-bezier(0.2,0.8,0.2,1);
-}
-
-.glass-panel:hover{
-  transform:translateY(-10px) scale(1.02);
-}  
-
-#contact{
-  display:flex;
-  justify-content:center;
-}  
-
-.apple-form{
-  width:100%;
-  max-width:600px;
-  margin:60px auto 0;
-  padding:30px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  backdrop-filter:blur(20px);
-  border-radius:20px;
-}
-
-/* INPUT GROUP */
-.input-group{
-  position:relative;
-  margin:20px 0;
-}
-
-.input-group input,
-.input-group textarea{
-  width:100%;
-  padding:16px 14px;
-  background:transparent;
-  border:1px solid rgba(255,255,255,0.15);
-  border-radius:12px;
-  color:white;
-  outline:none;
-  font-size:14px;
-  transition:0.3s;
-}
-
-.input-group textarea{
-  min-height:120px;
-  resize:none;
-}
-
-/* LABEL */
-.input-group label{
-  position:absolute;
-  left:14px;
-  top:14px;
-  color:#aaa;
-  font-size:13px;
-  pointer-events:none;
-  transition:0.3s;
-  background:transparent;
-}
-
-/* FOCUS EFFECT */
-.input-group input:focus,
-.input-group textarea:focus{
-  border-color:#ff2e63;
-  box-shadow:0 0 20px rgba(255,46,99,0.2);
-}
-
-/* FLOATING LABEL */
-.input-group input:focus + label,
-.input-group input:valid + label,
-.input-group textarea:focus + label,
-.input-group textarea:valid + label{
-  top:-10px;
-  left:10px;
-  font-size:11px;
-  color:#ff2e63;
-  background:#0a0a0a;
-  padding:0 6px;
-}
-
-/* BUTTON UPGRADE */
-.apple-form .btn{
-  width:100%;
-  margin-top:10px;
-  transition:0.4s;
-}
-
-.apple-form .btn:hover{
-  transform:scale(1.03);
-  box-shadow:0 15px 35px rgba(255,46,99,0.3);
-}  
-
-.apple-submit{
-  position:relative;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-}
-
-/* loader circle */
-.loader{
-  width:16px;
-  height:16px;
-  border:2px solid rgba(255,255,255,0.3);
-  border-top:2px solid white;
-  border-radius:50%;
-  display:none;
-  animation:spin 0.8s linear infinite;
-}
-
-/* check mark */
-.check{
-  display:none;
-  font-size:18px;
-  font-weight:bold;
-}
-
-/* loading state */
-.apple-submit.loading .btn-text{
-  opacity:0.6;
-}
-
-.apple-submit.loading .loader{
-  display:block;
-}
-
-/* success state */
-.apple-submit.success{
-  background:linear-gradient(45deg,#00c853,#64dd17);
-}
-
-.apple-submit.success .btn-text{
-  display:none;
-}
-
-.apple-submit.success .loader{
-  display:none;
-}
-
-.apple-submit.success .check{
-  display:block;
-}
-
-/* animation */
-@keyframes spin{
-  from{transform:rotate(0deg);}
-  to{transform:rotate(360deg);}
-}  
-  
 </style>
 </head>
 
 <body>
 
-<nav class="navbar" id="nav">
- <div class="logo" id="logo">
-  <span class="logo-full">HB Visuals</span>
-  <span class="logo-short">HB</span>
-</div>
-  
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#gallery">Work</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+<div class="cursor"></div>
+<div class="follower"></div>
 
-  <div class="nav-right">
-    <a class="btn" href="#contact">Hire Me</a>
-  </div>
+<nav>
+<div class="logo">HB Visuals</div>
+<a class="btn" href="#contact">Start Project</a>
 </nav>
 
 <header class="hero">
-
 <video autoplay muted loop playsinline>
-  <source src="https://files.catbox.moe/zgfvkc.mp4" type="video/mp4">
+<source src="https://files.catbox.moe/zgfvkc.mp4">
 </video>
 
-<h1>We Build Powerful Visual Brands</h1>
-<p>Photography, content creation & cinematic storytelling for modern brands</p>
-<a class="btn" href="#contact">Start a Project</a>
-
-<div class="scroll-dock" onclick="document.querySelector('#about').scrollIntoView({behavior:'smooth'})">
-  <div class="scroll-pill">
-    
-    <div class="mouse">
-      <div class="wheel"></div>
-    </div>
-
-    <div class="scroll-text">Scroll</div>
-
-    <div class="arrow"></div>
-
-  </div>
-</div>
+<h1>We Build Elite Visual Experiences</h1>
+<p>Design • Branding • Cinematic Storytelling</p>
 </header>
 
-<section id="about" class="about">
-  <div class="container">
-
-    <div class="about-grid">
-
-      <div class="about-text">
-        <h2>About Studio</h2>
-
-        <p class="subtext">
-          We design cinematic visuals that feel like Apple-level storytelling.
-        </p>
-
-        <p>
-          HB Visuals is a creative studio focused on premium branding,
-          cinematic photography, and modern digital identity systems.
-        </p>
-
-        <div class="about-stats">
-          <div>
-            <h3>50+</h3>
-            <span>Projects</span>
-          </div>
-          <div>
-            <h3>30+</h3>
-            <span>Clients</span>
-          </div>
-          <div>
-            <h3>4.9★</h3>
-            <span>Rating</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="about-card">
-        <div class="glass-panel">
-          <p>🎬 Cinematic Direction</p>
-          <p>📸 Premium Photography</p>
-          <p>🧠 Brand Strategy</p>
-          <p>🚀 Growth Systems</p>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
+<section id="about" class="parallax">
+<h2>About Studio</h2>
+<p style="color:#aaa">We craft premium digital identities that feel cinematic & alive.</p>
 </section>
 
-<section id="services" class="services-section">
-
+<section id="services">
 <h2>Services</h2>
-
-<div class="services-grid">
-
-<div class="service-card">
-<div class="icon">📸</div>
-<h3>Brand Photography</h3>
-<p>We create high-end visuals that define your identity and attract attention.</p>
+<div class="grid">
+<div class="card">🎬 Cinematic Direction</div>
+<div class="card">📸 Photography</div>
+<div class="card">🚀 Branding Systems</div>
+<div class="card">📱 Growth Strategy</div>
 </div>
-
-<div class="service-card">
-<div class="icon">🎬</div>
-<h3>Cinematic Editing</h3>
-<p>Premium storytelling edits designed to feel like a movie.</p>
-</div>
-
-<div class="service-card">
-<div class="icon">📱</div>
-<h3>Content Strategy</h3>
-<p>We plan viral-ready content that grows your audience fast.</p>
-</div>
-
-<div class="service-card">
-<div class="icon">🚀</div>
-<h3>Social Media Growth</h3>
-<p>We help brands scale with consistent, engaging content systems.</p>
-</div>
-
-</div>
-
 </section>
 
 <section id="contact">
-  <div class="container">
+<h2>Let’s Work</h2>
 
-    <h2>Let’s Work Together</h2>
-
-    <form class="apple-form">
-      
-      <div class="input-group">
-        <input type="text" required>
-        <label>Your Name</label>
-      </div>
-
-      <div class="input-group">
-        <input type="email" required>
-        <label>hitin.banga23@gmail.com</label>
-      </div>
-
-      <div class="input-group">
-        <textarea required></textarea>
-        <label>Tell us about your project</label>
-      </div>
-
-      <button class="btn apple-submit" type="submit">
-        <span class="btn-text">Send Message</span>
-        <span class="loader"></span>
-        <span class="check">✓</span>
-      </button>
-
-    </form>
-
-  </div>
+<form>
+<input type="text" placeholder="Name" required>
+<input type="email" placeholder="Email" required>
+<textarea placeholder="Message"></textarea>
+</form>
 </section>
 
-  </div>
-</section>
 <a class="whatsapp" href="https://wa.me/23058451482">💬</a>
 
 <script>
-const sections = document.querySelectorAll("section");
-const nav = document.getElementById("nav");
+/* CURSOR */
+const c=document.querySelector(".cursor");
+const f=document.querySelector(".follower");
 
-// Smooth reveal using requestAnimationFrame (Apple style feel)
-const reveal = () => {
-  sections.forEach((section) => {
-    const rect = section.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
+let x=0,y=0,fx=0,fy=0;
 
-    if (rect.top < windowHeight * 0.85) {
-      section.classList.add("show");
-    }
-  });
+window.addEventListener("mousemove",(e)=>{
+x=e.clientX;y=e.clientY;
+c.style.left=x+"px";c.style.top=y+"px";
+});
 
-  // navbar smooth effect
-  if (window.scrollY > 50) {
-    nav.classList.add("scrolled");
-  } else {
-    nav.classList.remove("scrolled");
-  }
+function animate(){
+fx += (x-fx)*0.12;
+fy += (y-fy)*0.12;
+f.style.left=fx+"px";
+f.style.top=fy+"px";
+requestAnimationFrame(animate);
+}
+animate();
 
-  requestAnimationFrame(reveal);
+/* SCROLL REVEAL */
+const sections=document.querySelectorAll("section");
+
+const reveal=()=>{
+sections.forEach(s=>{
+if(s.getBoundingClientRect().top < window.innerHeight*0.85){
+s.classList.add("show");
+}
+});
+requestAnimationFrame(reveal);
 };
-
 reveal();
-</script>
 
-<a href="https://instagram.com/_hitin23_" target="_blank" class="instagram-btn">
-  <svg viewBox="0 0 24 24" class="insta-icon">
-    <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9z"/>
-    <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
-    <circle cx="17.5" cy="6.5" r="1.2"/>
-  </svg>
-  <span class="tooltip">Follow me</span>
-</a>  
-
-<script>
-const form = document.querySelector(".apple-form");
-const btn = document.querySelector(".apple-submit");
-
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  btn.classList.add("loading");
-
-
- <script>
-const logo = document.getElementById("logo");
-
-logo.addEventListener("mousemove", (e) => {
-  const x = (e.offsetX - 20) / 10;
-  const y = (e.offsetY - 10) / 10;
-
-  logo.style.transform = `translate(${x}px, ${y}px);
+/* PARALLAX */
+window.addEventListener("scroll",()=>{
+document.querySelectorAll(".parallax").forEach(el=>{
+let speed = window.scrollY * 0.08;
+el.style.setProperty("--y", (-speed)+"px");
 });
-
-logo.addEventListener("mouseleave", () => {
-  logo.style.transform = translate(0px, 0px);
-});
-</script> 
- 
-
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-
-<script>
-emailjs.init("R_l20vsN60plrnOTj");
-
-const form = document.querySelector(".apple-form");
-const btn = document.querySelector(".apple-submit");
-
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  btn.classList.add("loading");
-
-  emailjs.sendForm(
-    "service_ea0gdbj",
-    "template_irrdx8c",
-    this
-  )
-  .then(() => {
-    btn.classList.remove("loading");
-    btn.classList.add("success");
-
-    setTimeout(() => {
-      btn.classList.remove("success");
-      form.reset();
-    }, 2500);
-  })
-  .catch((error) => {
-    btn.classList.remove("loading");
-    alert("Message failed to send.");
-    console.log(error);
-  });
 });
 </script>
-  
-    this
-  ).then(() => {
-
-    btn.classList.remove("loading");
-    btn.classList.add("success");
-
-    setTimeout(() => {
-      btn.classList.remove("success");
-      form.reset();
-    }, 2500);
-
-  }).catch((error) => {
-    btn.classList.remove("loading");
-    alert("Message failed to send.");
-    console.log(error);
-  });
-});
-</script>  
 
 </body>
 </html>
