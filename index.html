@@ -1175,7 +1175,7 @@ logo.addEventListener("mousemove", (e) => {
   const x = (e.offsetX - 20) / 10;
   const y = (e.offsetY - 10) / 10;
 
-  logo.style.transform = translate(${x}px, ${y}px);
+  logo.style.transform = `translate(${x}px, ${y}px);
 });
 
 logo.addEventListener("mouseleave", () => {
@@ -1201,6 +1201,8 @@ form.addEventListener("submit", function (e) {
     "service_ea0gdbj",
     "template_irrdx8c",
     this
+  )
+  .then(() => {
     btn.classList.remove("loading");
     btn.classList.add("success");
 
