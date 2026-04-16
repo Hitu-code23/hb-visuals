@@ -1158,23 +1158,30 @@ reveal();
 const form = document.querySelector(".apple-form");
 const btn = document.querySelector(".apple-submit");
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  // loading state
   btn.classList.add("loading");
 
-  setTimeout(() => {
+  emailjs.sendForm(
+    "YOUR_SERVICE_ID",
+    "YOUR_TEMPLATE_ID",
+    this
+  ).then(() => {
+
     btn.classList.remove("loading");
     btn.classList.add("success");
 
-    // reset after 2.5s
     setTimeout(() => {
       btn.classList.remove("success");
       form.reset();
     }, 2500);
 
-  }, 2000);
+  }).catch((error) => {
+    btn.classList.remove("loading");
+    alert("Message failed to send");
+    console.log(error);
+  });
 });
 </script> 
 
@@ -1192,6 +1199,68 @@ logo.addEventListener("mouseleave", () => {
   logo.style.transform = translate(0px, 0px);
 });
 </script> 
+
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+<script>
+  emailjs.init("DiiVjpVY8K0iP3y7E");
+</script> 
+
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+<script>
+  // 1. INIT EMAILJS (PUT THIS FIRST)
+  emailjs.init("R_l20vsN60plrnOTj");
+
+  // 2. FORM LOGIC (PUT BELOW IT)
+  const form = document.querySelector(".apple-form");
+  const btn = document.querySelector(".apple-submit");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    btn.classList.add("loading");
+
+    emailjs.sendForm(
+      "service_ea0gdbj",
+      "template_irrdx8c",
+      this
+    ).then(() => {
+
+      btn.classList.remove("loading");
+      btn.classList.add("success");
+
+      setTimeout(() => {
+        btn.classList.remove("success");
+        form.reset();
+      }, 2500);
+
+    }).catch((error) => {
+      btn.classList.remove("loading");
+      alert("Message failed");
+      console.log(error);
+    });
+  });
+</script>
+  
+    this
+  ).then(() => {
+
+    btn.classList.remove("loading");
+    btn.classList.add("success");
+
+    setTimeout(() => {
+      btn.classList.remove("success");
+      form.reset();
+    }, 2500);
+
+  }).catch((error) => {
+    btn.classList.remove("loading");
+    alert("Message failed to send.");
+    console.log(error);
+  });
+});
+</script>  
 
 </body>
 </html>
