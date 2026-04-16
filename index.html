@@ -1187,36 +1187,34 @@ logo.addEventListener("mouseleave", () => {
 <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 
 <script>
-  emailjs.init("R_l20vsN60plrnOTj");
+emailjs.init("R_l20vsN60plrnOTj");
 
-  const form = document.querySelector(".apple-form");
-  const btn = document.querySelector(".apple-submit");
+const form = document.querySelector(".apple-form");
+const btn = document.querySelector(".apple-submit");
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
 
-    btn.classList.add("loading");
+  btn.classList.add("loading");
 
-    emailjs.sendForm(
-      "service_ea0gdbj",
-      "template_irrdx8c",
-      this
-    ).then(() => {
+  emailjs.sendForm(
+    "service_ea0gdbj",
+    "template_irrdx8c",
+    this
+    btn.classList.remove("loading");
+    btn.classList.add("success");
 
-      btn.classList.remove("loading");
-      btn.classList.add("success");
-
-      setTimeout(() => {
-        btn.classList.remove("success");
-        form.reset();
-      }, 2500);
-
-    }).catch((error) => {
-      btn.classList.remove("loading");
-      alert("Message failed to send");
-      console.log(error);
-    });
+    setTimeout(() => {
+      btn.classList.remove("success");
+      form.reset();
+    }, 2500);
+  })
+  .catch((error) => {
+    btn.classList.remove("loading");
+    alert("Message failed to send.");
+    console.log(error);
   });
+});
 </script>
   
     this
