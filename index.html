@@ -103,8 +103,7 @@ z-index:2;
 section{
 padding:120px 10%;
 opacity:0;
-transform:translateY(60px);
-transition:1s ease;
+transition:none;
 }
 
 section.show{
@@ -243,22 +242,21 @@ form{
 <!-- SCRIPT -->
 <script>
 const sections = document.querySelectorAll("section");
-const nav = document.getElementById("nav");
 
-function reveal(){
-  sections.forEach(sec=>{
-    if(sec.getBoundingClientRect().top < window.innerHeight * 0.85){
-      sec.classList.add("show");
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.style.opacity = "1";
+      entry.target.style.transform = "translateY(0)";
+      entry.target.style.transition = "0.8s ease";
     }
   });
-  requestAnimationFrame(reveal);
-}
+});
 
-reveal();
-<script>
-document.addEventListener("click", () => {
-  const video = document.querySelector(".hero video");
-  if (video) video.play();
+sections.forEach(sec => {
+  sec.style.opacity = "0";
+  sec.style.transform = "translateY(40px)";
+  observer.observe(sec);
 });
 </script>
 
