@@ -12,6 +12,22 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+
+  /* GLOBAL FIX */
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* RESPONSIVE TEXT BASE */
+html {
+  font-size: 16px;
+}
+  
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
@@ -426,11 +442,7 @@ p{
 }
 
 body{
-  scroll-snap-type: y mandatory;
-}
-
-section{
-  scroll-snap-align: start;
+  scroll-snap-type: none;
 }
 
   #progress-bar{
@@ -467,6 +479,107 @@ section{
 @keyframes bounce{
   0%,100%{transform:translateY(0);}
   50%{transform:translateY(8px);}
+}
+
+  /* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .nav-links {
+    gap: 10px;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+  }
+}
+
+  /* HERO */
+  .hero h1 {
+    font-size: 32px;
+    padding: 0 10px;
+  }
+
+  .hero p {
+    font-size: 14px;
+    padding: 0 20px;
+  }
+
+  .btn {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    padding: 15px 20px;
+  }
+
+  .nav-links {
+    gap: 15px;
+    font-size: 12px;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 80px 20px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  /* GRID → SINGLE COLUMN */
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* FILTER BUTTONS */
+  .filter-buttons {
+    gap: 6px;
+  }
+
+  .filter-btn {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+
+  /* CARDS */
+  .work-card h3 {
+    font-size: 16px;
+  }
+
+  .work-card p {
+    font-size: 12px;
+  }
+
+  /* CONTACT FORM */
+  .contact-form {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  /* FLOATING ICONS */
+  .icon {
+    width: 45px;
+    height: 45px;
+  }
+
+  .icon i {
+    font-size: 18px;
+  }
+
+  /* SCROLL DOWN BUTTON */
+  .scroll-down {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
 }
   
 </style>
