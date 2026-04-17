@@ -204,30 +204,32 @@ html{
   transform:translateY(0);
 }  
 
- .toast{
-  position:fixed;
-  bottom:30px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#0f172a;
-  color:#00ffa6;
-  padding:12px 20px;
-  border-radius:30px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+ .success-box{
   display:none;
+  margin-top:20px;
+  padding:12px 20px;
+  border-radius:10px;
+  background:rgba(0,255,150,0.1);
+  border:1px solid rgba(0,255,150,0.3);
+  color:#00ffa6;
   font-size:14px;
-  animation:slideUp 0.4s ease;
+  backdrop-filter:blur(10px);
+  animation:fadeIn 0.5s ease;
 }
 
-@keyframes slideUp{
+@keyframes fadeIn{
   from{
     opacity:0;
-    transform:translate(-50%, 30px);
+    transform:translateY(10px);
   }
   to{
     opacity:1;
-    transform:translate(-50%, 0);
+    transform:translateY(0);
   }
+}
+
+  button{
+  transition:0.3s ease;
 }
   
 </style>
@@ -294,10 +296,10 @@ Let’s work together to bring your ideas to life.
   
   <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
   
-  <button type="submit">Send Message</button>
+<button type="submit" id="submit-btn">Send Message</button>
 
 </form>
-<div id="success-msg" class="toast">
+<div id="success-msg" class="success-box">
   ✅ Message sent successfully
 </div>
 </section>
@@ -352,16 +354,37 @@ window.addEventListener("load", reveal);
 document.getElementById("contact-form").addEventListener("submit", function(e){
   e.preventDefault();
 
-emailjs.sendForm("service_ea0gdbj", "template_irrdx8c", this)
-  .then(function(){
-    document.getElementById("success-msg").style.display = "block";
+  const btn = document.getElementById("submit-btn");
 
-    setTimeout(()=>{
-      document.getElementById("success-msg").style.display = "none";
-    }, 3000);
+  // 🔄 Loading state
+  btn.innerText = "Sending...";
+  btn.disabled = true;
+  btn.style.opacity = "0.7";
 
-    document.getElementById("contact-form").reset();
-  }, function(error){
+  emailjs.sendForm("service_ea0gdbj", "template_irrdx8c", this)
+    .then(function(){
+
+      // ✅ Success
+      btn.innerText = "Sent ✅";
+
+      document.getElementById("success-msg").style.display = "block";
+
+      setTimeout(()=>{
+        document.getElementById("success-msg").style.display = "none";
+        btn.innerText = "Send Message";
+        btn.disabled = false;
+        btn.style.opacity = "1";
+      }, 3000);
+
+      document.getElementById("contact-form").reset();
+
+    }, function(error){
+
+      // ❌ Error
+      btn.innerText = "Try Again";
+      btn.disabled = false;
+      btn.style.opacity = "1";
+
       alert("Error: " + JSON.stringify(error));
     });
 });
