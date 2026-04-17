@@ -577,7 +577,6 @@ Let’s work together to bring your ideas to life.
 <div id="success-msg" class="success-box">
   🚀 Your request has been received. Our team will respond shortly.
 </div>
-</section>
 
   </section>
 
@@ -595,9 +594,6 @@ Let’s work together to bring your ideas to life.
   </div>
 
 </div>
-
-<!-- WHATSAPP -->
-<a class="icon whatsapp" href="https://wa.me/23058451482" target="_blank">
 
 <!-- WHATSAPP -->
 <a class="icon whatsapp" href="https://wa.me/23058451482" target="_blank">
@@ -653,19 +649,51 @@ document.getElementById("contact-form").addEventListener("submit", function(e){
 
   const btn = document.getElementById("submit-btn");
 
-  // 🔄 Loading state
-  btn.innerText = "Sending...";
+  btn.innerText = "Preparing request...";
   btn.disabled = true;
   btn.style.opacity = "0.7";
 
- emailjs.sendForm("service_ea0gdbj", "template_irrdx8c", this)
-  .then(() => {
-    return emailjs.sendForm(
-      "service_ea0gdbj",
-      "YOUR_CLIENT_TEMPLATE_ID",
-      this
-    );
-  })
+  // 1. Send EMAIL TO YOU
+  const ownerEmail = emailjs.sendForm(
+    "service_ea0gdbj",
+    "template_irrdx8c",
+    this
+  );
+
+  // 2. Send AUTO REPLY TO CLIENT
+  const clientEmail = emailjs.sendForm(
+    "service_ea0gdbj",
+    "template_radxi0f", // your auto-reply template
+    this
+  );
+
+  Promise.all([ownerEmail, clientEmail])
+    .then(() => {
+
+      btn.innerText = "Request received ✓";
+
+      document.getElementById("success-msg").style.display = "block";
+
+      setTimeout(() => {
+        document.getElementById("success-msg").style.display = "none";
+        btn.innerText = "Send Message";
+        btn.disabled = false;
+        btn.style.opacity = "1";
+      }, 3000);
+
+      this.reset();
+
+    })
+    .catch((error) => {
+      console.log(error);
+
+      btn.innerText = "Try Again";
+      btn.disabled = false;
+      btn.style.opacity = "1";
+
+      alert("Something went wrong. Please try again.");
+    });
+});
       // ✅ Success
       btn.innerText = "Sent ✅";
 
