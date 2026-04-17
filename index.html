@@ -169,11 +169,9 @@ section{
   padding-top:80px;
 }
   
-
 html{
   scroll-behavior:smooth;
 }  
- 
 
 /* CONTACT FORM */
 .contact-form{
@@ -224,7 +222,7 @@ html{
   color:#fff;
 }
 
-/* Hover effect 🔥 */
+/* Hover effect */
 .icon:hover{
   transform:scale(1.1);
   transition:0.3s;
@@ -235,7 +233,7 @@ html{
   transform:translateY(0);
 }  
 
-  h1{
+h1{
   font-weight:600;
   letter-spacing:1px;
 }
@@ -249,7 +247,7 @@ p{
   color:#ccc;
 }
 
- .success-box{
+.success-box{
   display:none;
   margin-top:20px;
   padding:12px 20px;
@@ -273,21 +271,21 @@ p{
   }
 }
 
-  button{
+button{
   transition:0.3s ease;
 }
 
-  h1, h2, h3{
+h1, h2, h3{
   font-family: 'Space Grotesk', sans-serif;
 }
 
-  body{
+body{
   background:#05070d;
   color:#fff;
   font-family: 'Inter', sans-serif;
 }
 
-  .portfolio-grid{
+.portfolio-grid{
   margin-top:40px;
 }
 
@@ -332,7 +330,7 @@ p{
   color:#aaa;
 }
 
-  .filter-buttons{
+.filter-buttons{
   margin-top:25px;
   display:flex;
   justify-content:center;
@@ -361,22 +359,12 @@ p{
   border:none;
 }
 
-.work-card{
-  background:rgba(255,255,255,0.05);
-  border-radius:18px;
-  overflow:hidden;
-  transition:0.3s ease;
-  text-align:left;
-  cursor:pointer;
-  backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,0.08);
-}
-
+/* FIX 4: hide class for filtered cards */
 .work-card.hide{
   display:none;
 }
 
-  .modal{
+.modal{
   display:none;
   position:fixed;
   inset:0;
@@ -385,8 +373,6 @@ p{
   justify-content:center;
   align-items:center;
   z-index:99999;
-
-  /* smooth fade */
   transition:0.35s ease;
 }
 
@@ -404,11 +390,8 @@ p{
   padding:20px;
   text-align:center;
   position:relative;
-
-  /* Apple-style entrance */
   transform:translateY(30px) scale(0.95);
   opacity:0;
-
   transition:0.35s ease;
 }
 
@@ -432,20 +415,8 @@ p{
   color:#fff;
 }
 
-@keyframes pop{
-  from{transform:scale(0.8); opacity:0;}
-  to{transform:scale(1); opacity:1;}
-}
-
-  html{
-  scroll-behavior:smooth;
-}
-
-body{
-  scroll-snap-type: none;
-}
-
-  #progress-bar{
+/* FIX 1: PROGRESS BAR */
+#progress-bar{
   position:fixed;
   top:0;
   left:0;
@@ -453,9 +424,11 @@ body{
   width:0%;
   background:linear-gradient(90deg,#ff2e63,#ff6a00);
   z-index:99999;
+  transition: width 0.1s linear;
 }
 
-  .scroll-down{
+/* FIX 5: BOUNCE ANIMATION — use margin instead of transform so translateX(-50%) is not broken */
+.scroll-down{
   position:absolute;
   bottom:25px;
   left:50%;
@@ -470,36 +443,45 @@ body{
   border:1px solid rgba(255,255,255,0.4);
   color:#fff;
   font-size:18px;
-  animation:bounce 1.5s infinite;
-  transition:0.3s;
   z-index:10;
   background:rgba(0,0,0,0.25);
   backdrop-filter: blur(6px);
+  animation: bounce-safe 1.5s infinite;
+  transition:background 0.3s, box-shadow 0.3s;
 }
 
 .scroll-down:hover{
   background:rgba(255,255,255,0.1);
-  transform:scale(1.1);
 }
 
-@keyframes bounce{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(8px);}
+/* SAFE bounce: only animates margin-top, leaves transform untouched */
+@keyframes bounce-safe{
+  0%,100%{ margin-top:0px; }
+  50%{ margin-top:8px; }
 }
 
+/* FIX 2: About text paragraphs */
+.about-text p {
+  margin-bottom: 14px;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-text p:last-child {
+  margin-bottom: 0;
+}
 
 /* =========================
-   MOBILE ONLY (SAFE OVERRIDES)
+   MOBILE ONLY
 ========================= */
 
 @media (max-width: 768px) {
 
-  /* prevent overflow issues */
   body {
     overflow-x: hidden;
   }
 
-  /* HERO */
   .hero h1 {
     font-size: 34px;
   }
@@ -509,7 +491,6 @@ body{
     padding: 0 15px;
   }
 
-  /* SECTIONS */
   section {
     padding: 80px 20px;
   }
@@ -522,12 +503,10 @@ body{
     font-size: 14px;
   }
 
-  /* GRID stays responsive BUT stacks on mobile */
   .grid {
     grid-template-columns: 1fr;
   }
 
-  /* FILTER BUTTONS wrap properly */
   .filter-buttons {
     flex-wrap: wrap;
     gap: 8px;
@@ -538,7 +517,6 @@ body{
     padding: 6px 12px;
   }
 
-  /* NAVBAR stays but becomes tighter */
   .navbar {
     padding: 15px 20px;
   }
@@ -551,12 +529,10 @@ body{
     font-size: 12px;
   }
 
-  /* CONTACT FORM */
   .contact-form {
     width: 100%;
   }
 
-  /* FLOATING BUTTONS */
   .icon {
     width: 45px;
     height: 45px;
@@ -566,31 +542,12 @@ body{
     font-size: 18px;
   }
 
-  /* SCROLL BUTTON */
- .scroll-down {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-  border: 1px solid rgba(255,255,255,0.4);
-  color: #fff;
-  font-size: 18px;
-
-  animation: bounce 1.5s infinite;
-  transition: 0.3s;
-  z-index: 10;
-
-  background: rgba(0,0,0,0.25);
-  backdrop-filter: blur(6px);
+  .scroll-down {
+    bottom: 30px;
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
 }
   
 </style>
@@ -613,31 +570,28 @@ body{
 <header class="hero">
 
   <div class="scroll-down" onclick="scrollToSection('about')">
-  <i class="fa-solid fa-angle-down"></i>
-</div>
+    <i class="fa-solid fa-angle-down"></i>
+  </div>
 
-<video autoplay muted loop playsinline>
-  <source src="https://files.catbox.moe/zgfvkc.mp4" type="video/mp4">
-</video>
+  <video autoplay muted loop playsinline>
+    <source src="https://files.catbox.moe/zgfvkc.mp4" type="video/mp4">
+  </video>
 
-<h1>HB VISUALS</h1>
-<p>Creative Agency • Cinematic Branding</p>
-<a class="btn" href="#contact">Start Project</a>
+  <h1>HB VISUALS</h1>
+  <p>Creative Agency • Cinematic Branding</p>
+  <a class="btn" href="#contact">Start Project</a>
 
 </header>
 
+<!-- FIX 2: About text split into proper paragraphs -->
 <section id="about" class="reveal">
   <h2>About</h2>
-  <p>
-
-We are a creative team offering photography, web designing, and video editing services.
-
-Our goal is to help individuals and businesses present their ideas in a clean and professional way. Whether it’s capturing moments, building websites, or editing videos, we focus on quality, simplicity, and clear results.
-
-We believe good work doesn’t need to be complicated—it just needs to be done right
-
-Let’s work together to bring your ideas to life.
-</p>
+  <div class="about-text" style="margin-top:20px;">
+    <p>We are a creative team offering photography, web designing, and video editing services.</p>
+    <p>Our goal is to help individuals and businesses present their ideas in a clean and professional way. Whether it's capturing moments, building websites, or editing videos, we focus on quality, simplicity, and clear results.</p>
+    <p>We believe good work doesn't need to be complicated — it just needs to be done right.</p>
+    <p>Let's work together to bring your ideas to life.</p>
+  </div>
 </section>
 
 <section id="services" class="reveal">
@@ -656,25 +610,37 @@ Let’s work together to bring your ideas to life.
   <!-- PORTFOLIO GRID -->
   <div class="grid portfolio-grid">
 
-    <div class="work-card" data-category="photo">
+    <div class="work-card" data-category="photo"
+      data-img="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"
+      data-title="Portrait Photography"
+      data-desc="Clean cinematic portraits that capture personality and mood with professional lighting and composition.">
       <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e');"></div>
       <h3>Portrait Photography</h3>
       <p>Clean cinematic portraits</p>
     </div>
 
-    <div class="work-card" data-category="edit">
+    <div class="work-card" data-category="edit"
+      data-img="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4"
+      data-title="Video Editing"
+      data-desc="Film style storytelling edits that transform raw footage into compelling cinematic narratives.">
       <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4');"></div>
       <h3>Video Editing</h3>
       <p>Film style storytelling edits</p>
     </div>
 
-    <div class="work-card" data-category="brand">
+    <div class="work-card" data-category="brand"
+      data-img="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
+      data-title="Brand Identity"
+      data-desc="Complete logo and visual systems that give your brand a consistent, professional, and memorable identity.">
       <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f');"></div>
       <h3>Brand Identity</h3>
       <p>Logo & visual systems</p>
     </div>
 
-    <div class="work-card" data-category="growth">
+    <div class="work-card" data-category="growth"
+      data-img="https://images.unsplash.com/photo-1551288049-bebda4e38f71"
+      data-title="Social Growth"
+      data-desc="Strategic audience and engagement scaling that helps your brand grow its reach across social platforms.">
       <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71');"></div>
       <h3>Social Growth</h3>
       <p>Audience & engagement scaling</p>
@@ -686,36 +652,26 @@ Let’s work together to bring your ideas to life.
 <section id="contact" class="reveal">
   <h2>Contact</h2>
 
-<form class="contact-form" id="contact-form">
-  
- <input type="text" name="name" placeholder="Your Name" required>
+  <form class="contact-form" id="contact-form">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+    <button type="submit" id="submit-btn">Send Message</button>
+  </form>
 
-<input type="email" name="email" placeholder="Your Email" required>
-  
-  <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-  
-<button type="submit" id="submit-btn">Send Message</button>
-
-</form>
-<div id="success-msg" class="success-box">
-  🚀 Your request has been received. Our team will respond shortly.
-</div>
-
-  </section>
+  <div id="success-msg" class="success-box">
+    🚀 Your request has been received. Our team will respond shortly.
+  </div>
+</section>
 
 <!-- PROJECT MODAL -->
 <div id="project-modal" class="modal">
-
   <div class="modal-content">
     <span class="close-btn">&times;</span>
-
     <img id="modal-img" src="" alt="Project Image">
-
     <h2 id="modal-title"></h2>
-    <p id="modal-desc"></p>
-
+    <p id="modal-desc" style="margin-top:10px;"></p>
   </div>
-
 </div>
 
 <!-- WHATSAPP -->
@@ -728,75 +684,106 @@ Let’s work together to bring your ideas to life.
   <i class="fa-brands fa-instagram"></i>
 </a>
 
-<!-- ✅ FINAL CLEAN SCRIPT -->
 <script>
-// NAVBAR SCROLL EFFECT
+
+// ── FIX 3: PROGRESS BAR ──────────────────────────────────────────
 window.addEventListener("scroll", function(){
-  const nav = document.querySelector(".navbar");
-  if(window.scrollY > 50){
-    nav.style.background = "rgba(0,0,0,0.8)";
-  } else {
-    nav.style.background = "rgba(0,0,0,0.4)";
-  }
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  document.getElementById("progress-bar").style.width = progress + "%";
 });
 
-// SCROLL REVEAL
+// ── NAVBAR SCROLL EFFECT ─────────────────────────────────────────
+window.addEventListener("scroll", function(){
+  const nav = document.querySelector(".navbar");
+  nav.style.background = window.scrollY > 50 ? "rgba(0,0,0,0.8)" : "rgba(0,0,0,0.4)";
+});
+
+// ── SCROLL REVEAL ────────────────────────────────────────────────
 function reveal(){
-  const reveals = document.querySelectorAll(".reveal");
-
-  reveals.forEach((el)=>{
-    const windowHeight = window.innerHeight;
-    const elementTop = el.getBoundingClientRect().top;
-    const visible = 100;
-
-    if(elementTop < windowHeight - visible){
+  document.querySelectorAll(".reveal").forEach(el => {
+    if(el.getBoundingClientRect().top < window.innerHeight - 100){
       el.classList.add("active");
     }
   });
 }
-
-// run on scroll
 window.addEventListener("scroll", reveal);
-
-// run once on load (important 🔥)
 window.addEventListener("load", reveal);
 
-// EMAILJS INIT
+// ── FIX 1: FILTER BUTTONS ────────────────────────────────────────
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", function(){
+
+    // update active button
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    this.classList.add("active");
+
+    const filter = this.getAttribute("data-filter");
+
+    document.querySelectorAll(".work-card").forEach(card => {
+      if(filter === "all" || card.getAttribute("data-category") === filter){
+        card.classList.remove("hide");
+      } else {
+        card.classList.add("hide");
+      }
+    });
+  });
+});
+
+// ── FIX 2: MODAL ON CARD CLICK ───────────────────────────────────
+const modal   = document.getElementById("project-modal");
+const modalImg   = document.getElementById("modal-img");
+const modalTitle = document.getElementById("modal-title");
+const modalDesc  = document.getElementById("modal-desc");
+
+document.querySelectorAll(".work-card").forEach(card => {
+  card.addEventListener("click", function(){
+    modalImg.src       = this.getAttribute("data-img");
+    modalTitle.innerText = this.getAttribute("data-title");
+    modalDesc.innerText  = this.getAttribute("data-desc");
+    modal.classList.add("show");
+    document.body.style.overflow = "hidden"; // prevent background scroll
+  });
+});
+
+// close modal on X button
+document.querySelector(".close-btn").addEventListener("click", closeModal);
+
+// close modal on background click
+modal.addEventListener("click", function(e){
+  if(e.target === modal) closeModal();
+});
+
+// close modal on Escape key
+document.addEventListener("keydown", function(e){
+  if(e.key === "Escape") closeModal();
+});
+
+function closeModal(){
+  modal.classList.remove("show");
+  document.body.style.overflow = "";
+}
+
+// ── EMAILJS ──────────────────────────────────────────────────────
 (function(){
   emailjs.init("R_l20vsN60plrnOTj");
 })();
-
-// FORM SUBMIT
 
 document.getElementById("contact-form").addEventListener("submit", function(e){
   e.preventDefault();
 
   const btn = document.getElementById("submit-btn");
-
   btn.innerText = "Preparing request...";
   btn.disabled = true;
   btn.style.opacity = "0.7";
-  
 
-  // 1. Send EMAIL TO YOU
-  const ownerEmail = emailjs.sendForm(
-    "service_ea0gdbj",
-    "template_irrdx8c",
-    this
-  );
-
-  // 2. Send AUTO REPLY TO CLIENT
-  const clientEmail = emailjs.sendForm(
-    "service_ea0gdbj",
-    "template_radxi0f",
-    this
-  );
+  const ownerEmail  = emailjs.sendForm("service_ea0gdbj","template_irrdx8c", this);
+  const clientEmail = emailjs.sendForm("service_ea0gdbj","template_radxi0f", this);
 
   Promise.all([ownerEmail, clientEmail])
     .then(() => {
-
       btn.innerText = "Sending to team...";
-
       document.getElementById("success-msg").style.display = "block";
 
       setTimeout(() => {
@@ -807,25 +794,21 @@ document.getElementById("contact-form").addEventListener("submit", function(e){
       }, 3000);
 
       this.reset();
-
     })
     .catch((error) => {
       console.log(error);
-
       btn.innerText = "Try Again";
       btn.disabled = false;
       btn.style.opacity = "1";
-
       alert("Something went wrong. Please try again.");
     });
 });
 
-  function scrollToSection(id){
-  document.getElementById(id).scrollIntoView({
-    behavior: "smooth"
-  });
+// ── SCROLL TO SECTION ────────────────────────────────────────────
+function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({ behavior:"smooth" });
 }
-  
+
 </script>
 
 </body>
