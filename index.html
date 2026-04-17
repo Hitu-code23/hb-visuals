@@ -7,7 +7,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>  
 
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -252,16 +251,15 @@ Let’s work together to bring your ideas to life.
 
 <form class="contact-form" id="contact-form">
   
-  <input type="text" name={{from_name}} placeholder="Your Name" required>
+ <input type="text" name="name" placeholder="Your Name" required>
+
+<input type="email" name="email" placeholder="Your Email" required>
   
-  <input type="email" name={{from_email}} placeholder="Your Email" required>
-  
-  <textarea name={{message}} placeholder="Your Message" rows="5" required></textarea>
+  <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
   
   <button type="submit">Send Message</button>
 
 </form>
-
 <p id="success-msg" style="display:none; margin-top:15px; color:#0f0;">
 Message sent successfully!
 </p>
@@ -343,7 +341,7 @@ document.getElementById("contact-form").addEventListener("submit", function(e){
       document.getElementById("success-msg").style.display = "block";
       document.getElementById("contact-form").reset();
     }, function(error){
-      alert("Failed to send message. Try again.");
+      alert("Failed: " + JSON.stringify(error));
     });
 });
 </script>
