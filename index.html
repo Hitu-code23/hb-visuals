@@ -209,6 +209,111 @@ footer { background: rgba(0,0,0,0.5); border-top: 1px solid var(--border); paddi
   .icon i { font-size: 18px; }
   .scroll-down { bottom: 30px; width: 42px; height: 42px; font-size: 17px; }
 }
+
+/* ── SCROLL TO TOP ─────────────────────────────────────── */
+#scroll-top {
+  position: fixed;
+  bottom: 90px;
+  right: 24px;
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: var(--grad);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  z-index: 9998;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s;
+  box-shadow: 0 6px 20px rgba(255,46,99,0.35);
+  pointer-events: none;
+}
+#scroll-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+#scroll-top:hover {
+  box-shadow: 0 10px 30px rgba(255,46,99,0.55);
+  transform: translateY(-3px);
+}
+
+/* ── DARK / LIGHT MODE TOGGLE ──────────────────────────── */
+#theme-toggle {
+  position: fixed;
+  bottom: 148px;
+  right: 24px;
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  z-index: 9998;
+  transition: 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  backdrop-filter: blur(10px);
+}
+#theme-toggle:hover {
+  transform: scale(1.1);
+  border-color: var(--red);
+}
+
+/* ── LIGHT MODE OVERRIDES ──────────────────────────────── */
+body.light-mode {
+  --bg:    #f0f2f8;
+  --card:  rgba(0,0,0,0.04);
+  --border:rgba(0,0,0,0.1);
+  background: var(--bg);
+  color: #111;
+}
+body.light-mode .navbar {
+  background: rgba(255,255,255,0.7) !important;
+}
+body.light-mode .nav-links a { color: #111; }
+body.light-mode .hero::after { background: rgba(0,0,0,0.45); }
+body.light-mode .hero h1, body.light-mode .hero p { color: #fff; }
+body.light-mode .section-sub { color: #555; }
+body.light-mode .about-text p { color: #444; }
+body.light-mode .work-card { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); }
+body.light-mode .work-card h3 { color: #111; }
+body.light-mode .work-card p { color: #555; }
+body.light-mode .filter-btn { background: rgba(0,0,0,0.05); color: #111; border-color: rgba(0,0,0,0.15); }
+body.light-mode .price-card { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1); }
+body.light-mode .price-card h3 { color: #111; }
+body.light-mode .price-period { color: #888; }
+body.light-mode .price-features li { color: #444; }
+body.light-mode .price-btn.outline { color: #111; border-color: rgba(0,0,0,0.2); }
+body.light-mode .testi-card { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1); }
+body.light-mode .testi-text { color: #444; }
+body.light-mode .testi-role { color: #888; }
+body.light-mode .contact-form input,
+body.light-mode .contact-form textarea { background: rgba(0,0,0,0.06); color: #111; border-color: rgba(0,0,0,0.1); }
+body.light-mode .contact-form input::placeholder,
+body.light-mode .contact-form textarea::placeholder { color: #999; }
+body.light-mode footer { background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.1); }
+body.light-mode .footer-brand p { color: #555; }
+body.light-mode .footer-col ul li,
+body.light-mode .footer-col ul li a { color: #555; }
+body.light-mode .footer-bottom p { color: #888; }
+body.light-mode .mobile-nav { background: rgba(240,242,248,0.97); }
+body.light-mode .mobile-nav a { color: #111; }
+body.light-mode #theme-toggle { background: rgba(0,0,0,0.08); color: #111; border-color: rgba(0,0,0,0.15); }
+body.light-mode #scroll-top { box-shadow: 0 6px 20px rgba(255,46,99,0.25); }
+body.light-mode .stat-label { color: #888; }
+body.light-mode h2 { color: #111; }
+body.light-mode .ba-label.before { background: rgba(0,0,0,0.4); color: #fff; }
+body.light-mode #wa-popup { background: rgba(240,242,248,0.97); }
+body.light-mode .wa-chat-bubble { background: rgba(0,0,0,0.06); color: #444; }
+body.light-mode .footer-col ul li i { color: var(--red); }
 </style>
 </head>
 <body>
@@ -608,6 +713,50 @@ window.addEventListener("load", revealText);
 })();
 function toggleWA(){ document.getElementById("wa-popup").classList.toggle("open"); }
 setTimeout(function(){ document.getElementById("wa-popup").classList.add("open"); }, 4000);
+</script>
+
+<!-- Scroll to Top Button -->
+<button id="scroll-top" aria-label="Scroll to top">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<!-- Dark/Light Mode Toggle -->
+<button id="theme-toggle" aria-label="Toggle theme">
+  <span id="theme-icon">☀️</span>
+</button>
+
+<script>
+
+// ── SCROLL TO TOP ─────────────────────────────────────────
+const scrollTopBtn = document.getElementById("scroll-top");
+window.addEventListener("scroll", function() {
+  if (window.scrollY > 400) {
+    scrollTopBtn.classList.add("visible");
+  } else {
+    scrollTopBtn.classList.remove("visible");
+  }
+});
+scrollTopBtn.addEventListener("click", function() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// ── DARK / LIGHT MODE TOGGLE ──────────────────────────────
+const themeBtn = document.getElementById("theme-toggle");
+const themeIcon = document.getElementById("theme-icon");
+
+// Load saved preference
+if (localStorage.getItem("hbTheme") === "light") {
+  document.body.classList.add("light-mode");
+  themeIcon.textContent = "🌙";
+}
+
+themeBtn.addEventListener("click", function() {
+  document.body.classList.toggle("light-mode");
+  const isLight = document.body.classList.contains("light-mode");
+  themeIcon.textContent = isLight ? "🌙" : "☀️";
+  localStorage.setItem("hbTheme", isLight ? "light" : "dark");
+});
+
 </script>
 </body>
 </html>
