@@ -421,11 +421,35 @@ p{
   from{transform:scale(0.8); opacity:0;}
   to{transform:scale(1); opacity:1;}
 }
+
+  html{
+  scroll-behavior:smooth;
+}
+
+body{
+  scroll-snap-type: y mandatory;
+}
+
+section{
+  scroll-snap-align: start;
+}
+
+  #progress-bar{
+  position:fixed;
+  top:0;
+  left:0;
+  height:3px;
+  width:0%;
+  background:linear-gradient(90deg,#ff2e63,#ff6a00);
+  z-index:99999;
+}
   
 </style>
 </head>
 
 <body>
+
+  <div id="progress-bar"></div>
 
 <nav class="navbar">
   <div class="logo">HB VISUALS</div>
@@ -694,6 +718,14 @@ modal.addEventListener("click", (e)=>{
   if(e.target === modal){
     closeModal();
   }
+});
+
+  window.addEventListener("scroll", ()=>{
+  const scrollTop = document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = (scrollTop / scrollHeight) * 100;
+
+  document.getElementById("progress-bar").style.width = progress + "%";
 });
   
 </script>
