@@ -545,7 +545,7 @@ Let’s work together to bring your ideas to life.
 
 </form>
 <div id="success-msg" class="success-box">
-  ✅ Message sent successfully
+  🚀 Your request has been received. Our team will respond shortly.
 </div>
 </section>
 
@@ -628,9 +628,14 @@ document.getElementById("contact-form").addEventListener("submit", function(e){
   btn.disabled = true;
   btn.style.opacity = "0.7";
 
-  emailjs.sendForm("service_ea0gdbj", "template_irrdx8c", this)
-    .then(function(){
-
+ emailjs.sendForm("service_ea0gdbj", "template_irrdx8c", this)
+  .then(() => {
+    return emailjs.sendForm(
+      "service_ea0gdbj",
+      "YOUR_CLIENT_TEMPLATE_ID",
+      this
+    );
+  })
       // ✅ Success
       btn.innerText = "Sent ✅";
 
@@ -726,6 +731,59 @@ modal.addEventListener("click", (e)=>{
   const progress = (scrollTop / scrollHeight) * 100;
 
   document.getElementById("progress-bar").style.width = progress + "%";
+});
+
+  document.getElementById("contact-form").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const btn = document.getElementById("submit-btn");
+
+    btn.innerText = "Preparing request...";
+
+    btn.disabled = true;
+
+    btn.style.opacity = "0.7";
+
+  // 1. Send EMAIL TO YOU
+  const ownerEmail = emailjs.sendForm(
+    "service_ea0gdbj",
+    "template_irrdx8c",
+    this
+  );
+
+  // 2. Send AUTO REPLY TO CLIENT
+  const clientEmail = emailjs.sendForm(
+    "service_ea0gdbj",
+    "template_radxi0f",
+    this
+  );
+
+  Promise.all([ownerEmail, clientEmail])
+    .then(() => {
+
+      btn.innerText = "Sending to team...";
+
+      document.getElementById("success-msg").style.display = "block";
+
+      setTimeout(() => {
+        document.getElementById("success-msg").style.display = "none";
+        btn.innerText = "Request received ✓";
+        btn.disabled = false;
+        btn.style.opacity = "1";
+      }, 3000);
+
+      this.reset();
+
+    })
+    .catch((error) => {
+      console.log(error);
+
+      btn.innerText = "Try Again";
+      btn.disabled = false;
+      btn.style.opacity = "1";
+
+      alert("Something went wrong. Please try again.");
+    });
 });
   
 </script>
