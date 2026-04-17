@@ -153,7 +153,6 @@ section{
   padding-top:80px;
 }
   
-}
 
 html{
   scroll-behavior:smooth;
@@ -644,6 +643,7 @@ window.addEventListener("load", reveal);
 })();
 
 // FORM SUBMIT
+
 document.getElementById("contact-form").addEventListener("submit", function(e){
   e.preventDefault();
 
@@ -652,155 +652,7 @@ document.getElementById("contact-form").addEventListener("submit", function(e){
   btn.innerText = "Preparing request...";
   btn.disabled = true;
   btn.style.opacity = "0.7";
-
-  // 1. Send EMAIL TO YOU
-  const ownerEmail = emailjs.sendForm(
-    "service_ea0gdbj",
-    "template_irrdx8c",
-    this
-  );
-
-  // 2. Send AUTO REPLY TO CLIENT
-  const clientEmail = emailjs.sendForm(
-    "service_ea0gdbj",
-    "template_radxi0f", // your auto-reply template
-    this
-  );
-
-  Promise.all([ownerEmail, clientEmail])
-    .then(() => {
-
-      btn.innerText = "Request received ✓";
-
-      document.getElementById("success-msg").style.display = "block";
-
-      setTimeout(() => {
-        document.getElementById("success-msg").style.display = "none";
-        btn.innerText = "Send Message";
-        btn.disabled = false;
-        btn.style.opacity = "1";
-      }, 3000);
-
-      this.reset();
-
-    })
-    .catch((error) => {
-      console.log(error);
-
-      btn.innerText = "Try Again";
-      btn.disabled = false;
-      btn.style.opacity = "1";
-
-      alert("Something went wrong. Please try again.");
-    });
-});
-      // ✅ Success
-      btn.innerText = "Sent ✅";
-
-      document.getElementById("success-msg").style.display = "block";
-
-      setTimeout(()=>{
-        document.getElementById("success-msg").style.display = "none";
-        btn.innerText = "Send Message";
-        btn.disabled = false;
-        btn.style.opacity = "1";
-      }, 3000);
-
-      document.getElementById("contact-form").reset();
-
-    }, function(error){
-
-      // ❌ Error
-      btn.innerText = "Try Again";
-      btn.disabled = false;
-      btn.style.opacity = "1";
-
-      alert("Error: " + JSON.stringify(error));
-    });
-});
-
-    // FILTER SYSTEM
-const buttons = document.querySelectorAll(".filter-btn");
-const cards = document.querySelectorAll(".work-card");
-
-buttons.forEach(btn=>{
-  btn.addEventListener("click", ()=>{
-    
-    // active button UI
-    buttons.forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-
-    const filter = btn.getAttribute("data-filter");
-
-    cards.forEach(card=>{
-      const category = card.getAttribute("data-category");
-
-      if(filter === "all" || filter === category){
-        card.classList.remove("hide");
-      } else {
-        card.classList.add("hide");
-      }
-    });
-
-  });
-});
-
- const modal = document.getElementById("project-modal");
-const modalImg = document.getElementById("modal-img");
-const modalTitle = document.getElementById("modal-title");
-const modalDesc = document.getElementById("modal-desc");
-const closeBtn = document.querySelector(".close-btn");
-
-// OPEN MODAL
-document.querySelectorAll(".work-card").forEach(card=>{
-  card.addEventListener("click", ()=>{
-
-    const img = card.querySelector(".work-img").style.backgroundImage;
-    const title = card.querySelector("h3").innerText;
-    const desc = card.querySelector("p").innerText;
-
-    const url = img.slice(5, -2);
-
-    modalImg.src = url;
-    modalTitle.innerText = title;
-    modalDesc.innerText = desc;
-
-    modal.classList.add("show");
-  });
-});
-
-// CLOSE MODAL
-function closeModal(){
-  modal.classList.remove("show");
-}
-
-closeBtn.addEventListener("click", closeModal);
-
-// click outside
-modal.addEventListener("click", (e)=>{
-  if(e.target === modal){
-    closeModal();
-  }
-});
-
-  window.addEventListener("scroll", ()=>{
-  const scrollTop = document.documentElement.scrollTop;
-  const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const progress = (scrollTop / scrollHeight) * 100;
-
-  document.getElementById("progress-bar").style.width = progress + "%";
-});
-
-  document.getElementById("contact-form").addEventListener("submit", function(e){
-  e.preventDefault();
-
-  const btn = document.getElementById("submit-btn");
-
-    btn.innerText = "Preparing request...";
-
-    btn.disabled = true;
-
-    btn.style.opacity = "0.7";
+  
 
   // 1. Send EMAIL TO YOU
   const ownerEmail = emailjs.sendForm(
