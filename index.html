@@ -443,6 +443,32 @@ section{
   background:linear-gradient(90deg,#ff2e63,#ff6a00);
   z-index:99999;
 }
+
+  .scroll-down{
+  margin-top:40px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,0.3);
+  color:#fff;
+  font-size:18px;
+  animation:bounce 1.5s infinite;
+  transition:0.3s;
+}
+
+.scroll-down:hover{
+  background:rgba(255,255,255,0.1);
+  transform:scale(1.1);
+}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(8px);}
+}
   
 </style>
 </head>
@@ -462,6 +488,10 @@ section{
 </nav>  
 
 <header class="hero">
+
+  <div class="scroll-down" onclick="scrollToSection('about')">
+  <i class="fa-solid fa-angle-down"></i>
+</div>
 
 <video autoplay muted loop playsinline>
   <source src="https://files.catbox.moe/zgfvkc.mp4" type="video/mp4">
@@ -785,6 +815,12 @@ modal.addEventListener("click", (e)=>{
       alert("Something went wrong. Please try again.");
     });
 });
+
+  function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({
+    behavior: "smooth"
+  });
+}
   
 </script>
 
