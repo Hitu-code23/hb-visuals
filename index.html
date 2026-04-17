@@ -316,6 +316,50 @@ p{
   margin:0 15px 15px;
   color:#aaa;
 }
+
+  .filter-buttons{
+  margin-top:25px;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.filter-btn{
+  padding:8px 16px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,0.15);
+  background:rgba(255,255,255,0.05);
+  color:#fff;
+  cursor:pointer;
+  font-size:13px;
+  transition:0.3s;
+}
+
+.filter-btn:hover{
+  border-color:#ff2e63;
+  transform:translateY(-2px);
+}
+
+.filter-btn.active{
+  background:linear-gradient(135deg,#ff2e63,#ff6a00);
+  border:none;
+}
+
+.work-card{
+  background:rgba(255,255,255,0.05);
+  border-radius:18px;
+  overflow:hidden;
+  transition:0.3s ease;
+  text-align:left;
+  cursor:pointer;
+  backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.work-card.hide{
+  display:none;
+}
   
 </style>
 </head>
@@ -359,35 +403,46 @@ Let’s work together to bring your ideas to life.
 </section>
 
 <section id="services" class="reveal">
+
   <h2>Services</h2>
 
-<div class="grid portfolio-grid">
-
-  <div class="work-card">
-    <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e');"></div>
-    <h3>Photography</h3>
-    <p>High-end cinematic shots</p>
+  <!-- FILTER BUTTONS -->
+  <div class="filter-buttons">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="photo">Photography</button>
+    <button class="filter-btn" data-filter="edit">Editing</button>
+    <button class="filter-btn" data-filter="brand">Branding</button>
+    <button class="filter-btn" data-filter="growth">Growth</button>
   </div>
 
-  <div class="work-card">
-    <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4');"></div>
-    <h3>Cinematic Editing</h3>
-    <p>Film-style video edits</p>
-  </div>
+  <!-- PORTFOLIO GRID -->
+  <div class="grid portfolio-grid">
 
-  <div class="work-card">
-    <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f');"></div>
-    <h3>Branding</h3>
-    <p>Identity & visual systems</p>
-  </div>
+    <div class="work-card" data-category="photo">
+      <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e');"></div>
+      <h3>Portrait Photography</h3>
+      <p>Clean cinematic portraits</p>
+    </div>
 
-  <div class="work-card">
-    <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71');"></div>
-    <h3>Social Growth</h3>
-    <p>Audience & engagement strategy</p>
-  </div>
+    <div class="work-card" data-category="edit">
+      <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4');"></div>
+      <h3>Video Editing</h3>
+      <p>Film style storytelling edits</p>
+    </div>
 
-</div>
+    <div class="work-card" data-category="brand">
+      <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f');"></div>
+      <h3>Brand Identity</h3>
+      <p>Logo & visual systems</p>
+    </div>
+
+    <div class="work-card" data-category="growth">
+      <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71');"></div>
+      <h3>Social Growth</h3>
+      <p>Audience & engagement scaling</p>
+    </div>
+
+  </div>
 </section>
 
 <section id="contact" class="reveal">
@@ -495,6 +550,33 @@ document.getElementById("contact-form").addEventListener("submit", function(e){
       alert("Error: " + JSON.stringify(error));
     });
 });
+
+    // FILTER SYSTEM
+const buttons = document.querySelectorAll(".filter-btn");
+const cards = document.querySelectorAll(".work-card");
+
+buttons.forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    
+    // active button UI
+    buttons.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const filter = btn.getAttribute("data-filter");
+
+    cards.forEach(card=>{
+      const category = card.getAttribute("data-category");
+
+      if(filter === "all" || filter === category){
+        card.classList.remove("hide");
+      } else {
+        card.classList.add("hide");
+      }
+    });
+
+  });
+});
+  
 </script>
 
 </body>
