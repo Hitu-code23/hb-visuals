@@ -162,7 +162,6 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-
 .filmstrip-item{width:340px;height:220px;flex-shrink:0;border-radius:16px;background-size:cover;background-position:center;border:1px solid var(--border);position:relative;overflow:hidden;transition:transform 0.4s;}
 .filmstrip-item::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.5),transparent);transition:opacity 0.3s;}
 .filmstrip-item-label{position:absolute;bottom:14px;left:16px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#fff;z-index:2;letter-spacing:0.5px;}
-/* Film strip perforations */
 .filmstrip-perfs{display:flex;gap:16px;padding:0 8%;margin-bottom:4px;}
 .filmstrip-perfs .perf{width:340px;flex-shrink:0;display:flex;gap:8px;padding:0 8px;}
 .filmstrip-perfs .perf span{width:16px;height:10px;border-radius:3px;background:rgba(255,46,99,0.15);border:1px solid rgba(255,46,99,0.2);}
@@ -247,7 +246,7 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-
 .price-btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.2);color:var(--text);}
 .price-btn:hover{transform:scale(1.03);box-shadow:0 8px 25px rgba(255,46,99,0.3);}
 
-/* ===== TESTIMONIALS CAROUSEL (NEW) ===== */
+/* ===== TESTIMONIALS CAROUSEL ===== */
 .testi-carousel-wrap{overflow:hidden;mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent);}
 .testi-track{display:flex;gap:24px;width:max-content;animation:testi-scroll 35s linear infinite;}
 .testi-track:hover{animation-play-state:paused;}
@@ -261,7 +260,7 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-
 .testi-name{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--text);}
 .testi-role{font-size:12px;color:#666;margin-top:2px;}
 
-/* ===== BOOKING SECTION (NEW) ===== */
+/* ===== BOOKING SECTION ===== */
 .booking-section{padding:110px 8%;text-align:center;position:relative;z-index:1;}
 .booking-wrap{max-width:780px;margin:40px auto 0;background:var(--card);border:1px solid var(--border);border-radius:24px;overflow:hidden;}
 .booking-tabs{display:flex;border-bottom:1px solid var(--border);}
@@ -312,7 +311,7 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-
 .ba-label.before{left:16px;background:rgba(0,0,0,0.5);color:#aaa;}
 .ba-label.after{right:16px;background:var(--grad);color:#fff;}
 
-/* ===== AI CHAT WIDGET (NEW) ===== */
+/* ===== AI CHAT WIDGET ===== */
 #ai-chat-widget{position:fixed;bottom:90px;left:24px;z-index:9997;display:flex;flex-direction:column;align-items:flex-start;gap:12px;}
 #ai-chat-box{width:300px;background:rgba(8,10,18,0.97);border:1px solid rgba(255,46,99,0.25);border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:none;}
 #ai-chat-box.open{display:flex;flex-direction:column;}
@@ -581,7 +580,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
   </div>
 </section>
 
-<!-- SERVICES with GLightbox -->
+<!-- SERVICES -->
 <section id="services">
   <h2>Services</h2>
   <p class="section-sub">Everything your brand needs to look and feel premium.</p>
@@ -616,7 +615,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
   </div>
 </section>
 
-<!-- FILMSTRIP HORIZONTAL SCROLL -->
+<!-- FILMSTRIP -->
 <section class="filmstrip-section">
   <h2>Our Portfolio</h2>
   <p class="section-sub">Scroll through our latest cinematic work.</p>
@@ -730,19 +729,17 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
   </div>
 </section>
 
-<!-- TESTIMONIALS CAROUSEL -->
+<!-- TESTIMONIALS -->
 <section id="testimonials">
   <h2>What Clients Say</h2>
   <p class="section-sub">Real words from real people we've worked with.</p>
   <div class="testi-carousel-wrap">
     <div class="testi-track" id="testi-track">
-      <!-- Set 1 -->
       <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"HB Visuals completely transformed how my brand looks. The photos were stunning and the reel they made got us 10x more inquiries."</p><div class="testi-author"><div class="testi-avatar">R</div><div><div class="testi-name">Rahul Sharma</div><div class="testi-role">Restaurant Owner, Ludhiana</div></div></div></div>
       <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Professional, fast, and creative. They understood exactly what I wanted. The editing style is cinematic and unique — 10/10 recommend."</p><div class="testi-author"><div class="testi-avatar">P</div><div><div class="testi-name">Priya Kaur</div><div class="testi-role">Fashion Influencer</div></div></div></div>
       <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Got a complete brand identity done — logo, colors, social kit. Everything was on-point and delivered ahead of schedule."</p><div class="testi-author"><div class="testi-avatar">A</div><div><div class="testi-name">Arjun Mehta</div><div class="testi-role">Startup Founder</div></div></div></div>
       <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Their reels went viral for our restaurant. Within a week we had 3x our usual bookings. Worth every rupee and more."</p><div class="testi-author"><div class="testi-avatar">S</div><div><div class="testi-name">Simran Bhatia</div><div class="testi-role">Cafe Owner, Jalandhar</div></div></div></div>
       <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"My product photography looks absolutely premium now. Customers keep asking where we got the shoot done — always send them to HB Visuals."</p><div class="testi-author"><div class="testi-avatar">K</div><div><div class="testi-name">Karan Dhillon</div><div class="testi-role">E-commerce Brand</div></div></div></div>
-      <!-- Set 2 duplicate for infinite effect -->
       <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"HB Visuals completely transformed how my brand looks. The photos were stunning and the reel they made got us 10x more inquiries."</p><div class="testi-author"><div class="testi-avatar">R</div><div><div class="testi-name">Rahul Sharma</div><div class="testi-role">Restaurant Owner, Ludhiana</div></div></div></div>
       <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Professional, fast, and creative. They understood exactly what I wanted. The editing style is cinematic and unique — 10/10 recommend."</p><div class="testi-author"><div class="testi-avatar">P</div><div><div class="testi-name">Priya Kaur</div><div class="testi-role">Fashion Influencer</div></div></div></div>
       <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Got a complete brand identity done — logo, colors, social kit. Everything was on-point and delivered ahead of schedule."</p><div class="testi-author"><div class="testi-avatar">A</div><div><div class="testi-name">Arjun Mehta</div><div class="testi-role">Startup Founder</div></div></div></div>
@@ -752,7 +749,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
   </div>
 </section>
 
-<!-- BOOKING CALENDAR (NEW) -->
+<!-- BOOKING -->
 <section id="booking" class="booking-section">
   <h2>Book a Session</h2>
   <p class="section-sub">Pick a date and time that works for you. Confirmed within 2 hours.</p>
@@ -762,13 +759,11 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
       <button class="booking-tab" onclick="switchTab(this,'tab-time')">2. Pick a Time</button>
       <button class="booking-tab" onclick="switchTab(this,'tab-details')">3. Your Details</button>
     </div>
-    <!-- Tab 1: Date -->
     <div class="booking-panel active" id="tab-date">
       <p style="color:var(--metaText);font-size:14px;margin-bottom:20px;">Select your preferred shoot date</p>
       <div class="booking-slots" id="day-slots"></div>
       <button class="booking-confirm" onclick="switchTabById('tab-time')">Continue to Time →</button>
     </div>
-    <!-- Tab 2: Time -->
     <div class="booking-panel" id="tab-time">
       <p style="color:var(--metaText);font-size:14px;margin-bottom:16px;">Available time slots</p>
       <div class="time-slots">
@@ -782,7 +777,6 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
       </div>
       <button class="booking-confirm" onclick="switchTabById('tab-details')">Continue to Details →</button>
     </div>
-    <!-- Tab 3: Details -->
     <div class="booking-panel" id="tab-details">
       <div class="booking-form" id="booking-form">
         <input type="text" placeholder="Your Name *" id="b-name" required>
@@ -897,6 +891,18 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
 <button id="theme-toggle" aria-label="Toggle theme"><span id="theme-icon">☀️</span></button>
 <button id="sound-toggle" aria-label="Toggle sound" onclick="toggleSound()"><div class="sound-bars"><span style="height:4px"></span><span style="height:10px"></span><span style="height:14px"></span><span style="height:7px"></span></div></button>
 
+<!-- ===== HIDDEN YOUTUBE PLAYER for background music ===== -->
+<div style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0;pointer-events:none;z-index:-1;">
+  <iframe
+    id="yt-player"
+    width="1"
+    height="1"
+    src="https://www.youtube.com/embed/2TkMmjCmH14?enablejsapi=1&autoplay=0&loop=1&playlist=2TkMmjCmH14&controls=0&rel=0"
+    allow="autoplay; encrypted-media"
+    frameborder="0">
+  </iframe>
+</div>
+
 <script>
 // ===== LOADER =====
 window.addEventListener("load",function(){
@@ -912,7 +918,6 @@ window.addEventListener("load",function(){
 // ===== GSAP SCROLL ANIMATIONS =====
 function initGSAP(){
   gsap.registerPlugin(ScrollTrigger);
-  // Animate each section's children
   document.querySelectorAll("section, .awards-section, .quote-section, .ba-section, .insta-section, .booking-section, .filmstrip-section").forEach(sec=>{
     const children = Array.from(sec.children);
     gsap.from(children,{
@@ -920,7 +925,6 @@ function initGSAP(){
       scrollTrigger:{trigger:sec,start:"top 82%",once:true}
     });
   });
-  // Filmstrip GSAP horizontal scroll on scroll
   const filmstrip = document.getElementById("filmstrip-track");
   if(filmstrip){
     gsap.to(filmstrip,{
@@ -934,7 +938,6 @@ function initGSAP(){
       }
     });
   }
-  // Stat number counters
   gsap.utils.toArray(".stat-number[data-target]").forEach(el=>{
     const target=parseInt(el.getAttribute("data-target"));
     const suffix=target===100?"%":"+";
@@ -998,7 +1001,6 @@ const lightbox = GLightbox({touchNavigation:true,loop:true,autoplayVideos:true,o
 // ===== SHOWREEL MODAL =====
 function openReel(){
   document.getElementById("reel-modal").classList.add("open");
-  // Replace with your actual YouTube video ID
   document.getElementById("reel-iframe").src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0&color=white";
   document.body.style.overflow="hidden";
 }
@@ -1018,7 +1020,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeReel();});
   const today=new Date();
   for(let i=1;i<=10;i++){
     const d=new Date(today);d.setDate(today.getDate()+i);
-    if(d.getDay()===0)continue; // skip Sundays
+    if(d.getDay()===0)continue;
     const el=document.createElement("div");
     el.className="slot-day";
     el.innerHTML=`<div class="day-name">${days[d.getDay()]}</div><div class="day-date">${d.getDate()} ${months[d.getMonth()]}</div>`;
@@ -1048,7 +1050,6 @@ function confirmBooking(){
   if(!name||!phone||!service){alert("Please fill in Name, Phone, and Service.");return;}
   document.getElementById("booking-form").style.display="none";
   document.getElementById("booking-success").style.display="block";
-  // Auto-open WhatsApp with booking details
   const selectedDay=document.querySelector(".slot-day.selected")?.textContent.trim()||"TBD";
   const selectedTime=document.querySelector(".time-slot.selected")?.textContent.trim()||"TBD";
   const msg=encodeURIComponent(`Hi HB Visuals! I'd like to book a session.\n\nName: ${name}\nPhone: ${phone}\nService: ${service}\nDate: ${selectedDay}\nTime: ${selectedTime}`);
@@ -1075,28 +1076,50 @@ const themeBtn=document.getElementById("theme-toggle"),themeIcon=document.getEle
 if(localStorage.getItem("hbTheme")==="light"){document.body.classList.add("light-mode");themeIcon.textContent="🌙";}
 themeBtn.addEventListener("click",function(){document.body.classList.toggle("light-mode");const l=document.body.classList.contains("light-mode");themeIcon.textContent=l?"🌙":"☀️";localStorage.setItem("hbTheme",l?"light":"dark");});
 
-// ===== SOUND =====
-let audioCtx=null,gainNode=null,isPlaying=false;
-function createCinematicAmbience(){
-  audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-  gainNode=audioCtx.createGain();gainNode.gain.setValueAtTime(0,audioCtx.currentTime);gainNode.gain.linearRampToValueAtTime(0.08,audioCtx.currentTime+2);
-  gainNode.connect(audioCtx.destination);
-  const freqs=[55,82.5,110,165,220];
-  freqs.forEach((f,i)=>{
-    const osc=audioCtx.createOscillator();const g=audioCtx.createGain();const panner=audioCtx.createStereoPanner();
-    osc.type=i%2===0?'sine':'triangle';osc.frequency.setValueAtTime(f,audioCtx.currentTime);
-    osc.frequency.linearRampToValueAtTime(f*1.002,audioCtx.currentTime+8);osc.frequency.linearRampToValueAtTime(f,audioCtx.currentTime+16);
-    g.gain.setValueAtTime(0.15/(i+1),audioCtx.currentTime);panner.pan.setValueAtTime((i%3-1)*0.3,audioCtx.currentTime);
-    osc.connect(g);g.connect(panner);panner.connect(gainNode);osc.start();
+// ===== SOUND — YouTube Background Music =====
+let isPlaying = false, ytPlayer = null, ytReady = false;
+
+// Dynamically load YouTube IFrame API
+(function() {
+  const tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.head.appendChild(tag);
+})();
+
+// Called automatically by YouTube API once script loads
+function onYouTubeIframeAPIReady() {
+  ytPlayer = new YT.Player('yt-player', {
+    events: {
+      'onReady': function(e) {
+        ytReady = true;
+      },
+      'onStateChange': function(e) {
+        // Sync button state if video stops unexpectedly
+        if (e.data === YT.PlayerState.ENDED || e.data === YT.PlayerState.PAUSED) {
+          if (isPlaying) {
+            isPlaying = false;
+            document.getElementById("sound-toggle").classList.remove("playing");
+          }
+        }
+      }
+    }
   });
-  const shimmer=audioCtx.createOscillator();const shimG=audioCtx.createGain();
-  shimmer.type='sine';shimmer.frequency.value=880;shimG.gain.setValueAtTime(0.02,audioCtx.currentTime);
-  shimmer.connect(shimG);shimG.connect(gainNode);shimmer.start();
 }
-function toggleSound(){
-  const btn=document.getElementById("sound-toggle");
-  if(!isPlaying){if(!audioCtx)createCinematicAmbience();else if(audioCtx.state==='suspended')audioCtx.resume();gainNode.gain.linearRampToValueAtTime(0.08,audioCtx.currentTime+1.5);isPlaying=true;btn.classList.add("playing");}
-  else{gainNode.gain.linearRampToValueAtTime(0,audioCtx.currentTime+1.5);isPlaying=false;btn.classList.remove("playing");}
+
+function toggleSound() {
+  const btn = document.getElementById("sound-toggle");
+  if (!isPlaying) {
+    if (ytReady && ytPlayer) {
+      ytPlayer.setVolume(70);
+      ytPlayer.playVideo();
+    }
+    isPlaying = true;
+    btn.classList.add("playing");
+  } else {
+    if (ytReady && ytPlayer) ytPlayer.pauseVideo();
+    isPlaying = false;
+    btn.classList.remove("playing");
+  }
 }
 
 // ===== B&A SLIDER =====
@@ -1172,7 +1195,7 @@ function scrollToSection(id){document.getElementById(id).scrollIntoView({behavio
   const p=v.play();if(p!==undefined)p.catch(()=>{const t=()=>{v.play().catch(()=>{});document.removeEventListener("touchstart",t);document.removeEventListener("click",t);};document.addEventListener("touchstart",t,{once:true});document.addEventListener("click",t,{once:true});});
 })();
 
-// ===== AI CHAT WIDGET (Claude-powered) =====
+// ===== AI CHAT WIDGET =====
 let aiOpen=false,aiHistory=[];
 const AI_SYSTEM=`You are the AI assistant for HB Visuals, a creative agency based in Punjab, India (Ludhiana/Jalandhar area). You help potential clients learn about services and book sessions. Be friendly, concise, and enthusiastic. 
 
