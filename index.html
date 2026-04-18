@@ -7,12 +7,24 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23ff2e63'/><text y='.9em' font-size='70' x='10'>🎬</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<!-- GLightbox -->
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<!-- Lottie -->
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{--red:#ff2e63;--orange:#ff6a00;--grad:linear-gradient(135deg,#ff2e63,#ff6a00);--bg:#05070d;--card:rgba(255,255,255,0.05);--border:rgba(255,255,255,0.08);--text:#fff;--subtext:#bbb;--metaText:#888;}
 html{font-size:16px;scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;cursor:none;}
 img,video{max-width:100%;display:block;}
+
+/* ===== SPOTLIGHT CURSOR ===== */
+#spotlight{position:fixed;inset:0;pointer-events:none;z-index:1;transition:opacity 0.4s;}
 
 /* ===== CUSTOM MAGNETIC CURSOR ===== */
 #cursor-dot{width:8px;height:8px;background:var(--red);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:999999;transform:translate(-50%,-50%);transition:transform 0.1s,width 0.2s,height 0.2s,background 0.2s;}
@@ -43,7 +55,10 @@ img,video{max-width:100%;display:block;}
 .loader-bar-fill{height:100%;background:var(--grad);border-radius:2px;animation:load-fill 1.4s ease forwards;}
 @keyframes load-fill{from{width:0%;}to{width:100%;}}
 
-body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;}
+/* ===== GRAIN ANIMATION ===== */
+body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4;animation:grain 0.5s steps(1) infinite;}
+@keyframes grain{0%{transform:translate(0,0);}25%{transform:translate(-2%,-1%);}50%{transform:translate(1%,2%);}75%{transform:translate(2%,-2%);}100%{transform:translate(-1%,1%);}}
+
 #progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--grad);z-index:99999;transition:width 0.1s linear;}
 
 /* ===== NAVBAR ===== */
@@ -75,12 +90,23 @@ body::before{content:"";position:fixed;inset:0;background-image:url("data:image/
 .hero h1{font-family:'Space Grotesk',sans-serif;font-size:62px;font-weight:700;letter-spacing:2px;line-height:1.1;margin-bottom:16px;}
 .hero-typed{color:#ccc;font-size:18px;min-height:28px;margin-bottom:8px;}
 .hero p.sub{color:#aaa;font-size:15px;}
-.btn{margin-top:28px;padding:14px 32px;background:var(--grad);border-radius:30px;color:white;text-decoration:none;font-weight:600;font-size:14px;transition:transform 0.3s,box-shadow 0.3s;display:inline-block;position:relative;overflow:hidden;}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:28px;}
+.btn{padding:14px 32px;background:var(--grad);border-radius:30px;color:white;text-decoration:none;font-weight:600;font-size:14px;transition:transform 0.3s,box-shadow 0.3s;display:inline-block;position:relative;overflow:hidden;border:none;cursor:none;}
 .btn::before{content:"";position:absolute;inset:0;background:rgba(255,255,255,0.1);transform:translateX(-100%);transition:transform 0.4s;}
 .btn:hover::before{transform:translateX(0);}
 .btn:hover{transform:scale(1.05);box-shadow:0 8px 30px rgba(255,46,99,0.5);}
+.btn-ghost{background:transparent!important;border:1px solid rgba(255,255,255,0.3)!important;display:flex;align-items:center;gap:8px;}
+.btn-ghost::before{display:none;}
+.btn-ghost:hover{background:rgba(255,255,255,0.07)!important;border-color:rgba(255,46,99,0.6)!important;}
 .scroll-down{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:none;border:1px solid rgba(255,255,255,0.4);color:#fff;font-size:18px;animation:bounce-safe 1.5s infinite;z-index:10;background:rgba(0,0,0,0.25);backdrop-filter:blur(6px);transition:background 0.3s;}
 @keyframes bounce-safe{0%,100%{margin-top:0;}50%{margin-top:8px;}}
+
+/* ===== SHOWREEL MODAL ===== */
+#reel-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.94);z-index:9999999;align-items:center;justify-content:center;flex-direction:column;gap:20px;}
+#reel-modal.open{display:flex;}
+#reel-iframe{width:900px;max-width:92vw;height:506px;max-height:52vw;border-radius:16px;border:none;}
+#reel-close{position:fixed;top:22px;right:28px;font-size:30px;background:none;border:none;color:#fff;cursor:none;opacity:0.7;transition:opacity 0.2s;line-height:1;}
+#reel-close:hover{opacity:1;}
 
 /* ===== MARQUEE ===== */
 .marquee-section{padding:28px 0;background:rgba(255,46,99,0.04);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;position:relative;z-index:1;}
@@ -93,8 +119,7 @@ body::before{content:"";position:fixed;inset:0;background-image:url("data:image/
 section{padding:110px 8%;text-align:center;position:relative;z-index:1;}
 h2{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-bottom:14px;color:var(--text);}
 .section-sub{color:var(--metaText);font-size:15px;max-width:520px;margin:0 auto 50px;line-height:1.7;}
-.reveal{opacity:0;transform:translateY(40px);transition:0.7s cubic-bezier(0.16,1,0.3,1);}
-.reveal.active{opacity:1;transform:translateY(0);}
+.gsap-reveal{opacity:0;transform:translateY(40px);}
 
 /* ===== ABOUT ===== */
 .about-text{margin-top:20px;}
@@ -106,10 +131,9 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-
 
 /* ===== WHY GRID ===== */
 .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:10px;}
-/* Magnetic tilt card */
 .why-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px 24px;text-align:center;transition:border-color 0.3s,box-shadow 0.3s;will-change:transform;}
 .why-card:hover{border-color:rgba(255,46,99,0.4);box-shadow:0 20px 40px rgba(0,0,0,0.3);}
-.why-icon{width:56px;height:56px;border-radius:16px;background:rgba(255,46,99,0.1);border:1px solid rgba(255,46,99,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:22px;}
+.why-icon{width:64px;height:64px;border-radius:16px;background:rgba(255,46,99,0.1);border:1px solid rgba(255,46,99,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:22px;overflow:hidden;}
 .why-card h3{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;margin-bottom:8px;color:var(--text);}
 .why-card p{font-size:13px;color:var(--metaText);line-height:1.7;}
 
@@ -128,6 +152,20 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-
 .work-card:hover .work-img{filter:brightness(1.1) saturate(1.2);transform:scale(1.03);}
 .work-card h3{font-family:'Space Grotesk',sans-serif;font-size:17px;margin:15px 15px 5px;color:var(--text);}
 .work-card p{font-size:13px;margin:0 15px 15px;color:var(--metaText);}
+
+/* ===== FILMSTRIP (NEW) ===== */
+.filmstrip-section{padding:110px 0;position:relative;z-index:1;overflow:hidden;}
+.filmstrip-section h2,.filmstrip-section .section-sub{padding:0 8%;}
+.filmstrip-section .section-sub{margin-bottom:50px;}
+.filmstrip-outer{overflow:hidden;}
+.filmstrip-track{display:flex;gap:16px;padding:0 8% 20px;width:max-content;}
+.filmstrip-item{width:340px;height:220px;flex-shrink:0;border-radius:16px;background-size:cover;background-position:center;border:1px solid var(--border);position:relative;overflow:hidden;transition:transform 0.4s;}
+.filmstrip-item::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.5),transparent);transition:opacity 0.3s;}
+.filmstrip-item-label{position:absolute;bottom:14px;left:16px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#fff;z-index:2;letter-spacing:0.5px;}
+/* Film strip perforations */
+.filmstrip-perfs{display:flex;gap:16px;padding:0 8%;margin-bottom:4px;}
+.filmstrip-perfs .perf{width:340px;flex-shrink:0;display:flex;gap:8px;padding:0 8px;}
+.filmstrip-perfs .perf span{width:16px;height:10px;border-radius:3px;background:rgba(255,46,99,0.15);border:1px solid rgba(255,46,99,0.2);}
 
 /* ===== HORIZONTAL SCROLL PROCESS ===== */
 .process-section{padding:110px 0;position:relative;z-index:1;overflow:hidden;}
@@ -164,6 +202,19 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-
 .client-logo{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 24px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:#666;letter-spacing:1px;transition:0.3s;}
 .client-logo:hover{color:var(--text);border-color:rgba(255,46,99,0.3);}
 
+/* ===== INSTAGRAM FEED ===== */
+.insta-section{padding:80px 8%;text-align:center;position:relative;z-index:1;}
+.insta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:40px;max-width:900px;margin-left:auto;margin-right:auto;}
+.insta-item{aspect-ratio:1;border-radius:12px;background-size:cover;background-position:center;position:relative;overflow:hidden;cursor:none;transition:transform 0.3s;}
+.insta-item::after{content:"";position:absolute;inset:0;background:rgba(255,46,99,0);transition:0.3s;}
+.insta-item:hover{transform:scale(1.04);}
+.insta-item:hover::after{background:rgba(255,46,99,0.3);}
+.insta-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:0.3s;z-index:2;}
+.insta-item:hover .insta-overlay{opacity:1;}
+.insta-overlay i{font-size:24px;color:#fff;}
+.insta-follow{display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:12px 28px;border:1px solid rgba(255,255,255,0.2);border-radius:30px;color:var(--text);text-decoration:none;font-size:14px;transition:0.3s;}
+.insta-follow:hover{border-color:var(--red);background:rgba(255,46,99,0.08);}
+
 /* ===== QUOTE ===== */
 .quote-section{padding:110px 8%;text-align:center;position:relative;z-index:1;}
 .quote-box{max-width:700px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:24px;padding:40px;text-align:left;}
@@ -196,9 +247,12 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-
 .price-btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.2);color:var(--text);}
 .price-btn:hover{transform:scale(1.03);box-shadow:0 8px 25px rgba(255,46,99,0.3);}
 
-/* ===== TESTIMONIALS ===== */
-.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:10px;}
-.testi-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px;text-align:left;transition:0.3s;will-change:transform;}
+/* ===== TESTIMONIALS CAROUSEL (NEW) ===== */
+.testi-carousel-wrap{overflow:hidden;mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent);}
+.testi-track{display:flex;gap:24px;width:max-content;animation:testi-scroll 35s linear infinite;}
+.testi-track:hover{animation-play-state:paused;}
+@keyframes testi-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.testi-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px;text-align:left;transition:0.3s;will-change:transform;width:320px;flex-shrink:0;}
 .testi-card:hover{border-color:rgba(255,46,99,0.3);box-shadow:0 15px 35px rgba(0,0,0,0.3);}
 .testi-stars{color:#ff6a00;font-size:14px;margin-bottom:14px;letter-spacing:2px;}
 .testi-text{font-size:14px;color:var(--subtext);line-height:1.8;font-style:italic;margin-bottom:20px;}
@@ -206,6 +260,35 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-
 .testi-avatar{width:42px;height:42px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:#fff;flex-shrink:0;}
 .testi-name{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--text);}
 .testi-role{font-size:12px;color:#666;margin-top:2px;}
+
+/* ===== BOOKING SECTION (NEW) ===== */
+.booking-section{padding:110px 8%;text-align:center;position:relative;z-index:1;}
+.booking-wrap{max-width:780px;margin:40px auto 0;background:var(--card);border:1px solid var(--border);border-radius:24px;overflow:hidden;}
+.booking-tabs{display:flex;border-bottom:1px solid var(--border);}
+.booking-tab{flex:1;padding:16px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;cursor:none;transition:0.3s;border:none;background:transparent;color:var(--metaText);}
+.booking-tab.active{color:var(--red);border-bottom:2px solid var(--red);margin-bottom:-1px;}
+.booking-tab:hover{color:var(--text);}
+.booking-panel{display:none;padding:36px;}
+.booking-panel.active{display:block;}
+.booking-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;margin-bottom:28px;}
+.slot-day{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center;cursor:none;transition:0.2s;}
+.slot-day:hover,.slot-day.selected{border-color:var(--red);background:rgba(255,46,99,0.08);}
+.slot-day .day-name{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;color:var(--text);}
+.slot-day .day-date{font-size:11px;color:var(--metaText);margin-top:4px;}
+.slot-day.selected .day-name{color:var(--red);}
+.time-slots{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;}
+.time-slot{padding:8px 16px;border-radius:20px;border:1px solid var(--border);font-size:13px;color:var(--text);cursor:none;transition:0.2s;background:transparent;}
+.time-slot:hover,.time-slot.selected{border-color:var(--red);background:rgba(255,46,99,0.1);color:var(--red);}
+.booking-form{display:flex;flex-direction:column;gap:12px;}
+.booking-form input,.booking-form select,.booking-form textarea{padding:12px 16px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,0.05);color:var(--text);font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border 0.3s;}
+.booking-form input:focus,.booking-form select:focus{border-color:rgba(255,46,99,0.4);}
+.booking-form select option{background:#111;color:#fff;}
+.booking-confirm{padding:13px;border:none;border-radius:25px;background:var(--grad);color:#fff;font-weight:600;font-size:15px;cursor:none;transition:0.3s;width:100%;}
+.booking-confirm:hover{transform:scale(1.02);box-shadow:0 8px 25px rgba(255,46,99,0.35);}
+.booking-success{display:none;text-align:center;padding:40px 20px;}
+.booking-success .check{font-size:52px;margin-bottom:16px;}
+.booking-success h3{font-family:'Space Grotesk',sans-serif;font-size:22px;margin-bottom:10px;}
+.booking-success p{color:var(--metaText);font-size:15px;}
 
 /* ===== CONTACT ===== */
 .contact-form{max-width:500px;margin:40px auto 0;display:flex;flex-direction:column;gap:15px;}
@@ -228,6 +311,37 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-
 .ba-label{position:absolute;top:16px;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;backdrop-filter:blur(8px);}
 .ba-label.before{left:16px;background:rgba(0,0,0,0.5);color:#aaa;}
 .ba-label.after{right:16px;background:var(--grad);color:#fff;}
+
+/* ===== AI CHAT WIDGET (NEW) ===== */
+#ai-chat-widget{position:fixed;bottom:90px;left:24px;z-index:9997;display:flex;flex-direction:column;align-items:flex-start;gap:12px;}
+#ai-chat-box{width:300px;background:rgba(8,10,18,0.97);border:1px solid rgba(255,46,99,0.25);border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:none;}
+#ai-chat-box.open{display:flex;flex-direction:column;}
+.ai-chat-header{background:var(--grad);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;}
+.ai-chat-header-left{display:flex;align-items:center;gap:10px;}
+.ai-chat-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.ai-chat-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:#fff;}
+.ai-chat-subtitle{font-size:11px;color:rgba(255,255,255,0.75);margin-top:2px;}
+#ai-close-btn{background:none;border:none;color:rgba(255,255,255,0.8);cursor:none;font-size:18px;line-height:1;padding:0;}
+#ai-messages{height:220px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin;scrollbar-color:rgba(255,46,99,0.3) transparent;}
+.ai-msg{max-width:85%;padding:10px 13px;border-radius:12px;font-size:13px;line-height:1.6;}
+.ai-msg.bot{background:rgba(255,255,255,0.08);color:#ccc;border-radius:4px 12px 12px 12px;}
+.ai-msg.user{background:var(--grad);color:#fff;align-self:flex-end;border-radius:12px 4px 12px 12px;}
+.ai-msg.typing{display:flex;align-items:center;gap:4px;padding:12px 16px;}
+.ai-typing-dot{width:6px;height:6px;border-radius:50%;background:#888;animation:typing-bounce 0.8s ease infinite;}
+.ai-typing-dot:nth-child(2){animation-delay:0.15s;}
+.ai-typing-dot:nth-child(3){animation-delay:0.3s;}
+@keyframes typing-bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);background:var(--red);}}
+.ai-quick-btns{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 10px;}
+.ai-quick-btn{padding:5px 12px;border-radius:14px;border:1px solid rgba(255,46,99,0.3);background:transparent;color:var(--red);font-size:12px;cursor:none;transition:0.2s;}
+.ai-quick-btn:hover{background:rgba(255,46,99,0.1);}
+.ai-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--border);}
+#ai-input{flex:1;padding:9px 12px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,0.06);color:var(--text);font-size:13px;font-family:'Inter',sans-serif;outline:none;}
+#ai-input:focus{border-color:rgba(255,46,99,0.4);}
+#ai-send{width:34px;height:34px;border-radius:50%;background:var(--grad);border:none;color:#fff;cursor:none;display:flex;align-items:center;justify-content:center;font-size:14px;transition:0.2s;flex-shrink:0;}
+#ai-send:hover{transform:scale(1.08);}
+#ai-toggle-btn{width:52px;height:52px;border-radius:50%;background:var(--grad);border:none;color:#fff;cursor:none;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 8px 25px rgba(255,46,99,0.4);transition:0.3s;animation:ai-pulse 2.5s ease infinite;}
+#ai-toggle-btn:hover{transform:scale(1.1);}
+@keyframes ai-pulse{0%,100%{box-shadow:0 8px 25px rgba(255,46,99,0.4);}50%{box-shadow:0 8px 40px rgba(255,46,99,0.7);}}
 
 /* ===== SOUND TOGGLE ===== */
 #sound-toggle{position:fixed;bottom:206px;right:24px;width:46px;height:46px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--text);cursor:none;display:flex;align-items:center;justify-content:center;font-size:18px;z-index:9998;transition:0.3s ease;box-shadow:0 6px 20px rgba(0,0,0,0.3);backdrop-filter:blur(10px);}
@@ -280,23 +394,6 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-
 .cookie-decline{padding:9px 22px;background:transparent;border:1px solid var(--border);border-radius:20px;color:#888;font-size:13px;cursor:none;transition:0.3s;}
 .cookie-decline:hover{border-color:var(--red);color:var(--text);}
 
-/* ===== MODAL ===== */
-.modal{display:none;position:fixed;inset:0;justify-content:center;align-items:center;z-index:99999;transition:0.35s ease;}
-.modal.show{display:flex;background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);}
-.modal-content{width:90%;max-width:600px;background:rgba(14,16,26,0.97);border-radius:20px;padding:24px;text-align:center;position:relative;border:1px solid var(--border);transform:translateY(30px) scale(0.95);opacity:0;transition:0.35s ease;}
-.modal.show .modal-content{transform:translateY(0) scale(1);opacity:1;}
-.modal-content img{width:100%;border-radius:14px;margin-bottom:16px;}
-.modal-content h2{font-family:'Space Grotesk',sans-serif;font-size:22px;color:var(--text);}
-.modal-content p{color:#aaa;font-size:14px;margin-top:10px;line-height:1.7;}
-.close-btn{position:absolute;top:12px;right:18px;font-size:24px;cursor:none;color:#666;transition:color 0.3s;}
-.close-btn:hover{color:#fff;}
-
-/* ===== TEXT REVEAL ===== */
-.text-reveal{overflow:hidden;display:inline-block;}
-.text-reveal span{display:inline-block;transform:translateY(100%);opacity:0;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1),opacity 0.6s ease;}
-.text-reveal.active span{transform:translateY(0);opacity:1;}
-.text-reveal span:nth-child(1){transition-delay:0.0s;}.text-reveal span:nth-child(2){transition-delay:0.08s;}.text-reveal span:nth-child(3){transition-delay:0.16s;}.text-reveal span:nth-child(4){transition-delay:0.24s;}.text-reveal span:nth-child(5){transition-delay:0.32s;}.text-reveal span:nth-child(6){transition-delay:0.40s;}.text-reveal span:nth-child(7){transition-delay:0.48s;}.text-reveal span:nth-child(8){transition-delay:0.56s;}
-
 /* ===== LIGHT MODE ===== */
 body.light-mode{--bg:#f0f2f8;--card:rgba(0,0,0,0.04);--border:rgba(0,0,0,0.1);--text:#111;--subtext:#444;--metaText:#666;background:var(--bg);}
 body.light-mode .navbar{background:rgba(240,242,248,0.9)!important;}
@@ -308,6 +405,8 @@ body.light-mode #theme-toggle{background:rgba(0,0,0,0.08);color:#111;}
 body.light-mode #wa-popup{background:rgba(240,242,248,0.97);}
 body.light-mode #cookie-banner{background:rgba(240,242,248,0.97);}
 body.light-mode #cookie-banner p{color:#555;}
+body.light-mode #ai-chat-box{background:rgba(240,242,248,0.97);}
+body.light-mode .booking-form input,body.light-mode .booking-form select{background:rgba(0,0,0,0.05);color:#111;}
 
 /* ===== FOOTER ===== */
 footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60px 8% 30px;position:relative;z-index:1;}
@@ -330,7 +429,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
 @media(max-width:900px){.footer-top{grid-template-columns:1fr 1fr;}}
 @media(max-width:768px){
   body{cursor:auto;}
-  #cursor-dot,#cursor-ring{display:none;}
+  #cursor-dot,#cursor-ring,#spotlight{display:none;}
   .hero h1{font-size:36px;}.hero-typed{font-size:15px;}
   section,.quote-section{padding:80px 22px;}
   h2{font-size:28px;}
@@ -347,36 +446,35 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
   #wa-bubble{width:52px;height:52px;}
   .process-step{width:260px;}
   .awards-grid{gap:16px;}
+  #ai-chat-widget{left:12px;bottom:80px;}
+  #ai-chat-box{width:280px;}
+  .filmstrip-item{width:240px;height:160px;}
 }
 </style>
 </head>
 <body>
 
-<!-- PAGE TRANSITION PANELS -->
-<div id="page-transition">
-  <div class="pt-panel"></div>
-  <div class="pt-panel"></div>
-  <div class="pt-panel"></div>
-  <div class="pt-panel"></div>
-</div>
-
-<!-- CURSOR -->
+<div id="page-transition"><div class="pt-panel"></div><div class="pt-panel"></div><div class="pt-panel"></div><div class="pt-panel"></div></div>
 <div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
-
-<!-- LOADER -->
+<div id="spotlight"></div>
 <div id="page-loader"><div class="loader-logo">HB VISUALS</div><div class="loader-bar-track"><div class="loader-bar-fill"></div></div></div>
-
-<!-- PROGRESS BAR -->
 <div id="progress-bar"></div>
+
+<!-- SHOWREEL MODAL -->
+<div id="reel-modal">
+  <button id="reel-close" onclick="closeReel()">&#x2715;</button>
+  <iframe id="reel-iframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+</div>
 
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
   <div class="logo">HB VISUALS</div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li><li><a href="#services">Services</a></li>
-    <li><a href="#process">Process</a></li><li><a href="#pricing">Pricing</a></li>
-    <li><a href="#testimonials">Reviews</a></li><li><a href="#contact">Contact</a></li>
+    <li><a href="#process">Process</a></li><li><a href="#booking">Book</a></li>
+    <li><a href="#pricing">Pricing</a></li><li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
@@ -384,8 +482,9 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
 <div class="mobile-overlay" id="mobile-overlay" onclick="closeMenu()"></div>
 <nav class="mobile-nav" id="mobile-nav">
   <a href="#about" onclick="closeMenu()">About</a><a href="#services" onclick="closeMenu()">Services</a>
-  <a href="#process" onclick="closeMenu()">Process</a><a href="#pricing" onclick="closeMenu()">Pricing</a>
-  <a href="#testimonials" onclick="closeMenu()">Reviews</a><a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="#process" onclick="closeMenu()">Process</a><a href="#booking" onclick="closeMenu()">Book</a>
+  <a href="#pricing" onclick="closeMenu()">Pricing</a><a href="#testimonials" onclick="closeMenu()">Reviews</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
 </nav>
 
 <!-- HERO -->
@@ -401,7 +500,10 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
     <h1>HB VISUALS</h1>
     <div class="hero-typed" id="hero-typed"></div>
     <p class="sub">Creative Agency &bull; Punjab, India</p>
-    <a class="btn" href="#contact">Start a Project</a>
+    <div class="hero-btns">
+      <a class="btn" href="#contact">Start a Project</a>
+      <button class="btn btn-ghost" onclick="openReel()"><i class="fa-solid fa-circle-play"></i> Watch Showreel</button>
+    </div>
   </div>
 </header>
 
@@ -430,8 +532,8 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
 </div>
 
 <!-- ABOUT -->
-<section id="about" class="reveal">
-  <h2><span class="text-reveal">About Us</span></h2>
+<section id="about">
+  <h2>About Us</h2>
   <p class="section-sub">A creative team that turns ideas into visuals people remember.</p>
   <div class="about-text">
     <p>We are a creative team offering photography, web designing, and video editing services.</p>
@@ -447,23 +549,41 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
   </div>
 </section>
 
-<!-- WHY CHOOSE (magnetic tilt cards) -->
-<section id="why" class="reveal">
-  <h2><span class="text-reveal">Why Choose Us</span></h2>
+<!-- WHY CHOOSE -->
+<section id="why">
+  <h2>Why Choose Us</h2>
   <p class="section-sub">We don't just deliver content — we deliver results that grow your brand.</p>
   <div class="why-grid">
-    <div class="why-card mag-card"><div class="why-icon">🎯</div><h3>Result Focused</h3><p>Every photo, reel and design is crafted with your business goals in mind — not just aesthetics.</p></div>
-    <div class="why-card mag-card"><div class="why-icon">⚡</div><h3>Fast Delivery</h3><p>We respect your time. Most projects are delivered within 48–72 hours of the shoot.</p></div>
-    <div class="why-card mag-card"><div class="why-icon">💎</div><h3>Premium Quality</h3><p>Cinematic editing, professional colour grading, and attention to detail in every frame.</p></div>
-    <div class="why-card mag-card"><div class="why-icon">🤝</div><h3>Personal Touch</h3><p>You work directly with us — no middlemen, no confusion. Just clear communication.</p></div>
-    <div class="why-card mag-card"><div class="why-icon">📍</div><h3>Local & Available</h3><p>Based in Punjab, available across Ludhiana, Jalandhar and nearby areas instantly.</p></div>
-    <div class="why-card mag-card"><div class="why-icon">💰</div><h3>Fair Pricing</h3><p>Premium results at honest prices — no hidden charges, no surprises.</p></div>
+    <div class="why-card mag-card">
+      <div class="why-icon"><lottie-player src="https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json" background="transparent" speed="1" style="width:48px;height:48px" loop hover></lottie-player></div>
+      <h3>Result Focused</h3><p>Every photo, reel and design is crafted with your business goals in mind — not just aesthetics.</p>
+    </div>
+    <div class="why-card mag-card">
+      <div class="why-icon"><lottie-player src="https://assets3.lottiefiles.com/packages/lf20_xvmprwnb.json" background="transparent" speed="1" style="width:48px;height:48px" loop hover></lottie-player></div>
+      <h3>Fast Delivery</h3><p>We respect your time. Most projects are delivered within 48–72 hours of the shoot.</p>
+    </div>
+    <div class="why-card mag-card">
+      <div class="why-icon"><lottie-player src="https://assets9.lottiefiles.com/packages/lf20_touohxv0.json" background="transparent" speed="1" style="width:48px;height:48px" loop hover></lottie-player></div>
+      <h3>Premium Quality</h3><p>Cinematic editing, professional colour grading, and attention to detail in every frame.</p>
+    </div>
+    <div class="why-card mag-card">
+      <div class="why-icon"><lottie-player src="https://assets5.lottiefiles.com/packages/lf20_qp1q7mct.json" background="transparent" speed="1" style="width:48px;height:48px" loop hover></lottie-player></div>
+      <h3>Personal Touch</h3><p>You work directly with us — no middlemen, no confusion. Just clear communication.</p>
+    </div>
+    <div class="why-card mag-card">
+      <div class="why-icon"><lottie-player src="https://assets3.lottiefiles.com/packages/lf20_u4yrau84.json" background="transparent" speed="1" style="width:48px;height:48px" loop hover></lottie-player></div>
+      <h3>Local & Available</h3><p>Based in Punjab, available across Ludhiana, Jalandhar and nearby areas instantly.</p>
+    </div>
+    <div class="why-card mag-card">
+      <div class="why-icon"><lottie-player src="https://assets7.lottiefiles.com/packages/lf20_06a6pf9i.json" background="transparent" speed="1" style="width:48px;height:48px" loop hover></lottie-player></div>
+      <h3>Fair Pricing</h3><p>Premium results at honest prices — no hidden charges, no surprises.</p>
+    </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section id="services" class="reveal">
-  <h2><span class="text-reveal">Services</span></h2>
+<!-- SERVICES with GLightbox -->
+<section id="services">
+  <h2>Services</h2>
   <p class="section-sub">Everything your brand needs to look and feel premium.</p>
   <div class="filter-buttons">
     <button class="filter-btn active" data-filter="all">All</button>
@@ -473,75 +593,72 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
     <button class="filter-btn" data-filter="growth">Growth</button>
   </div>
   <div class="grid portfolio-grid">
-    <div class="work-card mag-card" data-category="photo" data-img="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" data-title="Portrait Photography" data-desc="Clean cinematic portraits that capture personality and mood with professional lighting.">
-      <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e');"></div><h3>Portrait Photography</h3><p>Clean cinematic portraits</p>
-    </div>
-    <div class="work-card mag-card" data-category="edit" data-img="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4" data-title="Video Editing" data-desc="Film style storytelling edits that transform raw footage into compelling cinematic narratives.">
-      <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4');"></div><h3>Video Editing</h3><p>Film style storytelling edits</p>
-    </div>
-    <div class="work-card mag-card" data-category="brand" data-img="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" data-title="Brand Identity" data-desc="Complete logo and visual systems that give your brand a consistent, professional identity.">
-      <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f');"></div><h3>Brand Identity</h3><p>Logo & visual systems</p>
-    </div>
-    <div class="work-card mag-card" data-category="growth" data-img="https://images.unsplash.com/photo-1551288049-bebda4e38f71" data-title="Social Growth" data-desc="Strategic audience and engagement scaling that helps your brand grow its reach.">
-      <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71');"></div><h3>Social Growth</h3><p>Audience & engagement scaling</p>
+    <a class="work-card mag-card glightbox" data-category="photo"
+       href="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=1200&q=90"
+       data-gallery="portfolio" data-description="Portrait Photography — Clean cinematic portraits that capture personality and mood.">
+      <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600');"></div><h3>Portrait Photography</h3><p>Clean cinematic portraits</p>
+    </a>
+    <a class="work-card mag-card glightbox" data-category="edit"
+       href="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=90"
+       data-gallery="portfolio" data-description="Video Editing — Film style storytelling that transforms raw footage into compelling narratives.">
+      <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600');"></div><h3>Video Editing</h3><p>Film style storytelling edits</p>
+    </a>
+    <a class="work-card mag-card glightbox" data-category="brand"
+       href="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=90"
+       data-gallery="portfolio" data-description="Brand Identity — Complete logo and visual systems that give your brand a consistent, professional identity.">
+      <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600');"></div><h3>Brand Identity</h3><p>Logo & visual systems</p>
+    </a>
+    <a class="work-card mag-card glightbox" data-category="growth"
+       href="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=90"
+       data-gallery="portfolio" data-description="Social Growth — Strategic audience and engagement scaling that grows your brand's reach.">
+      <div class="work-img" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600');"></div><h3>Social Growth</h3><p>Audience & engagement scaling</p>
+    </a>
+  </div>
+</section>
+
+<!-- FILMSTRIP HORIZONTAL SCROLL -->
+<section class="filmstrip-section">
+  <h2>Our Portfolio</h2>
+  <p class="section-sub">Scroll through our latest cinematic work.</p>
+  <div class="filmstrip-perfs" id="filmstrip-perfs">
+    <div class="perf" style="width:340px"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="perf" style="width:340px"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="perf" style="width:340px"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="perf" style="width:340px"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+  <div class="filmstrip-outer">
+    <div class="filmstrip-track" id="filmstrip-track">
+      <div class="filmstrip-item" style="background-image:url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&q=80')"><div class="filmstrip-item-label">Portrait Series</div></div>
+      <div class="filmstrip-item" style="background-image:url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&q=80')"><div class="filmstrip-item-label">Cinematic Edit</div></div>
+      <div class="filmstrip-item" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80')"><div class="filmstrip-item-label">Brand Identity</div></div>
+      <div class="filmstrip-item" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80')"><div class="filmstrip-item-label">Growth Campaign</div></div>
+      <div class="filmstrip-item" style="background-image:url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&q=80')"><div class="filmstrip-item-label">Product Shoot</div></div>
+      <div class="filmstrip-item" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80')"><div class="filmstrip-item-label">Fashion Reel</div></div>
+      <div class="filmstrip-item" style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80')"><div class="filmstrip-item-label">Landscape</div></div>
+      <div class="filmstrip-item" style="background-image:url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80')"><div class="filmstrip-item-label">Studio Session</div></div>
     </div>
   </div>
 </section>
 
-<!-- ===== HORIZONTAL SCROLL PROCESS (NEW) ===== -->
-<section id="process" class="process-section reveal">
-  <h2><span class="text-reveal">Our Process</span></h2>
+<!-- PROCESS -->
+<section id="process" class="process-section">
+  <h2>Our Process</h2>
   <p class="section-sub">From first contact to final delivery — here's how the magic happens.</p>
   <div class="process-track-outer" id="processTrack">
     <div class="process-track">
-      <div class="process-step">
-        <div class="process-number">01</div>
-        <div class="process-icon">📞</div>
-        <h3>Discovery Call</h3>
-        <p>We understand your vision, goals, brand voice, and what success looks like for you.</p>
-        <div class="process-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-      </div>
-      <div class="process-step">
-        <div class="process-number">02</div>
-        <div class="process-icon">🎯</div>
-        <h3>Creative Brief</h3>
-        <p>We craft a tailored shoot plan — locations, props, angles, mood boards, and styling.</p>
-        <div class="process-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-      </div>
-      <div class="process-step">
-        <div class="process-number">03</div>
-        <div class="process-icon">🎬</div>
-        <h3>Shoot Day</h3>
-        <p>Professional on-location or studio shoot with cinematic lighting and direction.</p>
-        <div class="process-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-      </div>
-      <div class="process-step">
-        <div class="process-number">04</div>
-        <div class="process-icon">✂️</div>
-        <h3>Edit & Grade</h3>
-        <p>Expert colour grading, retouching, and video editing to achieve your brand aesthetic.</p>
-        <div class="process-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-      </div>
-      <div class="process-step">
-        <div class="process-number">05</div>
-        <div class="process-icon">🔄</div>
-        <h3>Revisions</h3>
-        <p>We fine-tune based on your feedback until every frame is exactly right.</p>
-        <div class="process-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-      </div>
-      <div class="process-step">
-        <div class="process-number">06</div>
-        <div class="process-icon">🚀</div>
-        <h3>Deliver & Launch</h3>
-        <p>Final files delivered in all formats. Your brand goes live — looking premium.</p>
-      </div>
+      <div class="process-step"><div class="process-number">01</div><div class="process-icon">📞</div><h3>Discovery Call</h3><p>We understand your vision, goals, brand voice, and what success looks like for you.</p><div class="process-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
+      <div class="process-step"><div class="process-number">02</div><div class="process-icon">🎯</div><h3>Creative Brief</h3><p>We craft a tailored shoot plan — locations, props, angles, mood boards, and styling.</p><div class="process-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
+      <div class="process-step"><div class="process-number">03</div><div class="process-icon">🎬</div><h3>Shoot Day</h3><p>Professional on-location or studio shoot with cinematic lighting and direction.</p><div class="process-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
+      <div class="process-step"><div class="process-number">04</div><div class="process-icon">✂️</div><h3>Edit & Grade</h3><p>Expert colour grading, retouching, and video editing to achieve your brand aesthetic.</p><div class="process-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
+      <div class="process-step"><div class="process-number">05</div><div class="process-icon">🔄</div><h3>Revisions</h3><p>We fine-tune based on your feedback until every frame is exactly right.</p><div class="process-arrow"><i class="fa-solid fa-arrow-right"></i></div></div>
+      <div class="process-step"><div class="process-number">06</div><div class="process-icon">🚀</div><h3>Deliver & Launch</h3><p>Final files delivered in all formats. Your brand goes live — looking premium.</p></div>
     </div>
   </div>
   <div class="process-scroll-hint"><i class="fa-solid fa-arrow-left"></i> Drag to explore the journey <i class="fa-solid fa-arrow-right"></i></div>
 </section>
 
-<!-- ===== AWARDS / PRESS (NEW) ===== -->
-<div class="awards-section reveal">
+<!-- AWARDS -->
+<div class="awards-section">
   <div class="awards-label">✦ Recognition & Trust ✦</div>
   <div class="awards-grid">
     <div class="award-card"><div class="award-icon">🏆</div><div class="award-name">Best Creative Studio</div><div class="award-sub">Punjab Region 2024</div></div>
@@ -551,18 +668,30 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
     <div class="award-card"><div class="award-icon">🤝</div><div class="award-name">Trusted Brand</div><div class="award-sub">Since 2021</div></div>
   </div>
   <div class="client-logos">
-    <div class="client-logo">LOCAL CAFE</div>
-    <div class="client-logo">TECH STARTUP</div>
-    <div class="client-logo">FASHION BRAND</div>
-    <div class="client-logo">RESTAURANT CO.</div>
-    <div class="client-logo">REAL ESTATE</div>
-    <div class="client-logo">FITNESS STUDIO</div>
+    <div class="client-logo">LOCAL CAFE</div><div class="client-logo">TECH STARTUP</div>
+    <div class="client-logo">FASHION BRAND</div><div class="client-logo">RESTAURANT CO.</div>
+    <div class="client-logo">REAL ESTATE</div><div class="client-logo">FITNESS STUDIO</div>
   </div>
 </div>
 
+<!-- INSTAGRAM FEED -->
+<section class="insta-section">
+  <h2>Follow Our Work</h2>
+  <p class="section-sub">Real shots. Real clients. Real results — @_hitin23_</p>
+  <div class="insta-grid">
+    <div class="insta-item" style="background-image:url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=400&q=80')"><div class="insta-overlay"><i class="fa-brands fa-instagram"></i></div></div>
+    <div class="insta-item" style="background-image:url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&q=80')"><div class="insta-overlay"><i class="fa-brands fa-instagram"></i></div></div>
+    <div class="insta-item" style="background-image:url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&q=80')"><div class="insta-overlay"><i class="fa-brands fa-instagram"></i></div></div>
+    <div class="insta-item" style="background-image:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&q=80')"><div class="insta-overlay"><i class="fa-brands fa-instagram"></i></div></div>
+    <div class="insta-item" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80')"><div class="insta-overlay"><i class="fa-brands fa-instagram"></i></div></div>
+    <div class="insta-item" style="background-image:url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&q=80')"><div class="insta-overlay"><i class="fa-brands fa-instagram"></i></div></div>
+  </div>
+  <a href="https://instagram.com/_hitin23_" target="_blank" class="insta-follow"><i class="fa-brands fa-instagram"></i> Follow @_hitin23_</a>
+</section>
+
 <!-- QUOTE -->
-<div class="quote-section reveal">
-  <h2><span class="text-reveal">Get a Quote</span></h2>
+<div class="quote-section">
+  <h2>Get a Quote</h2>
   <p class="section-sub">Pick your services and get an instant price estimate.</p>
   <div class="quote-box">
     <div class="quote-title">🧮 Select what you need</div>
@@ -576,45 +705,112 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
     </div>
     <div class="quote-result">
       <div><div class="quote-total-label">Estimated Total</div><div class="quote-total" id="quote-total">₹0</div></div>
-      <a href="#contact" class="quote-cta">Book This Package</a>
+      <a href="#booking" class="quote-cta">Book This Package</a>
     </div>
   </div>
 </div>
 
 <!-- PRICING -->
-<section id="pricing" class="reveal">
-  <h2><span class="text-reveal">Pricing</span></h2>
+<section id="pricing">
+  <h2>Pricing</h2>
   <p class="section-sub">Transparent pricing. No hidden costs. Pick what fits your needs.</p>
   <div class="pricing-grid">
     <div class="price-card mag-card"><h3>Starter</h3><div class="price-amount">₹4,999</div><div class="price-period">one-time</div>
       <ul class="price-features"><li><i class="fa-solid fa-check"></i>1 hr Photo Session</li><li><i class="fa-solid fa-check"></i>20 Edited Photos</li><li><i class="fa-solid fa-check"></i>Basic Retouch</li><li><i class="fa-solid fa-check"></i>Digital Delivery</li></ul>
-      <a href="#contact" class="price-btn outline">Get Started</a>
+      <a href="#booking" class="price-btn outline">Get Started</a>
     </div>
     <div class="price-card popular mag-card"><div class="popular-badge">Most Popular</div><h3>Professional</h3><div class="price-amount">₹12,999</div><div class="price-period">one-time</div>
       <ul class="price-features"><li><i class="fa-solid fa-check"></i>3 hr Photo/Video Session</li><li><i class="fa-solid fa-check"></i>50 Edited Photos</li><li><i class="fa-solid fa-check"></i>2 min Cinematic Reel</li><li><i class="fa-solid fa-check"></i>Brand Identity Kit</li><li><i class="fa-solid fa-check"></i>Priority Delivery</li></ul>
-      <a href="#contact" class="price-btn">Get Started</a>
+      <a href="#booking" class="price-btn">Get Started</a>
     </div>
     <div class="price-card mag-card"><h3>Brand Package</h3><div class="price-amount">₹24,999</div><div class="price-period">one-time</div>
       <ul class="price-features"><li><i class="fa-solid fa-check"></i>Full Day Shoot</li><li><i class="fa-solid fa-check"></i>Unlimited Edited Photos</li><li><i class="fa-solid fa-check"></i>5 min Brand Film</li><li><i class="fa-solid fa-check"></i>Complete Brand Identity</li><li><i class="fa-solid fa-check"></i>Social Media Kit</li><li><i class="fa-solid fa-check"></i>1 Month Growth Support</li></ul>
-      <a href="#contact" class="price-btn outline">Get Started</a>
+      <a href="#booking" class="price-btn outline">Get Started</a>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section id="testimonials" class="reveal">
-  <h2><span class="text-reveal">What Clients Say</span></h2>
+<!-- TESTIMONIALS CAROUSEL -->
+<section id="testimonials">
+  <h2>What Clients Say</h2>
   <p class="section-sub">Real words from real people we've worked with.</p>
-  <div class="testimonials-grid">
-    <div class="testi-card mag-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"HB Visuals completely transformed how my brand looks. The photos were stunning and the reel they made got us 10x more inquiries."</p><div class="testi-author"><div class="testi-avatar">R</div><div><div class="testi-name">Rahul Sharma</div><div class="testi-role">Restaurant Owner, Ludhiana</div></div></div></div>
-    <div class="testi-card mag-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Professional, fast, and creative. They understood exactly what I wanted. The editing style is cinematic and unique — 10/10 recommend."</p><div class="testi-author"><div class="testi-avatar">P</div><div><div class="testi-name">Priya Kaur</div><div class="testi-role">Fashion Influencer</div></div></div></div>
-    <div class="testi-card mag-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Got a complete brand identity done — logo, colors, social kit. Everything was on-point and delivered ahead of schedule."</p><div class="testi-author"><div class="testi-avatar">A</div><div><div class="testi-name">Arjun Mehta</div><div class="testi-role">Startup Founder</div></div></div></div>
+  <div class="testi-carousel-wrap">
+    <div class="testi-track" id="testi-track">
+      <!-- Set 1 -->
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"HB Visuals completely transformed how my brand looks. The photos were stunning and the reel they made got us 10x more inquiries."</p><div class="testi-author"><div class="testi-avatar">R</div><div><div class="testi-name">Rahul Sharma</div><div class="testi-role">Restaurant Owner, Ludhiana</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Professional, fast, and creative. They understood exactly what I wanted. The editing style is cinematic and unique — 10/10 recommend."</p><div class="testi-author"><div class="testi-avatar">P</div><div><div class="testi-name">Priya Kaur</div><div class="testi-role">Fashion Influencer</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Got a complete brand identity done — logo, colors, social kit. Everything was on-point and delivered ahead of schedule."</p><div class="testi-author"><div class="testi-avatar">A</div><div><div class="testi-name">Arjun Mehta</div><div class="testi-role">Startup Founder</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Their reels went viral for our restaurant. Within a week we had 3x our usual bookings. Worth every rupee and more."</p><div class="testi-author"><div class="testi-avatar">S</div><div><div class="testi-name">Simran Bhatia</div><div class="testi-role">Cafe Owner, Jalandhar</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"My product photography looks absolutely premium now. Customers keep asking where we got the shoot done — always send them to HB Visuals."</p><div class="testi-author"><div class="testi-avatar">K</div><div><div class="testi-name">Karan Dhillon</div><div class="testi-role">E-commerce Brand</div></div></div></div>
+      <!-- Set 2 duplicate for infinite effect -->
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"HB Visuals completely transformed how my brand looks. The photos were stunning and the reel they made got us 10x more inquiries."</p><div class="testi-author"><div class="testi-avatar">R</div><div><div class="testi-name">Rahul Sharma</div><div class="testi-role">Restaurant Owner, Ludhiana</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Professional, fast, and creative. They understood exactly what I wanted. The editing style is cinematic and unique — 10/10 recommend."</p><div class="testi-author"><div class="testi-avatar">P</div><div><div class="testi-name">Priya Kaur</div><div class="testi-role">Fashion Influencer</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Got a complete brand identity done — logo, colors, social kit. Everything was on-point and delivered ahead of schedule."</p><div class="testi-author"><div class="testi-avatar">A</div><div><div class="testi-name">Arjun Mehta</div><div class="testi-role">Startup Founder</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Their reels went viral for our restaurant. Within a week we had 3x our usual bookings. Worth every rupee and more."</p><div class="testi-author"><div class="testi-avatar">S</div><div><div class="testi-name">Simran Bhatia</div><div class="testi-role">Cafe Owner, Jalandhar</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"My product photography looks absolutely premium now. Customers keep asking where we got the shoot done — always send them to HB Visuals."</p><div class="testi-author"><div class="testi-avatar">K</div><div><div class="testi-name">Karan Dhillon</div><div class="testi-role">E-commerce Brand</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING CALENDAR (NEW) -->
+<section id="booking" class="booking-section">
+  <h2>Book a Session</h2>
+  <p class="section-sub">Pick a date and time that works for you. Confirmed within 2 hours.</p>
+  <div class="booking-wrap">
+    <div class="booking-tabs">
+      <button class="booking-tab active" onclick="switchTab(this,'tab-date')">1. Pick a Date</button>
+      <button class="booking-tab" onclick="switchTab(this,'tab-time')">2. Pick a Time</button>
+      <button class="booking-tab" onclick="switchTab(this,'tab-details')">3. Your Details</button>
+    </div>
+    <!-- Tab 1: Date -->
+    <div class="booking-panel active" id="tab-date">
+      <p style="color:var(--metaText);font-size:14px;margin-bottom:20px;">Select your preferred shoot date</p>
+      <div class="booking-slots" id="day-slots"></div>
+      <button class="booking-confirm" onclick="switchTabById('tab-time')">Continue to Time →</button>
+    </div>
+    <!-- Tab 2: Time -->
+    <div class="booking-panel" id="tab-time">
+      <p style="color:var(--metaText);font-size:14px;margin-bottom:16px;">Available time slots</p>
+      <div class="time-slots">
+        <button class="time-slot" onclick="selectTime(this)">9:00 AM</button>
+        <button class="time-slot" onclick="selectTime(this)">10:30 AM</button>
+        <button class="time-slot" onclick="selectTime(this)">12:00 PM</button>
+        <button class="time-slot" onclick="selectTime(this)">2:00 PM</button>
+        <button class="time-slot" onclick="selectTime(this)">3:30 PM</button>
+        <button class="time-slot" onclick="selectTime(this)">5:00 PM</button>
+        <button class="time-slot" onclick="selectTime(this)">6:30 PM</button>
+      </div>
+      <button class="booking-confirm" onclick="switchTabById('tab-details')">Continue to Details →</button>
+    </div>
+    <!-- Tab 3: Details -->
+    <div class="booking-panel" id="tab-details">
+      <div class="booking-form" id="booking-form">
+        <input type="text" placeholder="Your Name *" id="b-name" required>
+        <input type="tel" placeholder="Phone Number (WhatsApp) *" id="b-phone" required>
+        <input type="email" placeholder="Email Address" id="b-email">
+        <select id="b-service">
+          <option value="">Select Service *</option>
+          <option>Portrait Photography</option>
+          <option>Video Editing / Reel</option>
+          <option>Brand Identity</option>
+          <option>Full Day Shoot</option>
+          <option>Brand Package</option>
+        </select>
+        <input type="text" placeholder="Location (City, Venue)" id="b-location">
+        <button class="booking-confirm" onclick="confirmBooking()">Confirm Booking ✓</button>
+      </div>
+      <div class="booking-success" id="booking-success">
+        <div class="check">🎬</div>
+        <h3>Booking Request Sent!</h3>
+        <p>We'll confirm your session via WhatsApp within 2 hours.<br>Get ready to create something amazing!</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="reveal">
-  <h2><span class="text-reveal">Let's Work Together</span></h2>
+<section id="contact">
+  <h2>Let's Work Together</h2>
   <p class="section-sub">Tell us about your project and we'll get back to you within 24 hours.</p>
   <form class="contact-form" id="contact-form" onsubmit="handleForm(event)">
     <input type="text" name="name" placeholder="Your Name" required>
@@ -626,19 +822,47 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
 </section>
 
 <!-- B&A -->
-<section class="ba-section reveal">
+<section class="ba-section">
   <h2>Before &amp; After</h2>
   <p class="section-sub">Drag the slider to see the difference our editing makes.</p>
   <div class="ba-container" id="ba-container">
-    <img class="ba-after" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&q=80" alt="After editing">
+    <img class="ba-after" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&q=80" loading="lazy" alt="After editing">
     <div class="ba-before-wrap" id="ba-before-wrap">
-      <img class="ba-before" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&q=10&blur=10&sat=-100" alt="Before editing">
+      <img class="ba-before" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&q=10&blur=10&sat=-100" loading="lazy" alt="Before editing">
     </div>
     <div class="ba-label before">Before</div>
     <div class="ba-label after">After</div>
     <div class="ba-handle" id="ba-handle"></div>
   </div>
 </section>
+
+<!-- AI CHAT WIDGET -->
+<div id="ai-chat-widget">
+  <div id="ai-chat-box">
+    <div class="ai-chat-header">
+      <div class="ai-chat-header-left">
+        <div class="ai-chat-avatar">✦</div>
+        <div>
+          <div class="ai-chat-title">HB Visuals AI</div>
+          <div class="ai-chat-subtitle">Ask anything about our services</div>
+        </div>
+      </div>
+      <button id="ai-close-btn" onclick="toggleAIChat()">&#x2715;</button>
+    </div>
+    <div id="ai-messages"></div>
+    <div class="ai-quick-btns">
+      <button class="ai-quick-btn" onclick="askAI('What are your prices?')">Pricing</button>
+      <button class="ai-quick-btn" onclick="askAI('How long does delivery take?')">Delivery time</button>
+      <button class="ai-quick-btn" onclick="askAI('What services do you offer?')">Services</button>
+      <button class="ai-quick-btn" onclick="askAI('How do I book a session?')">How to book</button>
+    </div>
+    <div class="ai-input-row">
+      <input type="text" id="ai-input" placeholder="Ask about our services..." onkeydown="if(event.key==='Enter')sendAIMsg()">
+      <button id="ai-send" onclick="sendAIMsg()"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+  <button id="ai-toggle-btn" onclick="toggleAIChat()">✦</button>
+</div>
 
 <!-- WA WIDGET -->
 <div id="wa-widget">
@@ -662,56 +886,71 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
         <a href="#"><i class="fa-brands fa-youtube"></i></a>
       </div>
     </div>
-    <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#booking">Book a Session</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#contact">Contact</a></li></ul></div>
     <div class="footer-col"><h4>Contact</h4><ul><li><i class="fa-solid fa-location-dot"></i>Jalandhar, Punjab 144022</li><li><i class="fa-brands fa-instagram"></i>@_hitin23_</li><li><i class="fa-brands fa-whatsapp"></i>WhatsApp Us</li></ul></div>
   </div>
   <div class="footer-bottom"><p>© 2025 <span>HB VISUALS</span>. All rights reserved.</p><p>Made with ❤️ in Punjab</p></div>
 </footer>
 
-<!-- MODAL -->
-<div id="project-modal" class="modal"><div class="modal-content"><span class="close-btn">&times;</span><img id="modal-img" src="" alt=""><h2 id="modal-title"></h2><p id="modal-desc"></p></div></div>
-
-<!-- COOKIE BANNER -->
 <div id="cookie-banner"><p>🍪 We use cookies to improve your experience. By continuing, you agree to our <a href="#">Privacy Policy</a>.</p><div class="cookie-btns"><button class="cookie-accept" onclick="acceptCookie()">Accept</button><button class="cookie-decline" onclick="declineCookie()">Decline</button></div></div>
-
-<!-- BUTTONS -->
 <button id="scroll-top" aria-label="Scroll to top"><i class="fa-solid fa-chevron-up"></i></button>
 <button id="theme-toggle" aria-label="Toggle theme"><span id="theme-icon">☀️</span></button>
-
-<!-- SOUND TOGGLE (NEW) -->
-<button id="sound-toggle" aria-label="Toggle sound" onclick="toggleSound()">
-  <div class="sound-bars"><span style="height:4px"></span><span style="height:10px"></span><span style="height:14px"></span><span style="height:7px"></span></div>
-</button>
+<button id="sound-toggle" aria-label="Toggle sound" onclick="toggleSound()"><div class="sound-bars"><span style="height:4px"></span><span style="height:10px"></span><span style="height:14px"></span><span style="height:7px"></span></div></button>
 
 <script>
-// ===== PAGE LOADER =====
+// ===== LOADER =====
 window.addEventListener("load",function(){
   setTimeout(function(){
     document.getElementById("page-loader").classList.add("hidden");
-    // Page transition LEAVING animation on load
     const pt=document.getElementById("page-transition");
     pt.classList.add("entering");
     setTimeout(()=>{pt.classList.remove("entering");pt.classList.add("leaving");setTimeout(()=>pt.classList.remove("leaving"),800);},100);
+    initGSAP();
   },1400);
 });
 
-// ===== PAGE TRANSITION on nav clicks =====
-document.querySelectorAll('a[href^="#"]').forEach(link=>{
-  link.addEventListener("click",function(e){
-    const target=this.getAttribute("href");
-    if(target==="#"||target.length<2)return;
-    e.preventDefault();
-    const pt=document.getElementById("page-transition");
-    pt.classList.remove("leaving");
-    pt.classList.add("entering");
-    setTimeout(()=>{
-      const el=document.querySelector(target);
-      if(el)el.scrollIntoView({behavior:"smooth"});
-      pt.classList.remove("entering");
-      pt.classList.add("leaving");
-      setTimeout(()=>pt.classList.remove("leaving"),700);
-    },550);
+// ===== GSAP SCROLL ANIMATIONS =====
+function initGSAP(){
+  gsap.registerPlugin(ScrollTrigger);
+  // Animate each section's children
+  document.querySelectorAll("section, .awards-section, .quote-section, .ba-section, .insta-section, .booking-section, .filmstrip-section").forEach(sec=>{
+    const children = Array.from(sec.children);
+    gsap.from(children,{
+      y:50,opacity:0,duration:0.85,stagger:0.12,ease:"power3.out",
+      scrollTrigger:{trigger:sec,start:"top 82%",once:true}
+    });
   });
+  // Filmstrip GSAP horizontal scroll on scroll
+  const filmstrip = document.getElementById("filmstrip-track");
+  if(filmstrip){
+    gsap.to(filmstrip,{
+      x:()=>-(filmstrip.scrollWidth - filmstrip.parentElement.clientWidth - 100),
+      ease:"none",
+      scrollTrigger:{
+        trigger:".filmstrip-section",
+        start:"top 60%",
+        end:"bottom 20%",
+        scrub:1.2
+      }
+    });
+  }
+  // Stat number counters
+  gsap.utils.toArray(".stat-number[data-target]").forEach(el=>{
+    const target=parseInt(el.getAttribute("data-target"));
+    const suffix=target===100?"%":"+";
+    ScrollTrigger.create({
+      trigger:el,start:"top 85%",once:true,
+      onEnter:()=>{
+        gsap.to({val:0},{val:target,duration:1.8,ease:"power2.out",onUpdate:function(){el.textContent=Math.round(this.targets()[0].val)+suffix;}});
+      }
+    });
+  });
+}
+
+// ===== SPOTLIGHT CURSOR =====
+const spotlight=document.getElementById("spotlight");
+document.addEventListener("mousemove",function(e){
+  spotlight.style.background=`radial-gradient(circle 300px at ${e.clientX}px ${e.clientY}px,rgba(255,46,99,0.055) 0%,transparent 70%)`;
 });
 
 // ===== MAGNETIC CURSOR =====
@@ -735,12 +974,10 @@ document.querySelectorAll(".mag-card,.btn,.price-btn,.quote-cta").forEach(functi
     el.style.transform="perspective(600px) rotateY(0) rotateX(0) translateZ(0)";
     dot.classList.remove("hovering");ring.classList.remove("hovering");
   });
-  el.addEventListener("mouseenter",function(){
-    dot.classList.add("hovering");ring.classList.add("hovering");
-  });
+  el.addEventListener("mouseenter",function(){dot.classList.add("hovering");ring.classList.add("hovering");});
 });
 
-// ===== NAVBAR + PROGRESS =====
+// ===== NAVBAR =====
 window.addEventListener("scroll",function(){
   const s=window.scrollY,d=document.documentElement.scrollHeight-window.innerHeight;
   document.getElementById("progress-bar").style.width=(d>0?(s/d)*100:0)+"%";
@@ -748,29 +985,75 @@ window.addEventListener("scroll",function(){
   document.getElementById("scroll-top").classList.toggle("visible",s>400);
 });
 
-// ===== REVEAL =====
-function reveal(){document.querySelectorAll(".reveal").forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-80)el.classList.add("active");});}
-window.addEventListener("scroll",reveal);window.addEventListener("load",reveal);
-
-// ===== TEXT REVEAL =====
-document.querySelectorAll(".text-reveal").forEach(el=>{const w=el.innerText.split(" ");el.innerHTML=w.map(x=>`<span>${x}&nbsp;</span>`).join("");});
-function revealText(){document.querySelectorAll(".text-reveal").forEach(el=>{if(el.getBoundingClientRect().top<window.innerHeight-60)el.classList.add("active");});}
-window.addEventListener("scroll",revealText);window.addEventListener("load",revealText);
-
 // ===== HAMBURGER =====
 function toggleMenu(){const h=document.getElementById("hamburger"),mn=document.getElementById("mobile-nav"),mo=document.getElementById("mobile-overlay");h.classList.toggle("open");mn.classList.toggle("open");mo.classList.toggle("open");document.body.style.overflow=mn.classList.contains("open")?"hidden":"";}
 function closeMenu(){document.getElementById("hamburger").classList.remove("open");document.getElementById("mobile-nav").classList.remove("open");document.getElementById("mobile-overlay").classList.remove("open");document.body.style.overflow="";}
 
 // ===== FILTER =====
-document.querySelectorAll(".filter-btn").forEach(btn=>{btn.addEventListener("click",function(){document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));this.classList.add("active");const f=this.getAttribute("data-filter");document.querySelectorAll(".work-card").forEach(c=>{c.classList.toggle("hide",f!=="all"&&c.getAttribute("data-category")!==f);});});});
+document.querySelectorAll(".filter-btn").forEach(btn=>{btn.addEventListener("click",function(){document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));this.classList.add("active");const f=this.getAttribute("data-filter");document.querySelectorAll(".work-card").forEach(c=>{c.style.display=f==="all"||c.getAttribute("data-category")===f?"block":"none";});});});
 
-// ===== MODAL =====
-const modal=document.getElementById("project-modal"),modalImg=document.getElementById("modal-img"),modalTitle=document.getElementById("modal-title"),modalDesc=document.getElementById("modal-desc");
-document.querySelectorAll(".work-card").forEach(c=>{c.addEventListener("click",function(){modalImg.src=this.getAttribute("data-img");modalTitle.innerText=this.getAttribute("data-title");modalDesc.innerText=this.getAttribute("data-desc");modal.classList.add("show");document.body.style.overflow="hidden";});});
-document.querySelector(".close-btn").addEventListener("click",closeModal);
-modal.addEventListener("click",e=>{if(e.target===modal)closeModal();});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
-function closeModal(){modal.classList.remove("show");document.body.style.overflow="";}
+// ===== GLIGHTBOX =====
+const lightbox = GLightbox({touchNavigation:true,loop:true,autoplayVideos:true,openEffect:'zoom',closeEffect:'zoom'});
+
+// ===== SHOWREEL MODAL =====
+function openReel(){
+  document.getElementById("reel-modal").classList.add("open");
+  // Replace with your actual YouTube video ID
+  document.getElementById("reel-iframe").src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0&color=white";
+  document.body.style.overflow="hidden";
+}
+function closeReel(){
+  document.getElementById("reel-modal").classList.remove("open");
+  document.getElementById("reel-iframe").src="";
+  document.body.style.overflow="";
+}
+document.getElementById("reel-modal").addEventListener("click",function(e){if(e.target===this)closeReel();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeReel();});
+
+// ===== BOOKING CALENDAR =====
+(function(){
+  const container=document.getElementById("day-slots");
+  const days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  const months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const today=new Date();
+  for(let i=1;i<=10;i++){
+    const d=new Date(today);d.setDate(today.getDate()+i);
+    if(d.getDay()===0)continue; // skip Sundays
+    const el=document.createElement("div");
+    el.className="slot-day";
+    el.innerHTML=`<div class="day-name">${days[d.getDay()]}</div><div class="day-date">${d.getDate()} ${months[d.getMonth()]}</div>`;
+    el.onclick=function(){document.querySelectorAll(".slot-day").forEach(s=>s.classList.remove("selected"));this.classList.add("selected");};
+    container.appendChild(el);
+  }
+})();
+function selectTime(el){document.querySelectorAll(".time-slot").forEach(t=>t.classList.remove("selected"));el.classList.add("selected");}
+function switchTab(tabEl,panelId){
+  document.querySelectorAll(".booking-tab").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll(".booking-panel").forEach(p=>p.classList.remove("active"));
+  tabEl.classList.add("active");
+  document.getElementById(panelId).classList.add("active");
+}
+function switchTabById(panelId){
+  const tabs=document.querySelectorAll(".booking-tab");
+  const panels=["tab-date","tab-time","tab-details"];
+  const idx=panels.indexOf(panelId);
+  tabs.forEach((t,i)=>t.classList.toggle("active",i===idx));
+  document.querySelectorAll(".booking-panel").forEach(p=>p.classList.remove("active"));
+  document.getElementById(panelId).classList.add("active");
+}
+function confirmBooking(){
+  const name=document.getElementById("b-name").value.trim();
+  const phone=document.getElementById("b-phone").value.trim();
+  const service=document.getElementById("b-service").value;
+  if(!name||!phone||!service){alert("Please fill in Name, Phone, and Service.");return;}
+  document.getElementById("booking-form").style.display="none";
+  document.getElementById("booking-success").style.display="block";
+  // Auto-open WhatsApp with booking details
+  const selectedDay=document.querySelector(".slot-day.selected")?.textContent.trim()||"TBD";
+  const selectedTime=document.querySelector(".time-slot.selected")?.textContent.trim()||"TBD";
+  const msg=encodeURIComponent(`Hi HB Visuals! I'd like to book a session.\n\nName: ${name}\nPhone: ${phone}\nService: ${service}\nDate: ${selectedDay}\nTime: ${selectedTime}`);
+  setTimeout(()=>window.open(`https://wa.me/23058451482?text=${msg}`,"_blank"),1500);
+}
 
 // ===== FORM =====
 function handleForm(e){
@@ -792,49 +1075,28 @@ const themeBtn=document.getElementById("theme-toggle"),themeIcon=document.getEle
 if(localStorage.getItem("hbTheme")==="light"){document.body.classList.add("light-mode");themeIcon.textContent="🌙";}
 themeBtn.addEventListener("click",function(){document.body.classList.toggle("light-mode");const l=document.body.classList.contains("light-mode");themeIcon.textContent=l?"🌙":"☀️";localStorage.setItem("hbTheme",l?"light":"dark");});
 
-// ===== SOUND TOGGLE (NEW) =====
-let audioCtx=null,musicNode=null,gainNode=null,isPlaying=false;
+// ===== SOUND =====
+let audioCtx=null,gainNode=null,isPlaying=false;
 function createCinematicAmbience(){
   audioCtx=new(window.AudioContext||window.webkitAudioContext)();
   gainNode=audioCtx.createGain();gainNode.gain.setValueAtTime(0,audioCtx.currentTime);gainNode.gain.linearRampToValueAtTime(0.08,audioCtx.currentTime+2);
   gainNode.connect(audioCtx.destination);
-
-  // Create layered drones - cinematic ambient tones
   const freqs=[55,82.5,110,165,220];
   freqs.forEach((f,i)=>{
-    const osc=audioCtx.createOscillator();
-    const g=audioCtx.createGain();
-    const panner=audioCtx.createStereoPanner();
-    osc.type=i%2===0?'sine':'triangle';
-    osc.frequency.setValueAtTime(f,audioCtx.currentTime);
-    // Subtle frequency drift
-    osc.frequency.linearRampToValueAtTime(f*1.002,audioCtx.currentTime+8);
-    osc.frequency.linearRampToValueAtTime(f,audioCtx.currentTime+16);
-    g.gain.setValueAtTime(0.15/(i+1),audioCtx.currentTime);
-    panner.pan.setValueAtTime((i%3-1)*0.3,audioCtx.currentTime);
-    osc.connect(g);g.connect(panner);panner.connect(gainNode);
-    osc.start();
+    const osc=audioCtx.createOscillator();const g=audioCtx.createGain();const panner=audioCtx.createStereoPanner();
+    osc.type=i%2===0?'sine':'triangle';osc.frequency.setValueAtTime(f,audioCtx.currentTime);
+    osc.frequency.linearRampToValueAtTime(f*1.002,audioCtx.currentTime+8);osc.frequency.linearRampToValueAtTime(f,audioCtx.currentTime+16);
+    g.gain.setValueAtTime(0.15/(i+1),audioCtx.currentTime);panner.pan.setValueAtTime((i%3-1)*0.3,audioCtx.currentTime);
+    osc.connect(g);g.connect(panner);panner.connect(gainNode);osc.start();
   });
-
-  // Add subtle high shimmer
-  const shimmer=audioCtx.createOscillator();
-  const shimG=audioCtx.createGain();
-  shimmer.type='sine';shimmer.frequency.value=880;
-  shimG.gain.setValueAtTime(0.02,audioCtx.currentTime);
+  const shimmer=audioCtx.createOscillator();const shimG=audioCtx.createGain();
+  shimmer.type='sine';shimmer.frequency.value=880;shimG.gain.setValueAtTime(0.02,audioCtx.currentTime);
   shimmer.connect(shimG);shimG.connect(gainNode);shimmer.start();
 }
-
 function toggleSound(){
   const btn=document.getElementById("sound-toggle");
-  if(!isPlaying){
-    if(!audioCtx)createCinematicAmbience();
-    else if(audioCtx.state==='suspended')audioCtx.resume();
-    gainNode.gain.linearRampToValueAtTime(0.08,audioCtx.currentTime+1.5);
-    isPlaying=true;btn.classList.add("playing");
-  } else {
-    gainNode.gain.linearRampToValueAtTime(0,audioCtx.currentTime+1.5);
-    isPlaying=false;btn.classList.remove("playing");
-  }
+  if(!isPlaying){if(!audioCtx)createCinematicAmbience();else if(audioCtx.state==='suspended')audioCtx.resume();gainNode.gain.linearRampToValueAtTime(0.08,audioCtx.currentTime+1.5);isPlaying=true;btn.classList.add("playing");}
+  else{gainNode.gain.linearRampToValueAtTime(0,audioCtx.currentTime+1.5);isPlaying=false;btn.classList.remove("playing");}
 }
 
 // ===== B&A SLIDER =====
@@ -842,29 +1104,23 @@ function toggleSound(){
   const container=document.getElementById("ba-container"),bw=document.getElementById("ba-before-wrap"),handle=document.getElementById("ba-handle");
   if(!container)return;let dragging=false;
   function setPos(x){const r=container.getBoundingClientRect();let p=Math.min(Math.max((x-r.left)/r.width,0.02),0.98);bw.style.width=(p*100)+"%";handle.style.left=(p*100)+"%";}
-  handle.addEventListener("mousedown",()=>dragging=true);
-  container.addEventListener("mousedown",e=>{dragging=true;setPos(e.clientX);});
-  window.addEventListener("mouseup",()=>dragging=false);
-  window.addEventListener("mousemove",e=>{if(dragging)setPos(e.clientX);});
-  handle.addEventListener("touchstart",()=>dragging=true,{passive:true});
-  container.addEventListener("touchstart",e=>{dragging=true;setPos(e.touches[0].clientX);},{passive:true});
-  window.addEventListener("touchend",()=>dragging=false);
-  window.addEventListener("touchmove",e=>{if(dragging)setPos(e.touches[0].clientX);},{passive:true});
+  handle.addEventListener("mousedown",()=>dragging=true);container.addEventListener("mousedown",e=>{dragging=true;setPos(e.clientX);});
+  window.addEventListener("mouseup",()=>dragging=false);window.addEventListener("mousemove",e=>{if(dragging)setPos(e.clientX);});
+  handle.addEventListener("touchstart",()=>dragging=true,{passive:true});container.addEventListener("touchstart",e=>{dragging=true;setPos(e.touches[0].clientX);},{passive:true});
+  window.addEventListener("touchend",()=>dragging=false);window.addEventListener("touchmove",e=>{if(dragging)setPos(e.touches[0].clientX);},{passive:true});
 })();
 
-// ===== HORIZONTAL SCROLL (PROCESS - drag) =====
+// ===== PROCESS DRAG =====
 (function(){
-  const track=document.getElementById("processTrack");
-  if(!track)return;
+  const track=document.getElementById("processTrack");if(!track)return;
   let isDown=false,startX,scrollLeft;
   track.addEventListener("mousedown",e=>{isDown=true;track.classList.add("grabbing");startX=e.pageX-track.offsetLeft;scrollLeft=track.scrollLeft;});
   track.addEventListener("mouseleave",()=>{isDown=false;track.classList.remove("grabbing");});
   track.addEventListener("mouseup",()=>{isDown=false;track.classList.remove("grabbing");});
-  track.addEventListener("mousemove",e=>{if(!isDown)return;e.preventDefault();const x=e.pageX-track.offsetLeft;const walk=(x-startX)*1.5;track.scrollLeft=scrollLeft-walk;});
-  // Touch
+  track.addEventListener("mousemove",e=>{if(!isDown)return;e.preventDefault();const x=e.pageX-track.offsetLeft;track.scrollLeft=scrollLeft-(x-startX)*1.5;});
   let ts=0,tsl=0;
   track.addEventListener("touchstart",e=>{ts=e.touches[0].pageX;tsl=track.scrollLeft;},{passive:true});
-  track.addEventListener("touchmove",e=>{const dx=ts-e.touches[0].pageX;track.scrollLeft=tsl+dx;},{passive:true});
+  track.addEventListener("touchmove",e=>{track.scrollLeft=tsl+(ts-e.touches[0].pageX);},{passive:true});
 })();
 
 // ===== WA =====
@@ -875,18 +1131,6 @@ setTimeout(()=>document.getElementById("wa-popup").classList.add("open"),4000);
 if(!localStorage.getItem("hbCookie")){setTimeout(()=>document.getElementById("cookie-banner").classList.add("show"),2500);}
 function acceptCookie(){localStorage.setItem("hbCookie","accepted");document.getElementById("cookie-banner").classList.remove("show");}
 function declineCookie(){localStorage.setItem("hbCookie","declined");document.getElementById("cookie-banner").classList.remove("show");}
-
-// ===== COUNTERS =====
-function animateCounters(){
-  document.querySelectorAll(".stat-number[data-target]").forEach(el=>{
-    const target=parseInt(el.getAttribute("data-target")),suffix=target===100?"%":"+";
-    let current=0,inc=Math.ceil(target/60);
-    const t=setInterval(()=>{current+=inc;if(current>=target){current=target;clearInterval(t);}el.innerText=current+suffix;},25);
-  });
-}
-let countersAnimated=false;
-function checkCounters(){const s=document.querySelector(".stats-row");if(!countersAnimated&&s&&s.getBoundingClientRect().top<window.innerHeight-50){countersAnimated=true;animateCounters();}}
-window.addEventListener("scroll",checkCounters);window.addEventListener("load",checkCounters);
 
 // ===== TYPING =====
 (function(){
@@ -914,20 +1158,100 @@ window.addEventListener("scroll",checkCounters);window.addEventListener("load",c
 
 // ===== QUOTE =====
 function calcQuote(){
-  let total=0;
-  document.querySelectorAll(".quote-option input:checked").forEach(cb=>total+=parseInt(cb.value));
+  let total=0;document.querySelectorAll(".quote-option input:checked").forEach(cb=>total+=parseInt(cb.value));
   document.getElementById("quote-total").textContent="₹"+total.toLocaleString("en-IN");
 }
 
 // ===== SCROLL TO SECTION =====
 function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:"smooth"});}
 
-// ===== VIDEO AUTOPLAY FIX =====
+// ===== VIDEO AUTOPLAY =====
 (function(){
   const v=document.getElementById("hero-video");if(!v)return;
   v.muted=true;v.setAttribute("muted","");v.setAttribute("playsinline","");
   const p=v.play();if(p!==undefined)p.catch(()=>{const t=()=>{v.play().catch(()=>{});document.removeEventListener("touchstart",t);document.removeEventListener("click",t);};document.addEventListener("touchstart",t,{once:true});document.addEventListener("click",t,{once:true});});
 })();
+
+// ===== AI CHAT WIDGET (Claude-powered) =====
+let aiOpen=false,aiHistory=[];
+const AI_SYSTEM=`You are the AI assistant for HB Visuals, a creative agency based in Punjab, India (Ludhiana/Jalandhar area). You help potential clients learn about services and book sessions. Be friendly, concise, and enthusiastic. 
+
+Services & Pricing:
+- 1hr Portrait Session: ₹4,999 (20 edited photos)
+- Video Editing / 1 Reel: ₹3,999
+- Brand Identity Kit: ₹6,999 (logo, colors, fonts)
+- Social Media Kit: ₹2,999
+- Full Day Shoot: ₹8,999
+- 1 Month Growth Support: ₹5,999
+
+Packages:
+- Starter: ₹4,999 (1hr shoot, 20 photos, basic retouch)
+- Professional: ₹12,999 (3hr session, 50 photos, 2min reel, brand kit, priority delivery)
+- Brand Package: ₹24,999 (full day, unlimited photos, 5min brand film, complete identity, social kit, 1mo growth support)
+
+Delivery: 48-72 hours for most projects. Available across Punjab.
+Contact: Instagram @_hitin23_, WhatsApp available.
+To book: Use the "Book a Session" section on the website.
+
+Keep replies under 3 sentences unless pricing/package details are requested. Always end with a nudge to book or contact.`;
+
+function toggleAIChat(){
+  aiOpen=!aiOpen;
+  const box=document.getElementById("ai-chat-box");
+  box.classList.toggle("open",aiOpen);
+  if(aiOpen&&aiHistory.length===0){
+    addAIMsg("bot","Hey! 👋 I'm the HB Visuals AI. Ask me anything about our services, pricing, or how to book a session.");
+  }
+}
+
+function addAIMsg(role,text){
+  const msgs=document.getElementById("ai-messages");
+  const div=document.createElement("div");
+  div.className=`ai-msg ${role}`;div.textContent=text;
+  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
+}
+
+function showTyping(){
+  const msgs=document.getElementById("ai-messages");
+  const div=document.createElement("div");div.className="ai-msg bot typing";div.id="ai-typing";
+  div.innerHTML='<div class="ai-typing-dot"></div><div class="ai-typing-dot"></div><div class="ai-typing-dot"></div>';
+  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
+}
+function removeTyping(){const t=document.getElementById("ai-typing");if(t)t.remove();}
+
+async function askAI(question){
+  if(!aiOpen)toggleAIChat();
+  document.getElementById("ai-input").value=question;
+  await sendAIMsg();
+}
+
+async function sendAIMsg(){
+  const input=document.getElementById("ai-input");
+  const text=input.value.trim();if(!text)return;
+  input.value="";
+  addAIMsg("user",text);
+  aiHistory.push({role:"user",content:text});
+  showTyping();
+  try{
+    const resp=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",max_tokens:300,
+        system:AI_SYSTEM,
+        messages:aiHistory.slice(-8)
+      })
+    });
+    const data=await resp.json();
+    const reply=data.content?.map(b=>b.text||"").join("")||"Sorry, I couldn't connect. Please WhatsApp us directly!";
+    removeTyping();
+    addAIMsg("bot",reply);
+    aiHistory.push({role:"assistant",content:reply});
+  }catch(e){
+    removeTyping();
+    addAIMsg("bot","Connection issue! Please reach us on WhatsApp or Instagram @_hitin23_ 🙏");
+  }
+}
 </script>
 </body>
 </html>
