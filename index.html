@@ -1068,7 +1068,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
         <button class="wa-pill" onclick="selectWAService('Full Day Shoot')">🌅 Full Day Shoot</button>
         <button class="wa-pill" onclick="selectWAService('Other / Custom')">💬 Custom</button>
       </div>
-      <a class="wa-start-btn" id="wa-start-link" href="https://wa.me/919876543210?text=Hi%20HB%20Visuals!%20I%27m%20interested%20in%20your%20services." target="_blank"><i class="fa-brands fa-whatsapp"></i> <span id="wa-btn-text">Chat on WhatsApp</span></a>
+      <a class="wa-start-btn" id="wa-start-link" href="https://wa.me/23058451482?text=Hi%20HB%20Visuals!%20I%27m%20interested%20in%20your%20services." target="_blank"><i class="fa-brands fa-whatsapp"></i> <span id="wa-btn-text">Chat on WhatsApp</span></a>
     </div>
   </div>
   <div id="wa-bubble" onclick="toggleWA()"><i class="fa-brands fa-whatsapp"></i></div>
@@ -1079,7 +1079,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
     <div class="footer-brand"><div class="logo">HB VISUALS</div><p>Creative agency helping businesses look and feel premium through photography, video, and branding.</p>
       <div class="footer-social">
         <a href="https://instagram.com/_hitin23_" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://wa.me/919876543210" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://wa.me/23058451482" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
         <a href="#"><i class="fa-brands fa-youtube"></i></a>
       </div>
     </div>
@@ -1108,7 +1108,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
 
 <!-- Click to call (mobile) -->
 <div id="click-to-call">
-  <a href="tel:+919876543210" aria-label="Call HB Visuals"><i class="fa-solid fa-phone"></i></a>
+  <a href="tel:+917888623104" aria-label="Call HB Visuals"><i class="fa-solid fa-phone"></i></a>
 </div>
 
 <!-- Mobile bottom nav -->
@@ -1125,7 +1125,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
   <div class="sticky-cta-text">Ready to make your brand look <span>premium?</span></div>
   <div class="sticky-cta-btns">
     <a href="#booking" class="cta-primary">📅 Book a Session</a>
-    <a href="https://wa.me/919876543210?text=Hi%20HB%20Visuals!%20I%27d%20like%20to%20book%20a%20session." target="_blank" class="cta-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    <a href="https://wa.me/23058451482?text=Hi%20HB%20Visuals!%20I%27d%20like%20to%20book%20a%20session." target="_blank" class="cta-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
   </div>
 </div>
 
@@ -1228,7 +1228,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeReel();});
 function selectTime(el){document.querySelectorAll(".time-slot").forEach(t=>t.classList.remove("selected"));el.classList.add("selected");}
 function switchTab(tabEl,panelId){document.querySelectorAll(".booking-tab").forEach(t=>t.classList.remove("active"));document.querySelectorAll(".booking-panel").forEach(p=>p.classList.remove("active"));tabEl.classList.add("active");document.getElementById(panelId).classList.add("active");}
 function switchTabById(panelId){const tabs=document.querySelectorAll(".booking-tab");const panels=["tab-date","tab-time","tab-details"];const idx=panels.indexOf(panelId);tabs.forEach((t,i)=>t.classList.toggle("active",i===idx));document.querySelectorAll(".booking-panel").forEach(p=>p.classList.remove("active"));document.getElementById(panelId).classList.add("active");}
-function confirmBooking(){const name=document.getElementById("b-name").value.trim();const phone=document.getElementById("b-phone").value.trim();const service=document.getElementById("b-service").value;if(!name||!phone||!service){alert("Please fill in Name, Phone, and Service.");return;}document.getElementById("booking-form").style.display="none";document.getElementById("booking-success").style.display="block";const selectedDay=document.querySelector(".slot-day.selected")?.textContent.trim()||"TBD";const selectedTime=document.querySelector(".time-slot.selected")?.textContent.trim()||"TBD";const msg=encodeURIComponent(`Hi HB Visuals! I'd like to book a session.\n\nName: ${name}\nPhone: ${phone}\nService: ${service}\nDate: ${selectedDay}\nTime: ${selectedTime}`);setTimeout(()=>window.open(`https://wa.me/919876543210?text=${msg}`,"_blank"),1500);}
+function confirmBooking(){const name=document.getElementById("b-name").value.trim();const phone=document.getElementById("b-phone").value.trim();const service=document.getElementById("b-service").value;if(!name||!phone||!service){alert("Please fill in Name, Phone, and Service.");return;}document.getElementById("booking-form").style.display="none";document.getElementById("booking-success").style.display="block";const selectedDay=document.querySelector(".slot-day.selected")?.textContent.trim()||"TBD";const selectedTime=document.querySelector(".time-slot.selected")?.textContent.trim()||"TBD";const msg=encodeURIComponent(`Hi HB Visuals! I'd like to book a session.\n\nName: ${name}\nPhone: ${phone}\nService: ${service}\nDate: ${selectedDay}\nTime: ${selectedTime}`);setTimeout(()=>window.open(`https://wa.me/23058451482?text=${msg}`,"_blank"),1500);}
 // ── FORMSPREE REAL CONTACT FORM ──────────────────────────────────────────────
 // ⚠️  Replace YOUR_FORMSPREE_ID below with your actual ID from formspree.io
 const FORMSPREE_ID = "YOUR_FORMSPREE_ID"; // e.g. "xpwzjkab"
@@ -1270,12 +1270,12 @@ async function handleForm(e){
     const name = document.getElementById("cf-name")?.value || "";
     const service = document.getElementById("cf-service")?.value || "a service";
     const msg = encodeURIComponent(`Hi HB Visuals! I'm ${name} and I'm interested in ${service}. Please get in touch.`);
-    setTimeout(() => window.open(`https://wa.me/919876543210?text=${msg}`, "_blank"), 800);
+    setTimeout(() => window.open(`https://wa.me/23058451482?text=${msg}`, "_blank"), 800);
   }
 }
 
 // ── SMART WHATSAPP ────────────────────────────────────────────────────────────
-const WA_NUMBER = "919876543210"; // ⚠️ Replace with your actual WhatsApp number (country code + number, no +)
+const WA_NUMBER = "23058451482"; // ⚠️ Replace with your actual WhatsApp number (country code + number, no +)
 const WA_SERVICE_MSGS = {
   "Portrait Photography":   "Hi HB Visuals! 📸 I'm interested in a Portrait Photography session. Can you share details and availability?",
   "Video Editing / Reel":   "Hi HB Visuals! 🎬 I'd love to get a video edited / reel made. What's the process and pricing?",
@@ -1508,7 +1508,7 @@ function downloadChecklist(){
   if(!email){ alert('Please enter your email!'); return; }
   // In production connect to Formspree/Mailchimp; for now open WhatsApp
   const msg = encodeURIComponent(`Hi HB Visuals! My email is ${email}. Please send me the free Brand Checklist!`);
-  window.open(`https://wa.me/919876543210?text=${msg}`,'_blank');
+  window.open(`https://wa.me/23058451482?text=${msg}`,'_blank');
   document.getElementById('lead-magnet').classList.remove('open');
 }
 
