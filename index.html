@@ -294,35 +294,7 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-
 .ba-label{position:absolute;top:16px;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;backdrop-filter:blur(8px);}
 .ba-label.before{left:16px;background:rgba(0,0,0,0.5);color:#aaa;}
 .ba-label.after{right:16px;background:var(--grad);color:#fff;}
-#ai-chat-widget{position:fixed;bottom:90px;left:24px;z-index:9997;display:flex;flex-direction:column;align-items:flex-start;gap:12px;}
-#ai-chat-box{width:300px;background:rgba(8,10,18,0.97);border:1px solid rgba(255,46,99,0.25);border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:none;}
-#ai-chat-box.open{display:flex;flex-direction:column;}
-.ai-chat-header{background:var(--grad);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;}
-.ai-chat-header-left{display:flex;align-items:center;gap:10px;}
-.ai-chat-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:18px;}
-.ai-chat-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:#fff;}
-.ai-chat-subtitle{font-size:11px;color:rgba(255,255,255,0.75);margin-top:2px;}
-#ai-close-btn{background:none;border:none;color:rgba(255,255,255,0.8);cursor:none;font-size:18px;line-height:1;padding:0;}
-#ai-messages{height:220px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin;scrollbar-color:rgba(255,46,99,0.3) transparent;}
-.ai-msg{max-width:85%;padding:10px 13px;border-radius:12px;font-size:13px;line-height:1.6;}
-.ai-msg.bot{background:rgba(255,255,255,0.08);color:#ccc;border-radius:4px 12px 12px 12px;}
-.ai-msg.user{background:var(--grad);color:#fff;align-self:flex-end;border-radius:12px 4px 12px 12px;}
-.ai-msg.typing{display:flex;align-items:center;gap:4px;padding:12px 16px;}
-.ai-typing-dot{width:6px;height:6px;border-radius:50%;background:#888;animation:typing-bounce 0.8s ease infinite;}
-.ai-typing-dot:nth-child(2){animation-delay:0.15s;}
-.ai-typing-dot:nth-child(3){animation-delay:0.3s;}
-@keyframes typing-bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);background:var(--red);}}
-.ai-quick-btns{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 10px;}
-.ai-quick-btn{padding:5px 12px;border-radius:14px;border:1px solid rgba(255,46,99,0.3);background:transparent;color:var(--red);font-size:12px;cursor:none;transition:0.2s;}
-.ai-quick-btn:hover{background:rgba(255,46,99,0.1);}
-.ai-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--border);}
-#ai-input{flex:1;padding:9px 12px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,0.06);color:var(--text);font-size:13px;font-family:'Inter',sans-serif;outline:none;}
-#ai-input:focus{border-color:rgba(255,46,99,0.4);}
-#ai-send{width:34px;height:34px;border-radius:50%;background:var(--grad);border:none;color:#fff;cursor:none;display:flex;align-items:center;justify-content:center;font-size:14px;transition:0.2s;flex-shrink:0;}
-#ai-send:hover{transform:scale(1.08);}
-#ai-toggle-btn{width:52px;height:52px;border-radius:50%;background:var(--grad);border:none;color:#fff;cursor:none;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 8px 25px rgba(255,46,99,0.4);transition:0.3s;animation:ai-pulse 2.5s ease infinite;}
-#ai-toggle-btn:hover{transform:scale(1.1);}
-@keyframes ai-pulse{0%,100%{box-shadow:0 8px 25px rgba(255,46,99,0.4);}50%{box-shadow:0 8px 40px rgba(255,46,99,0.7);}}
+50%{transform:translateY(-5px);background:var(--red);}}
 #sound-toggle{position:fixed;bottom:206px;right:24px;width:46px;height:46px;border-radius:50%;background:var(--card);border:1px solid var(--border);color:var(--text);cursor:none;display:flex;align-items:center;justify-content:center;font-size:18px;z-index:9998;transition:0.3s ease;box-shadow:0 6px 20px rgba(0,0,0,0.3);backdrop-filter:blur(10px);}
 #sound-toggle:hover{transform:scale(1.1);border-color:var(--red);}
 #sound-toggle.playing{border-color:var(--red);background:rgba(255,46,99,0.15);animation:sound-pulse 2s ease infinite;}
@@ -378,7 +350,6 @@ body.light-mode #theme-toggle{background:rgba(0,0,0,0.08);color:#111;}
 body.light-mode #wa-popup{background:rgba(240,242,248,0.97);}
 body.light-mode #cookie-banner{background:rgba(240,242,248,0.97);}
 body.light-mode #cookie-banner p{color:#555;}
-body.light-mode #ai-chat-box{background:rgba(240,242,248,0.97);}
 body.light-mode .booking-form input,body.light-mode .booking-form select{background:rgba(0,0,0,0.05);color:#111;}
 footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60px 8% 30px;position:relative;z-index:1;}
 .footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:50px;margin-bottom:50px;}
@@ -416,9 +387,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
   #wa-bubble{width:52px;height:52px;}
   .process-step{width:260px;}
   .awards-grid{gap:16px;}
-  #ai-chat-widget{left:12px;bottom:80px;}
-  #ai-chat-box{width:280px;}
-  .filmstrip-item{width:240px;height:160px;}
+      .filmstrip-item{width:240px;height:160px;}
 }
 
 /* ── COUNTDOWN BANNER ─────────────────────────────── */
@@ -1021,32 +990,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
   </div>
 </section>
 
-<div id="ai-chat-widget">
-  <div id="ai-chat-box">
-    <div class="ai-chat-header">
-      <div class="ai-chat-header-left">
-        <div class="ai-chat-avatar">✦</div>
-        <div>
-          <div class="ai-chat-title">HB Visuals AI</div>
-          <div class="ai-chat-subtitle">Ask anything about our services</div>
-        </div>
-      </div>
-      <button id="ai-close-btn" onclick="toggleAIChat()">&#x2715;</button>
-    </div>
-    <div id="ai-messages"></div>
-    <div class="ai-quick-btns">
-      <button class="ai-quick-btn" onclick="askAI('What are your prices?')">Pricing</button>
-      <button class="ai-quick-btn" onclick="askAI('How long does delivery take?')">Delivery time</button>
-      <button class="ai-quick-btn" onclick="askAI('What services do you offer?')">Services</button>
-      <button class="ai-quick-btn" onclick="askAI('How do I book a session?')">How to book</button>
-    </div>
-    <div class="ai-input-row">
-      <input type="text" id="ai-input" placeholder="Ask about our services..." onkeydown="if(event.key==='Enter')sendAIMsg()">
-      <button id="ai-send" onclick="sendAIMsg()"><i class="fa-solid fa-paper-plane"></i></button>
-    </div>
-  </div>
-  <button id="ai-toggle-btn" onclick="toggleAIChat()">✦</button>
-</div>
+
 
 <div id="wa-widget">
   <div id="wa-popup">
@@ -1068,7 +1012,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
         <button class="wa-pill" onclick="selectWAService('Full Day Shoot')">🌅 Full Day Shoot</button>
         <button class="wa-pill" onclick="selectWAService('Other / Custom')">💬 Custom</button>
       </div>
-      <a class="wa-start-btn" id="wa-start-link" href="https://wa.me/23058451482?text=Hi%20HB%20Visuals!%20I%27m%20interested%20in%20your%20services." target="_blank"><i class="fa-brands fa-whatsapp"></i> <span id="wa-btn-text">Chat on WhatsApp</span></a>
+      <a class="wa-start-btn" id="wa-start-link" href="https://wa.me/919876543210?text=Hi%20HB%20Visuals!%20I%27m%20interested%20in%20your%20services." target="_blank"><i class="fa-brands fa-whatsapp"></i> <span id="wa-btn-text">Chat on WhatsApp</span></a>
     </div>
   </div>
   <div id="wa-bubble" onclick="toggleWA()"><i class="fa-brands fa-whatsapp"></i></div>
@@ -1079,7 +1023,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
     <div class="footer-brand"><div class="logo">HB VISUALS</div><p>Creative agency helping businesses look and feel premium through photography, video, and branding.</p>
       <div class="footer-social">
         <a href="https://instagram.com/_hitin23_" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://wa.me/23058451482" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://wa.me/919876543210" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
         <a href="#"><i class="fa-brands fa-youtube"></i></a>
       </div>
     </div>
@@ -1108,7 +1052,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
 
 <!-- Click to call (mobile) -->
 <div id="click-to-call">
-  <a href="tel:+917888623104" aria-label="Call HB Visuals"><i class="fa-solid fa-phone"></i></a>
+  <a href="tel:+919876543210" aria-label="Call HB Visuals"><i class="fa-solid fa-phone"></i></a>
 </div>
 
 <!-- Mobile bottom nav -->
@@ -1125,7 +1069,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
   <div class="sticky-cta-text">Ready to make your brand look <span>premium?</span></div>
   <div class="sticky-cta-btns">
     <a href="#booking" class="cta-primary">📅 Book a Session</a>
-    <a href="https://wa.me/23058451482?text=Hi%20HB%20Visuals!%20I%27d%20like%20to%20book%20a%20session." target="_blank" class="cta-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+    <a href="https://wa.me/919876543210?text=Hi%20HB%20Visuals!%20I%27d%20like%20to%20book%20a%20session." target="_blank" class="cta-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
   </div>
 </div>
 
@@ -1228,7 +1172,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeReel();});
 function selectTime(el){document.querySelectorAll(".time-slot").forEach(t=>t.classList.remove("selected"));el.classList.add("selected");}
 function switchTab(tabEl,panelId){document.querySelectorAll(".booking-tab").forEach(t=>t.classList.remove("active"));document.querySelectorAll(".booking-panel").forEach(p=>p.classList.remove("active"));tabEl.classList.add("active");document.getElementById(panelId).classList.add("active");}
 function switchTabById(panelId){const tabs=document.querySelectorAll(".booking-tab");const panels=["tab-date","tab-time","tab-details"];const idx=panels.indexOf(panelId);tabs.forEach((t,i)=>t.classList.toggle("active",i===idx));document.querySelectorAll(".booking-panel").forEach(p=>p.classList.remove("active"));document.getElementById(panelId).classList.add("active");}
-function confirmBooking(){const name=document.getElementById("b-name").value.trim();const phone=document.getElementById("b-phone").value.trim();const service=document.getElementById("b-service").value;if(!name||!phone||!service){alert("Please fill in Name, Phone, and Service.");return;}document.getElementById("booking-form").style.display="none";document.getElementById("booking-success").style.display="block";const selectedDay=document.querySelector(".slot-day.selected")?.textContent.trim()||"TBD";const selectedTime=document.querySelector(".time-slot.selected")?.textContent.trim()||"TBD";const msg=encodeURIComponent(`Hi HB Visuals! I'd like to book a session.\n\nName: ${name}\nPhone: ${phone}\nService: ${service}\nDate: ${selectedDay}\nTime: ${selectedTime}`);setTimeout(()=>window.open(`https://wa.me/23058451482?text=${msg}`,"_blank"),1500);}
+function confirmBooking(){const name=document.getElementById("b-name").value.trim();const phone=document.getElementById("b-phone").value.trim();const service=document.getElementById("b-service").value;if(!name||!phone||!service){alert("Please fill in Name, Phone, and Service.");return;}document.getElementById("booking-form").style.display="none";document.getElementById("booking-success").style.display="block";const selectedDay=document.querySelector(".slot-day.selected")?.textContent.trim()||"TBD";const selectedTime=document.querySelector(".time-slot.selected")?.textContent.trim()||"TBD";const msg=encodeURIComponent(`Hi HB Visuals! I'd like to book a session.\n\nName: ${name}\nPhone: ${phone}\nService: ${service}\nDate: ${selectedDay}\nTime: ${selectedTime}`);setTimeout(()=>window.open(`https://wa.me/919876543210?text=${msg}`,"_blank"),1500);}
 // ── FORMSPREE REAL CONTACT FORM ──────────────────────────────────────────────
 // ⚠️  Replace YOUR_FORMSPREE_ID below with your actual ID from formspree.io
 const FORMSPREE_ID = "YOUR_FORMSPREE_ID"; // e.g. "xpwzjkab"
@@ -1270,12 +1214,12 @@ async function handleForm(e){
     const name = document.getElementById("cf-name")?.value || "";
     const service = document.getElementById("cf-service")?.value || "a service";
     const msg = encodeURIComponent(`Hi HB Visuals! I'm ${name} and I'm interested in ${service}. Please get in touch.`);
-    setTimeout(() => window.open(`https://wa.me/23058451482?text=${msg}`, "_blank"), 800);
+    setTimeout(() => window.open(`https://wa.me/919876543210?text=${msg}`, "_blank"), 800);
   }
 }
 
 // ── SMART WHATSAPP ────────────────────────────────────────────────────────────
-const WA_NUMBER = "23058451482"; // ⚠️ Replace with your actual WhatsApp number (country code + number, no +)
+const WA_NUMBER = "919876543210"; // ⚠️ Replace with your actual WhatsApp number (country code + number, no +)
 const WA_SERVICE_MSGS = {
   "Portrait Photography":   "Hi HB Visuals! 📸 I'm interested in a Portrait Photography session. Can you share details and availability?",
   "Video Editing / Reel":   "Hi HB Visuals! 🎬 I'd love to get a video edited / reel made. What's the process and pricing?",
@@ -1337,33 +1281,7 @@ function declineCookie(){localStorage.setItem("hbCookie","declined");document.ge
 function calcQuote(){let total=0;document.querySelectorAll(".quote-option input:checked").forEach(cb=>total+=parseInt(cb.value));document.getElementById("quote-total").textContent="₹"+total.toLocaleString("en-IN");}
 function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:"smooth"});}
 (function(){const v=document.getElementById("hero-video");if(!v)return;v.muted=true;v.setAttribute("muted","");v.setAttribute("playsinline","");const p=v.play();if(p!==undefined)p.catch(()=>{const t=()=>{v.play().catch(()=>{});document.removeEventListener("touchstart",t);document.removeEventListener("click",t);};document.addEventListener("touchstart",t,{once:true});document.addEventListener("click",t,{once:true});});})();
-let aiOpen=false,aiHistory=[];
-const AI_SYSTEM=`You are the AI assistant for HB Visuals, a creative agency based in Punjab, India (Ludhiana/Jalandhar area). You help potential clients learn about services and book sessions. Be friendly, concise, and enthusiastic. 
 
-Services & Pricing:
-- 1hr Portrait Session: ₹4,999 (20 edited photos)
-- Video Editing / 1 Reel: ₹3,999
-- Brand Identity Kit: ₹6,999 (logo, colors, fonts)
-- Social Media Kit: ₹2,999
-- Full Day Shoot: ₹8,999
-- 1 Month Growth Support: ₹5,999
-
-Packages:
-- Starter: ₹4,999 (1hr shoot, 20 photos, basic retouch)
-- Professional: ₹12,999 (3hr session, 50 photos, 2min reel, brand kit, priority delivery)
-- Brand Package: ₹24,999 (full day, unlimited photos, 5min brand film, complete identity, social kit, 1mo growth support)
-
-Delivery: 48-72 hours for most projects. Available across Punjab.
-Contact: Instagram @_hitin23_, WhatsApp available.
-To book: Use the "Book a Session" section on the website.
-
-Keep replies under 3 sentences unless pricing/package details are requested. Always end with a nudge to book or contact.`;
-function toggleAIChat(){aiOpen=!aiOpen;const box=document.getElementById("ai-chat-box");box.classList.toggle("open",aiOpen);if(aiOpen&&aiHistory.length===0){addAIMsg("bot","Hey! 👋 I'm the HB Visuals AI. Ask me anything about our services, pricing, or how to book a session.");}}
-function addAIMsg(role,text){const msgs=document.getElementById("ai-messages");const div=document.createElement("div");div.className=`ai-msg ${role}`;div.textContent=text;msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;}
-function showTyping(){const msgs=document.getElementById("ai-messages");const div=document.createElement("div");div.className="ai-msg bot typing";div.id="ai-typing";div.innerHTML='<div class="ai-typing-dot"></div><div class="ai-typing-dot"></div><div class="ai-typing-dot"></div>';msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;}
-function removeTyping(){const t=document.getElementById("ai-typing");if(t)t.remove();}
-async function askAI(question){if(!aiOpen)toggleAIChat();document.getElementById("ai-input").value=question;await sendAIMsg();}
-async function sendAIMsg(){const input=document.getElementById("ai-input");const text=input.value.trim();if(!text)return;input.value="";addAIMsg("user",text);aiHistory.push({role:"user",content:text});showTyping();try{const resp=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:300,system:AI_SYSTEM,messages:aiHistory.slice(-8)})});const data=await resp.json();const reply=data.content?.map(b=>b.text||"").join("")||"Sorry, I couldn't connect. Please WhatsApp us directly!";removeTyping();addAIMsg("bot",reply);aiHistory.push({role:"assistant",content:reply});}catch(e){removeTyping();addAIMsg("bot","Connection issue! Please reach us on WhatsApp or Instagram @_hitin23_ 🙏");}}
 
 // ── COUNTDOWN TIMER ───────────────────────────────────────────────────────
 (function(){
@@ -1508,7 +1426,7 @@ function downloadChecklist(){
   if(!email){ alert('Please enter your email!'); return; }
   // In production connect to Formspree/Mailchimp; for now open WhatsApp
   const msg = encodeURIComponent(`Hi HB Visuals! My email is ${email}. Please send me the free Brand Checklist!`);
-  window.open(`https://wa.me/23058451482?text=${msg}`,'_blank');
+  window.open(`https://wa.me/919876543210?text=${msg}`,'_blank');
   document.getElementById('lead-magnet').classList.remove('open');
 }
 
