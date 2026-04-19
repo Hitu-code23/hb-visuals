@@ -102,6 +102,7 @@ body::before{content:"";position:fixed;inset:0;background-image:url("data:image/
 .btn-ghost{background:transparent!important;border:1px solid rgba(255,255,255,0.3)!important;display:flex;align-items:center;gap:8px;}
 .btn-ghost::before{display:none;}
 .btn-ghost:hover{background:rgba(255,255,255,0.07)!important;border-color:rgba(255,46,99,0.6)!important;}
+
 .scroll-down{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);width:45px;height:45px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:none;border:1px solid rgba(255,255,255,0.4);color:#fff;font-size:18px;animation:bounce-safe 1.5s infinite;z-index:10;background:rgba(0,0,0,0.25);backdrop-filter:blur(6px);transition:background 0.3s;}
 @keyframes bounce-safe{0%,100%{margin-top:0;}50%{margin-top:8px;}}
 #reel-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.94);z-index:9999999;align-items:center;justify-content:center;flex-direction:column;gap:20px;}
@@ -432,11 +433,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
 .sec-dot-tip{position:absolute;right:18px;top:50%;transform:translateY(-50%);background:rgba(10,12,20,0.9);border:1px solid var(--border);color:#fff;font-size:11px;padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.2s;font-family:'Inter',sans-serif;}
 .sec-dot:hover .sec-dot-tip{opacity:1;}
 /* ── MOBILE BOTTOM NAV ────────────────────────────── */
-#mobile-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:99991;background:rgba(8,10,18,0.97);backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:8px 0 env(safe-area-inset-bottom);justify-content:space-around;}
-@media(max-width:768px){#mobile-bottom-nav{display:flex;}#sticky-cta{display:none!important;}#visitor-badge{display:none;}}
-.mob-nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 12px;cursor:pointer;color:#666;font-size:10px;font-family:'Inter',sans-serif;text-decoration:none;transition:color 0.2s;}
-.mob-nav-item.active,.mob-nav-item:hover{color:var(--red);}
-.mob-nav-item i{font-size:18px;}
+
 /* ── CLICK-TO-CALL ────────────────────────────────── */
 #click-to-call{display:flex;position:fixed;bottom:100px;left:24px;z-index:99999;background:linear-gradient(135deg,#0070f3,#00a8ff);border-radius:50%;width:58px;height:58px;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(0,112,243,0.5);animation:pulse-call 2s ease infinite;}
 
@@ -546,7 +543,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
 
 <header class="hero">
   <canvas id="particles-canvas"></canvas>
-  <div class="scroll-down" onclick="scrollToSection('about')"><i class="fa-solid fa-angle-down"></i></div>
+
   <video id="hero-video" autoplay muted loop playsinline preload="auto"
     poster="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80"
     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;">
@@ -561,6 +558,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
       <button class="btn btn-ghost" onclick="openReel()"><i class="fa-solid fa-circle-play"></i> Watch Showreel</button>
     </div>
   </div>
+  <div class="scroll-down" onclick="scrollToSection('about')"><i class="fa-solid fa-angle-down"></i></div>
 </header>
 
 <div class="marquee-section">
@@ -1054,14 +1052,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
   <a href="tel:+917888623104" aria-label="Call HB Visuals"><i class="fa-solid fa-phone"></i></a>
 </div>
 
-<!-- Mobile bottom nav -->
-<div id="mobile-bottom-nav">
-  <a class="mob-nav-item" href="#about"><i class="fa-solid fa-user"></i>About</a>
-  <a class="mob-nav-item" href="#services"><i class="fa-solid fa-camera"></i>Services</a>
-  <a class="mob-nav-item" href="#booking"><i class="fa-solid fa-calendar"></i>Book</a>
-  <a class="mob-nav-item" href="#pricing"><i class="fa-solid fa-tag"></i>Pricing</a>
-  <a class="mob-nav-item" href="#contact"><i class="fa-solid fa-envelope"></i>Contact</a>
-</div>
+
 
 <!-- Sticky Book CTA Bar -->
 <div id="sticky-cta">
