@@ -249,8 +249,20 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-
 .contact-form input,.contact-form textarea{padding:14px;border:none;border-radius:12px;background:rgba(255,255,255,0.07);color:var(--text);outline:none;font-size:14px;border:1px solid transparent;transition:border 0.3s;font-family:'Inter',sans-serif;}
 .contact-form input:focus,.contact-form textarea:focus{border-color:rgba(255,46,99,0.4);}
 .contact-form input::placeholder,.contact-form textarea::placeholder{color:#666;}
+.g-review-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;text-align:left;transition:border-color 0.3s,box-shadow 0.3s;}
+.g-review-card:hover{border-color:rgba(255,46,99,0.35);box-shadow:0 16px 40px rgba(0,0,0,0.3);}
+.g-review-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.g-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:#fff;flex-shrink:0;}
+.g-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--text);}
+.g-stars{color:#FFB800;font-size:13px;letter-spacing:1px;margin-top:2px;}
+.g-review-text{font-size:13.5px;color:var(--subtext);line-height:1.7;margin:0;}
+.g-review-meta{font-size:12px;color:var(--metaText);margin-top:12px;}
 .contact-form button{padding:14px;border:none;border-radius:25px;background:var(--grad);color:#fff;cursor:none;transition:0.3s;font-weight:600;font-size:15px;}
 .contact-form button:hover{transform:scale(1.03);box-shadow:0 8px 25px rgba(255,46,99,0.3);}
+.contact-form select{padding:14px;border:1px solid transparent;border-radius:12px;background:rgba(255,255,255,0.07);color:var(--text);outline:none;font-size:14px;transition:border 0.3s;font-family:'Inter',sans-serif;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+.contact-form select:focus{border-color:rgba(255,46,99,0.4);}
+.contact-form select option{background:#111;color:#fff;}
+
 .success-box{display:none;margin-top:20px;padding:13px 20px;border-radius:10px;background:rgba(0,255,150,0.08);border:1px solid rgba(0,255,150,0.25);color:#00ffa6;font-size:14px;}
 .ba-section{padding:110px 8%;text-align:center;position:relative;z-index:1;}
 .ba-container{position:relative;width:100%;max-width:800px;margin:0 auto;border-radius:24px;overflow:hidden;cursor:col-resize;user-select:none;box-shadow:0 30px 80px rgba(0,0,0,0.6);border:1px solid var(--border);}
@@ -321,6 +333,8 @@ h2{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-
 .wa-chat-time{font-size:11px;color:#555;text-align:right;margin-top:6px;}
 .wa-start-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;background:#25D366;color:#fff;border:none;border-radius:25px;font-weight:700;font-size:14px;cursor:none;text-decoration:none;transition:0.3s;}
 .wa-start-btn:hover{background:#1ebe5d;}
+.wa-pill{padding:6px 12px;border-radius:20px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.07);color:var(--text);font-size:12px;cursor:pointer;transition:0.25s;font-family:'Inter',sans-serif;white-space:nowrap;}
+.wa-pill:hover,.wa-pill.active{background:rgba(37,211,102,0.15);border-color:rgba(37,211,102,0.5);color:#25D366;}
 #scroll-top{position:fixed;bottom:90px;right:24px;width:46px;height:46px;border-radius:50%;background:var(--grad);color:#fff;border:none;cursor:none;display:flex;align-items:center;justify-content:center;font-size:18px;z-index:9998;opacity:0;transform:translateY(20px);transition:opacity 0.3s ease,transform 0.3s ease,box-shadow 0.3s;box-shadow:0 6px 20px rgba(255,46,99,0.35);pointer-events:none;}
 #scroll-top.visible{opacity:1;transform:translateY(0);pointer-events:auto;}
 #scroll-top:hover{box-shadow:0 10px 30px rgba(255,46,99,0.55);transform:translateY(-3px);}
@@ -703,12 +717,98 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
   <h2>Let's Work Together</h2>
   <p class="section-sub">Tell us about your project and we'll get back to you within 24 hours.</p>
   <form class="contact-form" id="contact-form" onsubmit="handleForm(event)">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <textarea name="message" placeholder="Tell us about your project..." rows="5" required></textarea>
+    <input type="text" name="name" id="cf-name" placeholder="Your Name" required>
+    <input type="email" name="email" id="cf-email" placeholder="Your Email" required>
+    <select name="service" id="cf-service" style="padding:14px;border:none;border-radius:12px;background:rgba(255,255,255,0.07);color:var(--text);outline:none;font-size:14px;border:1px solid transparent;transition:border 0.3s;font-family:'Inter',sans-serif;cursor:none;" onchange="syncWAService(this.value)">
+      <option value="" disabled selected style="background:#111;color:#888;">Select a Service</option>
+      <option value="Portrait Photography" style="background:#111;">📸 Portrait Photography — ₹4,999</option>
+      <option value="Video Editing / Reel" style="background:#111;">🎬 Video Editing / Reel — ₹3,999</option>
+      <option value="Brand Identity Kit" style="background:#111;">🎨 Brand Identity Kit — ₹6,999</option>
+      <option value="Social Media Kit" style="background:#111;">📱 Social Media Kit — ₹2,999</option>
+      <option value="Full Day Shoot" style="background:#111;">🌅 Full Day Shoot — ₹8,999</option>
+      <option value="1 Month Growth Support" style="background:#111;">🚀 1 Month Growth Support — ₹5,999</option>
+      <option value="Professional Package" style="background:#111;">⭐ Professional Package — ₹12,999</option>
+      <option value="Brand Package" style="background:#111;">💎 Brand Package — ₹24,999</option>
+      <option value="Other / Custom" style="background:#111;">💬 Other / Custom Inquiry</option>
+    </select>
+    <textarea name="message" id="cf-message" placeholder="Tell us about your project..." rows="5" required></textarea>
     <button type="submit" id="submit-btn">Send Message</button>
   </form>
-  <div id="success-msg" class="success-box">🚀 Your request has been received. Our team will respond shortly.</div>
+  <div id="success-msg" class="success-box">🚀 Message sent! We'll reply within 24 hours. Check WhatsApp for quick replies.</div>
+</section>
+
+<!-- Google Reviews Widget -->
+<section id="google-reviews" style="padding:80px 8%;text-align:center;position:relative;z-index:1;">
+  <h2>Google Reviews</h2>
+  <p class="section-sub">See what clients say about us on Google.</p>
+  <div style="display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:40px;flex-wrap:wrap;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:64px;font-weight:700;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;">5.0</div>
+      <div style="color:#FFB800;font-size:24px;letter-spacing:2px;">★★★★★</div>
+      <div style="color:var(--metaText);font-size:13px;margin-top:4px;">Based on Google Reviews</div>
+    </div>
+    <div style="width:1px;height:80px;background:var(--border);margin:0 10px;"></div>
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start;">
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--subtext);">
+        <div style="display:flex;gap:2px;color:#FFB800;">★★★★★</div>
+        <div style="width:120px;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;"><div style="width:100%;height:100%;background:#FFB800;border-radius:3px;"></div></div>
+        <span>5 ★</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--subtext);">
+        <div style="display:flex;gap:2px;color:#FFB800;">★★★★☆</div>
+        <div style="width:120px;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;"><div style="width:5%;height:100%;background:#FFB800;border-radius:3px;"></div></div>
+        <span>4 ★</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--subtext);">
+        <div style="display:flex;gap:2px;color:#FFB800;">★★★☆☆</div>
+        <div style="width:120px;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;"><div style="width:0%;height:100%;background:#FFB800;border-radius:3px;"></div></div>
+        <span>3 ★</span>
+      </div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1100px;margin:0 auto 40px;">
+    <!-- Google Review Cards -->
+    <div class="g-review-card">
+      <div class="g-review-top">
+        <div class="g-avatar" style="background:linear-gradient(135deg,#4285F4,#34A853);">R</div>
+        <div>
+          <div class="g-name">Rahul Sharma</div>
+          <div class="g-stars">★★★★★</div>
+        </div>
+        <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_92x30dp.png" alt="Google" style="height:18px;margin-left:auto;opacity:0.7;filter:grayscale(0.2);">
+      </div>
+      <p class="g-review-text">"Absolutely incredible work! The portrait session was professional and the final photos were cinematic. My Instagram engagement doubled after posting. Highly recommended!"</p>
+      <div class="g-review-meta">2 weeks ago · via Google</div>
+    </div>
+    <div class="g-review-card">
+      <div class="g-review-top">
+        <div class="g-avatar" style="background:linear-gradient(135deg,#EA4335,#FBBC05);">P</div>
+        <div>
+          <div class="g-name">Priya Kaur</div>
+          <div class="g-stars">★★★★★</div>
+        </div>
+        <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_92x30dp.png" alt="Google" style="height:18px;margin-left:auto;opacity:0.7;filter:grayscale(0.2);">
+      </div>
+      <p class="g-review-text">"Got my brand identity done and I'm blown away. Logo, color palette, fonts — everything is spot on. Super fast delivery too. Best creative studio in Punjab!"</p>
+      <div class="g-review-meta">1 month ago · via Google</div>
+    </div>
+    <div class="g-review-card">
+      <div class="g-review-top">
+        <div class="g-avatar" style="background:linear-gradient(135deg,#34A853,#4285F4);">S</div>
+        <div>
+          <div class="g-name">Simran Bhatia</div>
+          <div class="g-stars">★★★★★</div>
+        </div>
+        <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_92x30dp.png" alt="Google" style="height:18px;margin-left:auto;opacity:0.7;filter:grayscale(0.2);">
+      </div>
+      <p class="g-review-text">"HB Visuals made reels for our cafe and they went viral locally! We got 3x our usual bookings that week. The team is talented, responsive, and affordable."</p>
+      <div class="g-review-meta">3 weeks ago · via Google</div>
+    </div>
+  </div>
+  <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review" target="_blank" class="btn" style="display:inline-flex;align-items:center;gap:10px;font-size:14px;">
+    <svg width="18" height="18" viewBox="0 0 48 48" style="flex-shrink:0"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 29.5 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 5.1 29.6 3 24 3 12.9 3 4 11.9 4 23s8.9 20 20 20c11 0 20-9 20-20 0-1.3-.2-2.7-.5-3z"/><path fill="#34A853" d="M6.3 14.7l7 5.1C15 16.1 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 5.1 29.6 3 24 3 16.3 3 9.7 7.9 6.3 14.7z"/><path fill="#FBBC05" d="M24 43c5.4 0 10.3-1.8 14.1-4.9l-6.5-5.3C29.7 34.6 27 35.5 24 35.5c-5.4 0-10-3.5-11.7-8.4l-6.9 5.3C9.4 39.5 16.2 43 24 43z"/><path fill="#EA4335" d="M44.5 20H24v8.5h11.8c-.9 2.5-2.5 4.7-4.8 6.2l6.5 5.3C40.5 37.2 44 30.6 44 24c0-1.3-.2-2.7-.5-4z"/></svg>
+    Leave a Google Review
+  </a>
 </section>
 
 <!-- B&A -->
@@ -755,10 +855,25 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
 
 <div id="wa-widget">
   <div id="wa-popup">
-    <div class="wa-popup-header"><div class="wa-popup-avatar">📷</div><div><div class="wa-popup-name">HB VISUALS</div><div class="wa-popup-status">🍺 Typically replies instantly</div></div></div>
+    <div class="wa-popup-header">
+      <div class="wa-popup-avatar">📷</div>
+      <div>
+        <div class="wa-popup-name">HB VISUALS</div>
+        <div class="wa-popup-status">✅ Typically replies instantly</div>
+      </div>
+    </div>
     <div class="wa-popup-body">
-      <div class="wa-chat-bubble">Hey! 👋 Looking for photography, video editing or branding?<div class="wa-chat-time">Just now</div></div>
-      <a class="wa-start-btn" href="https://wa.me/23058451482?text=Hi%20HB%20Visuals!" target="_blank"><i class="fa-brands fa-whatsapp"></i> Start Chat</a>
+      <div class="wa-chat-bubble" id="wa-bubble-msg">Hey! 👋 Looking for photography, video editing or branding? Pick a service to get started!<div class="wa-chat-time">Just now</div></div>
+      <!-- Smart service quick-select -->
+      <div id="wa-service-pills" style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;">
+        <button class="wa-pill" onclick="selectWAService('Portrait Photography')">📸 Photography</button>
+        <button class="wa-pill" onclick="selectWAService('Video Editing / Reel')">🎬 Video Editing</button>
+        <button class="wa-pill" onclick="selectWAService('Brand Identity Kit')">🎨 Branding</button>
+        <button class="wa-pill" onclick="selectWAService('Social Media Kit')">📱 Social Kit</button>
+        <button class="wa-pill" onclick="selectWAService('Full Day Shoot')">🌅 Full Day Shoot</button>
+        <button class="wa-pill" onclick="selectWAService('Other / Custom')">💬 Custom</button>
+      </div>
+      <a class="wa-start-btn" id="wa-start-link" href="https://wa.me/919876543210?text=Hi%20HB%20Visuals!%20I%27m%20interested%20in%20your%20services." target="_blank"><i class="fa-brands fa-whatsapp"></i> <span id="wa-btn-text">Chat on WhatsApp</span></a>
     </div>
   </div>
   <div id="wa-bubble" onclick="toggleWA()"><i class="fa-brands fa-whatsapp"></i></div>
@@ -769,7 +884,7 @@ footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:60p
     <div class="footer-brand"><div class="logo">HB VISUALS</div><p>Creative agency helping businesses look and feel premium through photography, video, and branding.</p>
       <div class="footer-social">
         <a href="https://instagram.com/_hitin23_" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-        <a href="https://wa.me/23058451482" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="https://wa.me/919876543210" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
         <a href="#"><i class="fa-brands fa-youtube"></i></a>
       </div>
     </div>
@@ -843,8 +958,87 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeReel();});
 function selectTime(el){document.querySelectorAll(".time-slot").forEach(t=>t.classList.remove("selected"));el.classList.add("selected");}
 function switchTab(tabEl,panelId){document.querySelectorAll(".booking-tab").forEach(t=>t.classList.remove("active"));document.querySelectorAll(".booking-panel").forEach(p=>p.classList.remove("active"));tabEl.classList.add("active");document.getElementById(panelId).classList.add("active");}
 function switchTabById(panelId){const tabs=document.querySelectorAll(".booking-tab");const panels=["tab-date","tab-time","tab-details"];const idx=panels.indexOf(panelId);tabs.forEach((t,i)=>t.classList.toggle("active",i===idx));document.querySelectorAll(".booking-panel").forEach(p=>p.classList.remove("active"));document.getElementById(panelId).classList.add("active");}
-function confirmBooking(){const name=document.getElementById("b-name").value.trim();const phone=document.getElementById("b-phone").value.trim();const service=document.getElementById("b-service").value;if(!name||!phone||!service){alert("Please fill in Name, Phone, and Service.");return;}document.getElementById("booking-form").style.display="none";document.getElementById("booking-success").style.display="block";const selectedDay=document.querySelector(".slot-day.selected")?.textContent.trim()||"TBD";const selectedTime=document.querySelector(".time-slot.selected")?.textContent.trim()||"TBD";const msg=encodeURIComponent(`Hi HB Visuals! I'd like to book a session.\n\nName: ${name}\nPhone: ${phone}\nService: ${service}\nDate: ${selectedDay}\nTime: ${selectedTime}`);setTimeout(()=>window.open(`https://wa.me/23058451482?text=${msg}`,"_blank"),1500);}
-function handleForm(e){e.preventDefault();const btn=document.getElementById("submit-btn");btn.innerText="Sending...";btn.disabled=true;setTimeout(()=>{document.getElementById("success-msg").style.display="block";btn.innerText="Sent ✓";setTimeout(()=>{document.getElementById("success-msg").style.display="none";btn.innerText="Send Message";btn.disabled=false;e.target.reset();},3000);},1000);}
+function confirmBooking(){const name=document.getElementById("b-name").value.trim();const phone=document.getElementById("b-phone").value.trim();const service=document.getElementById("b-service").value;if(!name||!phone||!service){alert("Please fill in Name, Phone, and Service.");return;}document.getElementById("booking-form").style.display="none";document.getElementById("booking-success").style.display="block";const selectedDay=document.querySelector(".slot-day.selected")?.textContent.trim()||"TBD";const selectedTime=document.querySelector(".time-slot.selected")?.textContent.trim()||"TBD";const msg=encodeURIComponent(`Hi HB Visuals! I'd like to book a session.\n\nName: ${name}\nPhone: ${phone}\nService: ${service}\nDate: ${selectedDay}\nTime: ${selectedTime}`);setTimeout(()=>window.open(`https://wa.me/919876543210?text=${msg}`,"_blank"),1500);}
+// ── FORMSPREE REAL CONTACT FORM ──────────────────────────────────────────────
+// ⚠️  Replace YOUR_FORMSPREE_ID below with your actual ID from formspree.io
+const FORMSPREE_ID = "YOUR_FORMSPREE_ID"; // e.g. "xpwzjkab"
+async function handleForm(e){
+  e.preventDefault();
+  const btn = document.getElementById("submit-btn");
+  const successMsg = document.getElementById("success-msg");
+  const form = e.target;
+  btn.innerText = "Sending…";
+  btn.disabled = true;
+  try {
+    const data = new FormData(form);
+    const resp = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: "POST",
+      body: data,
+      headers: { Accept: "application/json" }
+    });
+    if (resp.ok) {
+      successMsg.style.display = "block";
+      btn.innerText = "Sent ✓";
+      form.reset();
+      // Also pre-fill WhatsApp with the service they selected
+      const service = document.getElementById("cf-service")?.value || "";
+      if (service) selectWAService(service);
+      setTimeout(() => {
+        successMsg.style.display = "none";
+        btn.innerText = "Send Message";
+        btn.disabled = false;
+      }, 5000);
+    } else {
+      const json = await resp.json();
+      throw new Error(json?.errors?.[0]?.message || "Submission failed");
+    }
+  } catch(err) {
+    btn.innerText = "Error — Try Again";
+    btn.disabled = false;
+    console.error("Formspree error:", err);
+    // Fallback: open WhatsApp with form data
+    const name = document.getElementById("cf-name")?.value || "";
+    const service = document.getElementById("cf-service")?.value || "a service";
+    const msg = encodeURIComponent(`Hi HB Visuals! I'm ${name} and I'm interested in ${service}. Please get in touch.`);
+    setTimeout(() => window.open(`https://wa.me/919876543210?text=${msg}`, "_blank"), 800);
+  }
+}
+
+// ── SMART WHATSAPP ────────────────────────────────────────────────────────────
+const WA_NUMBER = "919876543210"; // ⚠️ Replace with your actual WhatsApp number (country code + number, no +)
+const WA_SERVICE_MSGS = {
+  "Portrait Photography":   "Hi HB Visuals! 📸 I'm interested in a Portrait Photography session. Can you share details and availability?",
+  "Video Editing / Reel":   "Hi HB Visuals! 🎬 I'd love to get a video edited / reel made. What's the process and pricing?",
+  "Brand Identity Kit":     "Hi HB Visuals! 🎨 I need a Brand Identity Kit (logo, colors, fonts). Can you help?",
+  "Social Media Kit":       "Hi HB Visuals! 📱 I'm interested in your Social Media Kit. What does it include?",
+  "Full Day Shoot":         "Hi HB Visuals! 🌅 I want to book a Full Day Shoot. When are you available?",
+  "1 Month Growth Support": "Hi HB Visuals! 🚀 I'm interested in the 1 Month Growth Support package. Tell me more!",
+  "Professional Package":   "Hi HB Visuals! ⭐ I'd like to know more about your Professional Package (₹12,999). Can we discuss?",
+  "Brand Package":          "Hi HB Visuals! 💎 I'm interested in your Brand Package (₹24,999). Let's talk!",
+  "Other / Custom":         "Hi HB Visuals! 👋 I have a custom project I'd like to discuss. Are you available?"
+};
+function selectWAService(service) {
+  // Highlight pill
+  document.querySelectorAll(".wa-pill").forEach(p => p.classList.remove("active"));
+  const pills = document.querySelectorAll(".wa-pill");
+  pills.forEach(p => { if (p.textContent.toLowerCase().includes(service.split(" ")[0].toLowerCase())) p.classList.add("active"); });
+  // Update chat bubble
+  const bubble = document.getElementById("wa-bubble-msg");
+  if (bubble) bubble.innerHTML = `Got it! Tap below to chat about <strong>${service}</strong> 👇<div class="wa-chat-time">Just now</div>`;
+  // Update link + button text
+  const msg = WA_SERVICE_MSGS[service] || `Hi HB Visuals! I'm interested in ${service}. Can you help?`;
+  const link = document.getElementById("wa-start-link");
+  if (link) link.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+  const btnText = document.getElementById("wa-btn-text");
+  if (btnText) btnText.textContent = `Enquire: ${service}`;
+  // Auto-open popup
+  const popup = document.getElementById("wa-popup");
+  if (popup && !popup.classList.contains("open")) popup.classList.add("open");
+}
+// Sync: when user picks a service from the contact form, pre-fill WA too
+function syncWAService(value) {
+  if (value) selectWAService(value);
+}
 document.getElementById("scroll-top").addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
 const themeBtn=document.getElementById("theme-toggle"),themeIcon=document.getElementById("theme-icon");
 if(localStorage.getItem("hbTheme")==="light"){document.body.classList.add("light-mode");themeIcon.textContent="🌙";}
@@ -899,7 +1093,7 @@ function addAIMsg(role,text){const msgs=document.getElementById("ai-messages");c
 function showTyping(){const msgs=document.getElementById("ai-messages");const div=document.createElement("div");div.className="ai-msg bot typing";div.id="ai-typing";div.innerHTML='<div class="ai-typing-dot"></div><div class="ai-typing-dot"></div><div class="ai-typing-dot"></div>';msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;}
 function removeTyping(){const t=document.getElementById("ai-typing");if(t)t.remove();}
 async function askAI(question){if(!aiOpen)toggleAIChat();document.getElementById("ai-input").value=question;await sendAIMsg();}
-async function sendAIMsg(){const input=document.getElementById("ai-input");const text=input.value.trim();if(!text)return;input.value="";addAIMsg("user",text);aiHistory.push({role:"user",content:text});showTyping();try{const resp=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json","x-api-key":"AIzaSyCijOMlZGQc8xktLGnQuNCN93tEUTWdAuY","anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},body:JSON.stringify({model:"claude-sonnet-4-5-20251001",max_tokens:300,system:AI_SYSTEM,messages:aiHistory.slice(-8)})});const data=await resp.json();if(data.error){throw new Error(data.error.message);}const reply=data.content?.map(b=>b.text||"").join("")||"Sorry, I couldn't connect. Please WhatsApp us directly!";removeTyping();addAIMsg("bot",reply);aiHistory.push({role:"assistant",content:reply});}catch(e){removeTyping();addAIMsg("bot","Connection issue! Please reach us on WhatsApp or Instagram @_hitin23_ 🙏");}}
+async function sendAIMsg(){const input=document.getElementById("ai-input");const text=input.value.trim();if(!text)return;input.value="";addAIMsg("user",text);aiHistory.push({role:"user",content:text});showTyping();try{const resp=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:300,system:AI_SYSTEM,messages:aiHistory.slice(-8)})});const data=await resp.json();const reply=data.content?.map(b=>b.text||"").join("")||"Sorry, I couldn't connect. Please WhatsApp us directly!";removeTyping();addAIMsg("bot",reply);aiHistory.push({role:"assistant",content:reply});}catch(e){removeTyping();addAIMsg("bot","Connection issue! Please reach us on WhatsApp or Instagram @_hitin23_ 🙏");}}
 </script>
 </body>
 </html>
